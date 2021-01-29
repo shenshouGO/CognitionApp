@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="公正反评"
+        android:textColor="@color/usu"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+
+    <ListView
+        android:id="@+id/content"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:text="内容"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/fair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="公正性"
+        android:layout_below="@+id/content"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"/>
+
+    <RatingBar
+        android:id="@+id/fairness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="7"
+        android:rating="0"
+        android:stepSize="1"
+        android:layout_below="@+id/fair"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/OK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:layout_below="@+id/fairness"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"/>
+
+</RelativeLayout>

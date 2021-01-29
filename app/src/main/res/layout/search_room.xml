@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="搜索房间"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/usu"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/room_num"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="30dp"
+        android:background="@color/edit"
+        android:layout_centerHorizontal="true"
+        android:hint="请输入房间号"
+        android:gravity="center"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/room_num"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true">
+        <Button
+            android:id="@+id/btn_OK"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/OK"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:background="@color/usu"/>
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:background="@color/usu"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="resource_type">
+        <item>随机</item>
+        <item>图片</item>
+        <item>视频</item>
+        <item>文本</item>
+    </string-array>
+
+    <string-array name="game_type">
+        <item>随机</item>
+        <item>命题</item>
+        <item>涂鸦</item>
+        <item>描述</item>
+    </string-array>
+
+    <string-array name="game_subject">
+        <item>随机</item>
+        <item>学习</item>
+        <item>工作</item>
+        <item>政治</item>
+    </string-array>
+</resources>
