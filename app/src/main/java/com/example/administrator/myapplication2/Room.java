@@ -382,13 +382,11 @@ public class Room extends AppCompatActivity {
 
                 iv = new ImageView(this);
                 iv.setVisibility(View.VISIBLE);
-                path = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4162627229,1433045127&fm=26&gp=0.jpg";
+                path = "http://47.95.197.189:8080/file/1.jpg";
 
                 fu = new FileUtils();
                 fu.downLoad(path,"maidang.jpg");
                 path = Environment.getExternalStorageDirectory().toString() + "/shidoe";
-                Bitmap bmp = BitmapFactory.decodeStream(new FileInputStream(new File(path, "maidang.jpg")));
-                iv.setImageBitmap(bmp);
                 gameing = true;
 
                 Message message = Message.obtain();
@@ -486,16 +484,29 @@ public class Room extends AppCompatActivity {
                     left_user.setAdapter(lua);
                     right_user.setAdapter(rua);
                 }else if(msg.what == 2){
+                    ready.setVisibility(View.GONE);
+                    if(index != cp)
+                        edit_frame.setVisibility(View.VISIBLE);
                     cp = Integer.parseInt((String)msg.obj);
                     Toast.makeText(Room.this,cp+"号为裁判，其余为玩家！",Toast.LENGTH_SHORT).show();
                     cp--;
 
-                    ready.setVisibility(View.GONE);
-                    if(index != cp)
-                        edit_frame.setVisibility(View.VISIBLE);
-                    material.addView(iv);
-                    Toast.makeText(Room.this,"开始游戏，请玩家在75s内进行重评!",Toast.LENGTH_SHORT).show();
-                    countDown(10*1000,4);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                File f = new File(path, "maidang.jpg");
+                                Bitmap bmp = BitmapFactory.decodeStream(new FileInputStream(f));
+                                iv.setImageBitmap(bmp);
+                                material.addView(iv);
+
+                                Toast.makeText(Room.this,"开始游戏，请玩家在75s内进行重评!",Toast.LENGTH_SHORT).show();
+                                countDown(10*1000,4);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }, 1000);
                 }else if(msg.what == 3){
                     String[] split = ((String) msg.obj).split("//");
                     answers.add(new Answer(split[0],split[1]));
@@ -511,13 +522,7 @@ public class Room extends AppCompatActivity {
                     Toast.makeText(Room.this,"请裁判在60s内进行二维评分!",Toast.LENGTH_SHORT).show();
                     scoring = true;
                     countDown(10*1000,5);
-
                     downKeyboard();
-
-//                    if(index != cp){
-//                        aa.setData(answers);
-//                        rv.setAdapter(aa);
-//                    }
 
                     aa.setData(answers);
                     rv.setAdapter(aa);

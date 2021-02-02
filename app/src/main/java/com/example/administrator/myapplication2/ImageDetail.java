@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -27,11 +29,17 @@ public class ImageDetail extends AppCompatActivity {
         intent = getIntent();
         path = intent.getStringExtra("path");
         img = intent.getStringExtra("img");
+
+        //渲染本地图片
         try{
             bmp = BitmapFactory.decodeStream(new FileInputStream(new File(path, img)));
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        //渲染网络图片
+//        Glide.with(ImageDetail.this).load(path+img).into(iv);
+
         iv.setImageBitmap(bmp);
 
         iv.setOnClickListener(new View.OnClickListener() {

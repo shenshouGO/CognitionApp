@@ -29,6 +29,7 @@
         <activity android:name=".GameFunction" />
         <activity android:name=".Room" />
         <activity android:name=".ImageDetail" />
+        <activity android:name=".DownloadImg"></activity>
     </application>
 
 </manifest>
