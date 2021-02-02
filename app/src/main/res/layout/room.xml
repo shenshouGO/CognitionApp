@@ -14,6 +14,7 @@
         android:gravity="left">
 
         <ImageView
+            android:id="@+id/back"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/arrow"

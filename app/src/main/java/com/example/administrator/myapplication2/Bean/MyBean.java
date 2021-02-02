@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication2;
+package com.example.administrator.myapplication2.Bean;
 
 /**
  * Created by Administrator on 2020/12/22.

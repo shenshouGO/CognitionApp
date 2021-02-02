@@ -10,11 +10,8 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +27,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.myapplication2.Adapter.AnswerAdapter;
+import com.example.administrator.myapplication2.Adapter.DoubleScoreAdapter;
+import com.example.administrator.myapplication2.Adapter.LeftUserAdapter;
+import com.example.administrator.myapplication2.Adapter.ResultScoreAdapter;
+import com.example.administrator.myapplication2.Adapter.RightUserAdapter;
+import com.example.administrator.myapplication2.Bean.Answer;
+import com.example.administrator.myapplication2.Bean.DoubleScore;
+import com.example.administrator.myapplication2.Bean.ResultScore;
+import com.example.administrator.myapplication2.Bean.User;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -39,24 +46,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
+
+import MyClass.FileUtils;
 
 public class Room extends AppCompatActivity {
     private ListView left_user;
     private ListView right_user;
     private LeftUserAdapter lua;
     private RightUserAdapter rua;
-    private  AnswerAdapter aa;
+    private AnswerAdapter aa;
     private List<User> users;
     private List<User> left_users;
     private List<User> right_users;
@@ -106,6 +110,7 @@ public class Room extends AppCompatActivity {
     private RatingBar novelty;
     private int ListNum;
     private Boolean playing;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +129,7 @@ public class Room extends AppCompatActivity {
         edit_frame.setVisibility(View.GONE);
         time = (TextView) findViewById(R.id.time);
         time.setVisibility(View.GONE);
+        back = (ImageView) findViewById(R.id.back);
 
         intent=this.getIntent();
         num = intent.getIntExtra("num",1);
@@ -269,6 +275,13 @@ public class Room extends AppCompatActivity {
                         }
                     }
                 }).start();
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

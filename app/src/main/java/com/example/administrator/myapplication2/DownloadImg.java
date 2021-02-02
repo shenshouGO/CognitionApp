@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import MyClass.FileUtils;
+
 public class DownloadImg extends AppCompatActivity {
     private Button b;
     private ImageView iv;

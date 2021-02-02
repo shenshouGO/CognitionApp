@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class GameFunction extends AppCompatActivity implements View.OnClickListe
     private EditText pass;
     private Intent intent;
     private String name;
+    private ImageView back;
 
 
     @Override
@@ -48,6 +50,7 @@ public class GameFunction extends AppCompatActivity implements View.OnClickListe
         search_room = (TextView) findViewById(R.id.search_room);
         follow_room = (TextView) findViewById(R.id.follow_room);
         username = (TextView) findViewById(R.id.name);
+        back = (ImageView) findViewById(R.id.back);
         intent=this.getIntent();
         name = intent.getStringExtra("name");
         username.setText(name);
@@ -67,6 +70,7 @@ public class GameFunction extends AppCompatActivity implements View.OnClickListe
         search_room.setOnClickListener(this);
         swh_status.setOnClickListener(this);
         btn_OK_create_room.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     @Override
@@ -110,6 +114,9 @@ public class GameFunction extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_close:
                 alert.dismiss();
+                break;
+            case R.id.back:
+                finish();
                 break;
         }
     }

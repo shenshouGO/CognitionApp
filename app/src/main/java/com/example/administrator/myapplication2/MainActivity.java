@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 name = etName.getText().toString();
-                Intent intent = new Intent(MainActivity.this, DownloadImg.class);
+                Intent intent = new Intent(MainActivity.this, Test.class);
                 intent.putExtra("name", name);
                 startActivity(intent);
             }

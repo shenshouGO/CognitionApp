@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication2;
+package com.example.administrator.myapplication2.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.administrator.myapplication2.Bean.MyBean;
+import com.example.administrator.myapplication2.R;
 
 
 /**

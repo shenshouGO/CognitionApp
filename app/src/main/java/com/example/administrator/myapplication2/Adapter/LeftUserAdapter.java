@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication2;
+package com.example.administrator.myapplication2.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.administrator.myapplication2.R;
+import com.example.administrator.myapplication2.Bean.User;
+
 import java.util.List;
 
 /**

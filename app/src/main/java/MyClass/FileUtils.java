@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication2;
+package MyClass;
 
 import android.os.Environment;
 
