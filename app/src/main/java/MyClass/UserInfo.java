@@ -1,0 +1,49 @@
+package MyClass;
+
+import android.app.Application;
+
+import java.util.concurrent.ThreadPoolExecutor;
+
+/**
+ * Created by Administrator on 2021/2/5.
+ */
+
+public class UserInfo extends Application {
+    private String name;
+    private String img;
+    private String telephone;
+    private ThreadPoolExecutor tpe;
+
+    @Override
+    public void onCreate(){
+        super.onCreate();
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getImg(){
+        return img;
+    }
+
+    public void setImg(String img){
+        this.img = img;
+    }
+
+    public String getTelephone(){
+        return telephone;
+    }
+
+    public void setTelephone(String telephone){
+        this.telephone = telephone;
+    }
+
+    public ThreadPoolExecutor getTpe(){return  tpe;}
+
+    public void setTpe(ThreadPoolExecutor tpe){ this.tpe = tpe;}
+}

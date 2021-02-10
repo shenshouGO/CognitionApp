@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/valid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="有效性"
+        android:layout_below="@+id/content"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"/>
+
+    <RatingBar
+        android:id="@+id/validity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="7"
+        android:rating="0"
+        android:stepSize="1"
+        android:layout_below="@+id/valid"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/novel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新颖性"
+        android:layout_below="@+id/validity"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"/>
+
+    <RatingBar
+        android:id="@+id/novelty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="7"
+        android:rating="0"
+        android:stepSize="1"
+        android:layout_below="@+id/novel"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/OK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:layout_below="@+id/novelty"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"/>
+</RelativeLayout>
