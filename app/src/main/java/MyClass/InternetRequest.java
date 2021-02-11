@@ -59,9 +59,11 @@ public class InternetRequest {
 //	    		String str=br.readLine();
                 //返回读出的每一行的数据
                 String result = streamToString(conn.getInputStream());
+                stringMap.clear();
                 return result;
 //                Log.e(TAG, "Post方式请求成功，result--->" + result);
             }
+            stringMap.clear();
             return "XXX";
         } catch (Exception e)  {
             e.printStackTrace();

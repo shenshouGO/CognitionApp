@@ -7,6 +7,7 @@ import org.json.JSONObject;
  */
 
 public class Comment {
+    private String id;
     //评论者
     private String u_id;
     private String u_name;
@@ -24,6 +25,7 @@ public class Comment {
 
     public Comment(JSONObject JO){
         try{
+            id = JO.getString("id");
             u_id = JO.getString("u_id");
             u_name = JO.getString("u_name");
             u_img = JO.getString("u_img");
@@ -44,6 +46,14 @@ public class Comment {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getU_id() {
