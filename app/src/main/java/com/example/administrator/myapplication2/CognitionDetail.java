@@ -5,9 +5,11 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +62,8 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
 
     private RatingBar validity;
     private RatingBar novelty;
+    private int valid;
+    private int novel;
     private AlertDialog alert = null;
     private AlertDialog.Builder builder = null;
     private Intent intent;
@@ -76,6 +80,8 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     private EditText edit;
     private Button send;
     private boolean isComment;
+    private boolean isScore;
+    private JSONObject scoreJO;
     private String goodId;
     private String c_c_id;
     private String r_id;
@@ -115,6 +121,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         ll.setVisibility(View.INVISIBLE);
         delete.setVisibility(View.INVISIBLE);
         tpe = new ThreadPoolExecutor(3, 5, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
+        isScore = false;
 
         userName = UI.getName();
 
@@ -182,13 +189,22 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     final LayoutInflater inflater = CognitionDetail.this.getLayoutInflater();
                     View ds = inflater.inflate(R.layout.double_score, null,false);
                     TextView name = ds.findViewById(R.id.name);
-                    name.setVisibility(View.GONE);
                     ListView content = ds.findViewById(R.id.content);
                     content.setVisibility(View.GONE);
                     validity = ds.findViewById(R.id.validity);
                     novelty = ds.findViewById(R.id.novelty);
                     Button OK = ds.findViewById(R.id.OK);
                     OK.setOnClickListener(this);
+                    if(isScore){
+                        name.setText("有效性："+String.format("%.1f",info.getDouble("validity_score"))+"   新颖性："+String.format("%.1f",info.getDouble("novelty_score")));
+//                        Log.e("Score:","valid = "+valid+" novel = "+novel);
+                        validity.setRating(valid);
+                        novelty.setRating(novel);
+                        validity.setIsIndicator(true);
+                        novelty.setIsIndicator(true);
+                    }else{
+                        name.setVisibility(View.GONE);
+                    }
 
                     builder = new AlertDialog.Builder(CognitionDetail.this);
                     builder.setView(ds);
@@ -201,7 +217,12 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     alert.show();
                     break;
                 case R.id.OK:
-                    Toast.makeText(CognitionDetail.this,"有效性："+(int)validity.getRating()+" 创新性："+(int)novelty.getRating(),Toast.LENGTH_SHORT).show();
+                    if(!isScore){
+                        valid = (int)validity.getRating();
+                        novel = (int)novelty.getRating();
+                        createScore();
+                    }
+//                    Toast.makeText(CognitionDetail.this,"有效性："+valid+" 创新性："+novel,Toast.LENGTH_SHORT).show();
                     alert.dismiss();
                     break;
                 case R.id.discuss:
@@ -220,6 +241,16 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     break;
                 case R.id.share:
                     Toast.makeText(CognitionDetail.this,"分享",Toast.LENGTH_SHORT).show();
+
+                    Intent share_intent = new Intent();
+                    share_intent.setAction(Intent.ACTION_SEND);//设置分享行为
+                    share_intent.setType("text/plain");//设置分享内容的类型
+                    share_intent.putExtra(Intent.EXTRA_SUBJECT, "share");//添加分享内容标题
+                    share_intent.putExtra(Intent.EXTRA_TEXT, "share with you:"+"android");//添加分享内容
+                    //创建分享的Dialog
+                    share_intent = Intent.createChooser(share_intent, "share");
+                    startActivity(share_intent);
+
                     break;
                 case R.id.img:
                     Toast.makeText(CognitionDetail.this,"用户"+info.getString("u_name")+"的头像",Toast.LENGTH_SHORT).show();
@@ -251,24 +282,25 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
             Log.e("str",str);
             try {
                 switch (msg.what){
-                    case 1:
+                    case 1://更新评论区
                         ca = new CommentAdapter(CognitionDetail.this,comments);
                         comment.setAdapter(ca);
 //                        edit.setText("");
                         break;
-                    case 2:
+                    case 2://收起编辑区和输入法
                         ll.setVisibility(View.INVISIBLE);
                         delete.setVisibility(View.INVISIBLE);
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         if(imm != null)
                             imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
                         break;
-                    case 3:
+                    case 3://更新点赞状态
                         switch (str){
                             case "Delete unsuccessfully":
                                 Toast.makeText(CognitionDetail.this,"取消点赞失败",Toast.LENGTH_SHORT).show();
                                 break;
                             case "Delete successfully":
+                                good.setImageDrawable(ContextCompat.getDrawable(CognitionDetail.this,R.drawable.disgood));
                                 Toast.makeText(CognitionDetail.this,"取消点赞成功",Toast.LENGTH_SHORT).show();
                                 goodId = "0";
                                 break;
@@ -278,8 +310,37 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                                 break;
                             default:
                                 goodId = str;
+                                good.setImageDrawable(ContextCompat.getDrawable(CognitionDetail.this,R.drawable.isgood));
                                 Toast.makeText(CognitionDetail.this,"点赞成功",Toast.LENGTH_SHORT).show();
                                 break;
+                        }
+                        break;
+                    case 4://初始化点赞和评分区
+                        if(!goodId.equals("0")){
+                            good.setImageDrawable(ContextCompat.getDrawable(CognitionDetail.this,R.drawable.isgood));
+                            Log.e("started goodId",goodId);
+                        }else{
+                            good.setImageDrawable(ContextCompat.getDrawable(CognitionDetail.this,R.drawable.disgood));
+                            Log.e("started goodId",goodId);
+                        }
+                        if(isScore){
+                            score.setText("查看评分");
+                            valid = Integer.parseInt(scoreJO.getString("validity_score"));
+                            novel = Integer.parseInt(scoreJO.getString("novelty_score"));
+                        }
+                        break;
+                    case 5://发送提示消息
+                        Toast.makeText(CognitionDetail.this,msg.obj.toString(),Toast.LENGTH_SHORT).show();
+                        break;
+                    case 6://更新评分消息
+                        if(str.equals("Unsuccessfully")){
+                            Toast.makeText(CognitionDetail.this,"评分失败",Toast.LENGTH_SHORT).show();
+                        }else{
+                            info = new JSONObject(str);
+
+                            Toast.makeText(CognitionDetail.this,"评分成功",Toast.LENGTH_SHORT).show();
+                            score.setText("查看评分");
+                            isScore = true;
                         }
                         break;
                 }
@@ -287,6 +348,28 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                 e.printStackTrace();
             }
         }
+    }
+
+    private void createScore(){
+        tpe.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    IR.addPara("c_r_id",info.getString("id"));
+                    IR.addPara("u_id","1");
+                    IR.addPara("validity_score",""+valid);
+                    IR.addPara("novelty_score",""+novel);
+                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/createScore.do");
+
+                    message = Message.obtain();
+                    message.what = 6;
+                    message.obj = str;
+                    handler.sendMessage(message);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void Good(){
@@ -327,6 +410,24 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     else
                         goodId = str;
                     Log.e("goodId",goodId);
+
+                    IR.addPara("c_r_id",info.getString("id"));
+                    IR.addPara("u_id","1");
+                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/matchUserAndScore.do");
+
+                    if(str.equals("Unevaluated")){
+                        isScore =false;
+                        scoreJO = null;
+                    }
+                    else{
+                        isScore =true;
+                        scoreJO = new JSONObject(str);
+                        Log.e("scoreJO",scoreJO.toString());
+                    }
+
+                    message = Message.obtain();
+                    message.what = 4;
+                    handler.sendMessage(message);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

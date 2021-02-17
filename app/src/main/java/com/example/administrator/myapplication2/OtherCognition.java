@@ -80,34 +80,13 @@ public class OtherCognition extends AppCompatActivity {
             Log.e("show successfully:","");
 
             IR = new InternetRequest();
-            IR.addPara("ID",info.getString("id"));
         }catch (Exception e){
             e.printStackTrace();
         }
 
         tpe = new ThreadPoolExecutor(3, 5, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
 
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/displayCognition.do");
-                    results = new JSONObject(str);
-                    for(int i = 0;i<results.length();i++){
-                        JO = results.getJSONObject(""+i);
-                        date = new Date(new Long(JO.getString("time")));
-                        resources.add(new OtherCognitions(JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment")));
-                    }
-                    message = Message.obtain();
-                    message.what = 1;
-//                    message.obj = str;
-                    handler.sendMessage(message);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        };
-        tpe.execute(r);
+        displayCognition();
 
         others.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,6 +98,37 @@ public class OtherCognition extends AppCompatActivity {
                     intent = new Intent(OtherCognition.this,CognitionDetail.class);
                     intent.putExtra("info", results.getJSONObject(""+i).toString());
                     startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        displayCognition();
+    }
+
+    private void displayCognition(){
+        tpe.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    IR.addPara("ID",info.getString("id"));
+                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/displayCognition.do");
+                    results = new JSONObject(str);
+                    resources = new LinkedList<OtherCognitions>() ;
+                    for(int i = 0;i<results.length();i++){
+                        JO = results.getJSONObject(""+i);
+                        date = new Date(new Long(JO.getString("time")));
+                        resources.add(new OtherCognitions(JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment")));
+                    }
+                    message = Message.obtain();
+                    message.what = 1;
+//                    message.obj = str;
+                    handler.sendMessage(message);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

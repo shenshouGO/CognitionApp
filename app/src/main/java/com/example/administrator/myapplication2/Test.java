@@ -1,72 +1,99 @@
 package com.example.administrator.myapplication2;
 
-import android.app.Dialog;
-import android.content.Context;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.administrator.myapplication2.Adapter.HorizontalListViewAdapter;
+import com.example.administrator.myapplication2.Adapter.ImagePickerAdapter;
 import com.example.administrator.myapplication2.Adapter.ScreenAdapter;
 import com.example.administrator.myapplication2.Bean.Resource;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
+import com.lzy.imagepicker.view.CropImageView;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import MyClass.FileUtils;
-import MyClass.HorizontalListView;
-import MyClass.InternetRequest;
+import MyClass.GlideImageLoader;
+import MyClass.HttpUtil;
+import MyClass.MyStringCallBack;
+import MyClass.SelectDialog;
+import MyClass.Tools;
+import okhttp3.Call;
 
-public class Test extends AppCompatActivity{
-    private TextView text;
+public class Test extends AppCompatActivity {
     private Button b;
-    private InternetRequest IR;
-    private String result;
+    private TextView text;
+    private HttpUtil httpUtil;
+    final Handler handler = new MyHandler();
+    private Map<String, String> params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
 
+        b = (Button)findViewById(R.id.b);
         text = (TextView)findViewById(R.id.text);
-        b = (Button) findViewById(R.id.b);
-        IR = new InternetRequest();
-
-        IR.addPara("telephone","18910002233");
-        IR.addPara("password","654");
+        httpUtil = new HttpUtil();
+        Long l = new Date().getTime();
+//        httpUtil.download("http://47.95.197.189:8080/file/1_1613390055558.txt","download", new HttpUtil.OnDownloadListener() {
+//            @Override
+//            public void onDownloadSuccess() {
+//                Log.e("S","XXX");
+//                String s = Tools.readTxt("/storage/emulated/0/Download/1_1613390055558.txt");
+//                Message message = new Message();
+//                message.what = 1;
+//                message.obj = s;
+//                handler.sendMessage(message);
+//            }
+//            @Override
+//            public void onDownloading(int progress) {
+//
+//            }
+//            @Override
+//            public void onDownloadFailed() {
+//            }
+//        });
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/passwordLogin.do");
-                Log.e("XXX","Result:"+result);
-                Message message = new Message();
-                message.what = 1;
-                handler.sendMessage(message);
+                params = new HashMap<String, String>();
+                params.put("name","name");
+                params.put("img","img");
+                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/hello.do",params,new MyStringCallBack());
             }
         });
     }
 
-    public Handler handler = new Handler() {
+    private class MyHandler extends Handler {
+        @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                text.setText(result);
+            super.handleMessage(msg);
+            try {
+                if (msg.what == 1) {
+                    text.setText((String)msg.obj);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
-        };
-
-    };
+        }
+    }
 }

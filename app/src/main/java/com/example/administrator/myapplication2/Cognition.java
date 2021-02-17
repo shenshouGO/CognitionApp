@@ -100,8 +100,8 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
                             IR.addPara("c_r_id",info.getString("id"));
                             IR.addPara("c_r_file",info.getString("file"));
                             IR.addPara("cognition",data);
-//                            str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/createCognition.do");
-                            str = "Create successfully";
+                            str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/createCognition.do");
+//                            str = "Create successfully";
 
                             if(str.equals("Create successfully")){
                                 intent = new Intent(Cognition.this, OtherCognition.class);

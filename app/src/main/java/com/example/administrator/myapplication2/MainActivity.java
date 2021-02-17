@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("user_name", name);
                 editor.commit();
 
-                Intent intent = new Intent(MainActivity.this, PictureStory.class);
+                Intent intent = new Intent(MainActivity.this, DescribeScene.class);
+//                Intent intent = new Intent(MainActivity.this, Test.class);
                 intent.putExtra("name", name);
                 startActivity(intent);
             }

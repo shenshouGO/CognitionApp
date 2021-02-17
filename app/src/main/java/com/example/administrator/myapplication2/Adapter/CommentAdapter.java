@@ -7,6 +7,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,10 +107,12 @@ public class CommentAdapter extends BaseAdapter {
             case TYPE_REPLY:
                 final String u_name2 = mData.get(position).getU_name();
                 final String r_u_name = mData.get(position).getR_u_name();
-                s = u_name2+" 回复 "+r_u_name+"：";
+                s = u_name2+" 回复 ";
+                final int start2 = 0;
+                final int start3 = s.length();
+                s = s+r_u_name+"：";
                 spannableString=new SpannableString(s);
 
-                final int start2 = s.indexOf(u_name2);
                 spannableString.setSpan(new ClickableSpan(){
                     @Override
                     public void onClick(View widget) {
@@ -122,7 +125,6 @@ public class CommentAdapter extends BaseAdapter {
                         ds.setUnderlineText(false);
                     }
                 },start2,start2+u_name2.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                final int start3 = s.indexOf(r_u_name);
                 spannableString.setSpan(new ClickableSpan(){
                     @Override
                     public void onClick(View widget) {
@@ -135,6 +137,7 @@ public class CommentAdapter extends BaseAdapter {
                         ds.setUnderlineText(false);
                     }
                 },start3,start3+r_u_name.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                Log.e("Comment","u_name = "+u_name2+"   r_u_name = "+r_u_name+" "+start2+" "+start3);
                 break;
         }
         holder.name.setMovementMethod(LinkMovementMethod.getInstance());

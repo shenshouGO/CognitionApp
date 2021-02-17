@@ -7,13 +7,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class InternetRequest {
     //参数列表  <键-值>
-    private HashMap<String, String> stringMap;
+    private ConcurrentHashMap<String, String> stringMap;
 
     public InternetRequest() {
-        stringMap = new HashMap<String, String>();
+        stringMap = new ConcurrentHashMap<String, String>();
     }
 
     public void addPara(String key, String value) {
