@@ -56,7 +56,7 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
     private int maxImgCount = 9;               //允许选择图片最大数
 
     private HttpUtil httpUtil;
-    private String url="http://192.168.154.1:8080/CognitionAPP/createScene.do?";
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
             @Override
             public void onClick(View v) {
                 content = scene.getText().toString();
-                scene.setText("");
+                Log.e("content:",content);
 
                 params = new HashMap<String, String>();
                 params.put("u_id",""+1);
@@ -82,11 +82,13 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
                 params.put("scene",content);
                 params.put("time",""+new Date().getTime());
 
+                url="http://192.168.154.1:8080/CognitionAPP/createScene.do?";
                 url+="u_id="+1;
                 url+="&u_name="+UI.getName();
-                url+="&img="+"img";
+                url+="&u_img="+"img";
                 url+="&scene="+content;
                 url+="&time="+new Date().getTime();
+                Log.e("url",url);
                 uploadImage(selImageList);
             }
         });
@@ -101,6 +103,8 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
             @Override
             public void onError(Call call, Exception e, int id) {
                 super.onError(call, e, id);
+                Log.e("response:","onError");
+                Toast.makeText(ReleaseScene.this,"发送失败",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -123,6 +127,7 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
             try {
                 if (msg.what == 1) {
                     Toast.makeText(ReleaseScene.this,"发布成功",Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }catch (Exception e){
                 e.printStackTrace();

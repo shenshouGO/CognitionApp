@@ -1,7 +1,9 @@
 package com.example.administrator.myapplication2.Adapter;
 
 import android.content.Context;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,12 @@ import com.example.administrator.myapplication2.OtherCognition;
 import com.example.administrator.myapplication2.PictureStory;
 import com.example.administrator.myapplication2.R;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import MyClass.HttpUtil;
+import MyClass.MyStringCallBack;
 
 /**
  * Created by Administrator on 2021/2/5.
@@ -26,12 +33,14 @@ import java.util.List;
 public class OtherCognitionsAdapter extends BaseAdapter {
     private Context mContext;
     private List<OtherCognitions> mData = null;
-    private OtherCognition.Lis lis;
+    private HttpUtil httpUtil;
+    private Map<String,String> params;
+    private String[] split;
 
-    public OtherCognitionsAdapter(Context mContext, List<OtherCognitions> mData, OtherCognition.Lis lis) {
+    public OtherCognitionsAdapter(Context mContext, List<OtherCognitions> mData) {
         this.mContext = mContext;
         this.mData = mData;
-        this.lis = lis;
+        this.httpUtil = new HttpUtil();
     }
 
     public void setData(List<OtherCognitions> mData){
@@ -68,7 +77,6 @@ public class OtherCognitionsAdapter extends BaseAdapter {
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.text = (TextView) convertView.findViewById(R.id.text);
             holder.time = (TextView) convertView.findViewById(R.id.time);
-//            holder.button = (Button) convertView.findViewById(R.id.score);
             holder.good = (TextView) convertView.findViewById(R.id.good);
             holder.comment = (TextView) convertView.findViewById(R.id.comment);
             convertView.setTag(holder);
@@ -77,20 +85,31 @@ public class OtherCognitionsAdapter extends BaseAdapter {
         }
         holder.img.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_launcher));
         holder.name.setText(mData.get(position).getName());
-        holder.text.setText(mData.get(position).getText());
+        params = new HashMap<String, String>();
+        params.put("file",mData.get(position).getText());
+//        holder.text.setText(mData.get(position).getText());
+        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder) {
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e("response:",response+" "+id);
+                split = response.split("\\|\\|\\|");
+                for(int i = 0;i<split.length;i++){
+                    Log.e("split:",i+" "+split[i]);
+                }
+                holder.text.setText(split[0]);
+            }
+        });
         holder.time.setText(mData.get(position).getTime());
         holder.good.setText(mData.get(position).getGood()+"点赞");
         holder.comment.setText(mData.get(position).getComment()+"评论");
-//        holder.button.setOnClickListener(lis);
         return convertView;
     }
 
-    static class ViewHolder{
+    public static class ViewHolder{
         ImageView img;
         TextView name;
         TextView text;
         TextView time;
-//        Button button;
         TextView good;
         TextView comment;
     }

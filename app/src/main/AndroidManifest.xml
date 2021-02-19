@@ -36,9 +36,11 @@
         <activity android:name=".OtherCognition" />
         <activity android:name=".CognitionDetail" />
         <activity android:name=".DescribeScene" />
-        <activity android:name=".ReleaseScene"></activity>
+        <activity android:name=".ReleaseScene" />
         <activity android:name="com.lzy.imagepicker.ui.ImageGridActivity" />
         <activity android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity" />
+        <activity android:name=".SceneDetail" />
+        <activity android:name=".PhotoView"></activity>
     </application>
 
 </manifest>

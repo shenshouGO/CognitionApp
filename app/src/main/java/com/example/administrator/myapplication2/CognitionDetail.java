@@ -36,13 +36,17 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import MyClass.HttpUtil;
 import MyClass.InternetRequest;
+import MyClass.MyStringCallBack;
 import MyClass.UserInfo;
 
 public class CognitionDetail extends AppCompatActivity implements View.OnClickListener{
@@ -92,6 +96,9 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     private String userId;
     private String userName;
     private String userImg;
+    private HttpUtil httpUtil;
+    private Map<String,String> params;
+    private String[] split;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +129,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         delete.setVisibility(View.INVISIBLE);
         tpe = new ThreadPoolExecutor(3, 5, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
         isScore = false;
+        httpUtil = new HttpUtil();
 
         userName = UI.getName();
 
@@ -132,7 +140,17 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
             name.setText(info.getString("u_name"));
             name.setOnClickListener(this);
             pic.setVisibility(View.GONE);
-            text.setText(info.getString("file"));
+//            text.setText(info.getString("file"));
+            params = new HashMap<String, String>();
+            params.put("file",info.getString("file"));
+            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                @Override
+                public void onResponse(String response, int id) {
+                    Log.e("response:",response+" "+id);
+                    split = response.split("\\|\\|\\|");
+                    text.setText(split[0]);
+                }
+            });
             time.setText(simpleDateFormat.format(new Date(new Long(info.getString("time")))));
             discuss.setOnClickListener(this);
             good.setOnClickListener(this);

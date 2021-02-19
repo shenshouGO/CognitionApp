@@ -12,24 +12,11 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
-        List<String> list = new LinkedList<String>();
-        list.add("平均分");
-        list.add("7.2");
-        list.add("3.1");
+        String[] split = "yeah|7.jpg|6.jpeg|".split("\\|");
 
-        Com c = new Com();
-        Collections.sort(list,c);
+        System.out.println(split.length);
 
-        for(int i = 0;i<list.size();i++)
-            System.out.println(list.get(i));
-    }
-}
-
-class Com implements Comparator{
-    public int compare(Object arg0, Object arg1) {
-        String d0=(String)arg0;
-        String d1=(String)arg1;
-
-        return d1.compareTo(d0);
+        for(int i = 0;i<split.length;i++)
+            System.out.println(i+" "+split[i]);
     }
 }

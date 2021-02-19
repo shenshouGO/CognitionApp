@@ -123,7 +123,7 @@ public class OtherCognition extends AppCompatActivity {
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
                         date = new Date(new Long(JO.getString("time")));
-                        resources.add(new OtherCognitions(JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment")));
+                        resources.add(new OtherCognitions(JO.getString("id"),JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment"),"1"));
                     }
                     message = Message.obtain();
                     message.what = 1;
@@ -155,7 +155,7 @@ public class OtherCognition extends AppCompatActivity {
             super.handleMessage(msg);
             try {
                 if (msg.what == 1) {
-                    oca = new OtherCognitionsAdapter(OtherCognition.this,resources,lis);
+                    oca = new OtherCognitionsAdapter(OtherCognition.this,resources);
                     others.setAdapter(oca);
                 }
             }catch (Exception e){

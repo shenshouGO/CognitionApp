@@ -7,20 +7,32 @@ import com.example.administrator.myapplication2.OtherCognition;
  */
 
 public class OtherCognitions {
+    private String id;
     private String img;
     private String name;
     private String text;
     private String time;
     private String good;
     private String comment;
+    private String type;
 
-    public OtherCognitions(String img,String name,String text,String time,String good,String comment){
+    public OtherCognitions(String id,String img,String name,String text,String time,String good,String comment,String type){
+        this.id = id;
         this.img = img;
         this.name = name;
         this.text = text;
         this.time = time;
         this.good = good;
         this.comment = comment;
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setImg(String img){
@@ -58,4 +70,12 @@ public class OtherCognitions {
     }
 
     public String getComment(){return comment;}
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

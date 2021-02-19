@@ -33,7 +33,9 @@
         android:layout_below="@+id/name"
         android:text="内容"
         android:textSize="18sp"
-        android:layout_margin="3dp"/>
+        android:layout_margin="3dp"
+        android:lines="2"
+        android:ellipsize="end"/>
 
     <LinearLayout
         android:id="@+id/info"
