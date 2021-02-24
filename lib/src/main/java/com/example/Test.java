@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -12,11 +13,15 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
-        String[] split = "yeah|7.jpg|6.jpeg|".split("\\|");
-
-        System.out.println(split.length);
-
-        for(int i = 0;i<split.length;i++)
-            System.out.println(i+" "+split[i]);
+        String url = "好\n和";
+        System.out.println(url);
+        try {
+            url = java.net.URLEncoder.encode(url,"UTF-8");
+            System.out.println(url);
+            url = java.net.URLDecoder.decode(url,"UTF-8");
+            System.out.println(url);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

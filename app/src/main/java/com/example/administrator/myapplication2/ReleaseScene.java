@@ -24,6 +24,10 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -73,20 +77,33 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
             @Override
             public void onClick(View v) {
                 content = scene.getText().toString();
+//                JSONObject JO = new JSONObject();
+                String s="";
+                try {
+                    s = java.net.URLEncoder.encode(content,"UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+//                try {
+//                    JO.put("content",content);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
                 Log.e("content:",content);
+                Log.e("s:",s);
 
                 params = new HashMap<String, String>();
                 params.put("u_id",""+1);
                 params.put("u_name",UI.getName());
                 params.put("img","img");
-                params.put("scene",content);
+                params.put("scene",s);
                 params.put("time",""+new Date().getTime());
 
                 url="http://192.168.154.1:8080/CognitionAPP/createScene.do?";
                 url+="u_id="+1;
                 url+="&u_name="+UI.getName();
                 url+="&u_img="+"img";
-                url+="&scene="+content;
+                url+="&scene="+s;
                 url+="&time="+new Date().getTime();
                 Log.e("url",url);
                 uploadImage(selImageList);

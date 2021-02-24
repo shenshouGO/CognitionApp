@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +48,12 @@ public class HttpUtil {
 
     //封装请求
     public void postRequest(String url, Map<String, String> params, MyStringCallBack callback) {
+        Log.e("Request URL",url);
+//        if (params!=null){
+//            for (Map.Entry<String, String> entry: params.entrySet()) {
+//                Log.e("param:", entry.getKey()+"   "+entry.getValue());
+//            }
+//        }
         mPost.url(url)
                 .params(params)
                 .build()
@@ -55,21 +62,24 @@ public class HttpUtil {
 
     //上传文件
     public void postFileRequest(String url, Map<String, String> params, ArrayList<ImageItem> pathList, MyStringCallBack callback) {
-
+        Log.e("Request URL",url);
         Map<String,File> files = new HashMap<>();
         for (int i = 0; i < pathList.size(); i++) {
             String newPath = BitmapUtils.compressImageUpload(pathList.get(i).path);
             files.put(pathList.get(i).name,new File(newPath));
         }
 
-        for (Map.Entry<String, File> entry: files.entrySet()) {
-            Log.e("files:", entry.getKey()+"   "+entry.getValue());
-        }
+//        for (Map.Entry<String, File> entry: files.entrySet()) {
+//            Log.e("files:", entry.getKey()+"   "+entry.getValue());
+//        }
 
-        for (Map.Entry<String, String> entry: params.entrySet()) {
-            Log.e("param:", entry.getKey()+"   "+entry.getValue());
-//            mPost.addParams(entry.getKey(),entry.getValue());
-        }
+//        if (params!=null){
+//            for (Map.Entry<String, String> entry: params.entrySet()) {
+//                Log.e("param:", entry.getKey()+"   "+entry.getValue());
+////            mPost.addParams(entry.getKey(),entry.getValue());
+//            }
+//        }
+
 
         mPost.url(url)
                 .files("files",files)

@@ -9,4 +9,6 @@
     <string name="create_room">创建房间</string>
     <string name="holder1">holder1</string>
     <string name="holder2">holder2</string>
+    <string name="goodID">goodID</string>
+    <string name="r_id">r_id</string>
 </resources>

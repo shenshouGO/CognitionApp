@@ -377,7 +377,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     IR.addPara("u_id","1");
                     IR.addPara("validity_score",""+valid);
                     IR.addPara("novelty_score",""+novel);
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/createScore.do");
+                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createScore.do");
 
                     message = Message.obtain();
                     message.what = 6;
@@ -398,10 +398,10 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     if(goodId.equals("0")){
                         IR.addPara("c_id",info.getString("id"));
                         IR.addPara("u_id","1");
-                        str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/createCognitionGood.do");
+                        str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createCognitionGood.do");
                     }else{
                         IR.addPara("ID",goodId);
-                        str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/deleteCognitionGood.do");
+                        str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/deleteCognitionGood.do");
                     }
 
                     message = Message.obtain();
@@ -421,7 +421,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                 try {
                     IR.addPara("c_id",info.getString("id"));
                     IR.addPara("u_id","1");
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/matchUserAndCognitionGood.do");
+                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/matchUserAndCognitionGood.do");
 
                     if(str.equals("No give good"))
                         goodId = "0";
@@ -431,7 +431,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
 
                     IR.addPara("c_r_id",info.getString("id"));
                     IR.addPara("u_id","1");
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/matchUserAndScore.do");
+                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/matchUserAndScore.do");
 
                     if(str.equals("Unevaluated")){
                         isScore =false;
@@ -461,7 +461,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     Log.e("ID",info.getString("id"));
                     comments.clear();
                     IR.addPara("ID",info.getString("id"));
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/displayComment.do");
+                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/displayComment.do");
                     results = new JSONObject(str);
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
@@ -504,7 +504,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                         IR.addPara("r_u_img",r_img);
                     }
                     IR.addPara("comment",comment);
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/createComment.do");
+                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createComment.do");
 
                     Looper.prepare();
                     if(str.equals("Create successfully")){
@@ -529,7 +529,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
             @Override
             public void run() {
                 try {
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/deleteComment.do");
+                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/deleteComment.do");
 
                     Looper.prepare();
                     if(str.equals("Delete successfully")){

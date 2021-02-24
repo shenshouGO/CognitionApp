@@ -91,11 +91,11 @@ public class OtherCognitionsAdapter extends BaseAdapter {
         httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder) {
             @Override
             public void onResponse(String response, int id) {
-                Log.e("response:",response+" "+id);
+//                Log.e("response:",response+" "+id);
                 split = response.split("\\|\\|\\|");
-                for(int i = 0;i<split.length;i++){
-                    Log.e("split:",i+" "+split[i]);
-                }
+//                for(int i = 0;i<split.length;i++){
+//                    Log.e("split:",i+" "+split[i]);
+//                }
                 holder.text.setText(split[0]);
             }
         });
