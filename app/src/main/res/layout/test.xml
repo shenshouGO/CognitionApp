@@ -1,29 +1,18 @@
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:gravity="center_vertical"
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/text"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本"
-        android:maxEms="18"
-        android:lines="1"
-        android:ellipsize="end" />
+        android:layout_height="wrap_content">
+        <MyClass.CustomVideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="下载" />
-    
-    <MyClass.NineGridLayout
-        android:id="@+id/layout_nine_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:sapcing="4dp"></MyClass.NineGridLayout>
-</LinearLayout >
+</LinearLayout>

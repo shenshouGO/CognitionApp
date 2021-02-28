@@ -8,39 +8,23 @@
         android:id="@+id/rg_tab_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rb_home"
+            android:id="@+id/rb_vedio"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/tab_menu_home"
-            android:text="@string/home" />
+            android:text="@string/vedio" />
 
         <RadioButton
-            android:id="@+id/rb_game"
+            android:id="@+id/rb_text"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/tab_menu_game1"
-            android:text="@string/game" />
-
-        <RadioButton
-            android:id="@+id/rb_dynamic"
-            style="@style/tab_menu_item"
-            android:drawableTop="@drawable/tab_menu_dynamic"
-            android:text="@string/dynamic" />
-
-        <RadioButton
-            android:id="@+id/rb_me"
-            style="@style/tab_menu_item"
-            android:drawableTop="@drawable/tab_menu_me"
-            android:text="@string/me"/>
-
+            android:text="@string/text" />
     </RadioGroup>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/rg_tab_bar" />
+        android:layout_below="@id/rg_tab_bar" />
 </RelativeLayout >

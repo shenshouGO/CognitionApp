@@ -100,7 +100,8 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
                     String s =edit.getText().toString();
                     params = new HashMap<String, String>();
                     params.put("ID","1");
-                    params.put("u_name",UI.getName());
+//                    params.put("u_name",UI.getName());
+                    params.put("u_name","XXX");
                     params.put("u_img","null.jpg");
                     params.put("c_r_id",info.getString("id"));
                     params.put("c_r_file",info.getString("file"));
@@ -179,7 +180,8 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
                             date = new Date(new Long(JO.getString("time")));
                             resources.add(new OtherCognitions(JO.getString("id"),JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment"),"1"));
                         }
-                        mixedAdapter = new MixedAdapter(SceneDetail.this,resources,((UserInfo) getApplication()).getId());
+//                        mixedAdapter = new MixedAdapter(SceneDetail.this,resources,((UserInfo) getApplication()).getId());
+                        mixedAdapter = new MixedAdapter(SceneDetail.this,resources,"1");
                         listView.setAdapter(mixedAdapter);
                         break;
                     case 2:

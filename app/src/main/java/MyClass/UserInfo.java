@@ -13,7 +13,6 @@ public class UserInfo extends Application {
     private String name;
     private String img;
     private String telephone;
-    private ThreadPoolExecutor tpe;
 
     @Override
     public void onCreate(){
@@ -52,7 +51,4 @@ public class UserInfo extends Application {
         this.telephone = telephone;
     }
 
-    public ThreadPoolExecutor getTpe(){return  tpe;}
-
-    public void setTpe(ThreadPoolExecutor tpe){ this.tpe = tpe;}
 }

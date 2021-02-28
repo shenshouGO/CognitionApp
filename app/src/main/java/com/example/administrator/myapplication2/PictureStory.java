@@ -24,6 +24,7 @@ import com.example.administrator.myapplication2.Adapter.HorizontalListViewAdapte
 import com.example.administrator.myapplication2.Adapter.ScreenAdapter;
 import com.example.administrator.myapplication2.Bean.Resource;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
@@ -31,7 +32,9 @@ import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import MyClass.HorizontalListView;
+import MyClass.HttpUtil;
 import MyClass.InternetRequest;
+import MyClass.MyStringCallBack;
 import MyClass.UserInfo;
 
 public class PictureStory extends AppCompatActivity {
@@ -55,7 +58,7 @@ public class PictureStory extends AppCompatActivity {
     private JSONObject results;
     private JSONObject JO;
     private String str;
-    private ThreadPoolExecutor tpe;
+    private HttpUtil httpUtil;
     final Handler handler = new MyHandler();
     private Message message;
 
@@ -65,6 +68,7 @@ public class PictureStory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.picture_story);
         Log.e("onCreate","XXX");
+        httpUtil = new HttpUtil();
         showActivity();
     }
     @Override
@@ -90,31 +94,26 @@ public class PictureStory extends AppCompatActivity {
         screens = new LinkedList<Resource>() ;
         path = "http://47.95.197.189:8080/file/";
 
-        IR = new InternetRequest();
-        Runnable r = new Runnable() {
+        httpUtil.postRequest("http://47.95.197.189:8080/CognitionAPP/displayCognitionResource.do",null,new MyStringCallBack() {
             @Override
-            public void run() {
+            public void onResponse(String response, int id) {
+                super.onResponse(response, id);
                 try {
-                    str = null;
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/displayCognitionResource.do");
-                    results = new JSONObject(str);
+                    results = new JSONObject(response);
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
                         resources.add(new Resource(path+JO.getString("file"),"TOP"+(i+1)));
                         screens.add(new Resource(path+JO.getString("file"),JO.getString("theme")+"|"+JO.getString("type")+"|最新"));
                     }
-                    message = Message.obtain();
-                    message.what = 1;
-//                    message.obj = str;
-                    handler.sendMessage(message);
-                }catch (Exception e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                message = Message.obtain();
+                message.what = 1;
+//                    message.obj = str;
+                handler.sendMessage(message);
             }
-        };
-        final UserInfo UI = (UserInfo)getApplication();
-        tpe = UI.getTpe();
-        tpe.execute(r);
+        });
 
         resourceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

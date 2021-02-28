@@ -21,4 +21,23 @@
     <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/photo_choose_bg</item>
     </style>
+
+    <style name="AppTheme.NoActionBarWithBackGround">
+        <item name="windowActionBar">false</item>//取消Actionbar
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>//设置全屏
+        <item name="android:windowBackground">@drawable/star</item>//设置背景
+    </style>
+
+    <style name="tab_menu_item">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/tab_menu_bg</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:textColor">@drawable/tab_menu_text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

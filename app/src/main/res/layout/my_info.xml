@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/head"
+        android:layout_margin="15dp"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/shape"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitCenter"
+            android:layout_margin="4dp"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img"
+            android:text="@string/nickname"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_margin="3dp"/>
+
+        <TextView
+            android:id="@+id/medal"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img"
+            android:layout_below="@+id/name"
+            android:text="@string/medal"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_margin="3dp"/>
+    </RelativeLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="1"
+        android:columnCount="4"
+        android:layout_margin="20dp">
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="90dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/comment"/>
+
+        <TextView
+            android:id="@+id/focus"
+            android:layout_width="90dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/focus"/>
+
+        <TextView
+            android:id="@+id/good"
+            android:layout_width="90dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/good"/>
+
+        <TextView
+            android:id="@+id/rank"
+            android:layout_width="90dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/rank"/>
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/integral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/integral"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:drawableRight="@drawable/more"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/help"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:drawableRight="@drawable/more"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/out"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+</LinearLayout>

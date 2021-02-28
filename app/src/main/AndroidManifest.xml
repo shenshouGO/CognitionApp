@@ -15,18 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".Talk" />
         <activity android:name=".Join" />
         <activity android:name=".GameReady" />
         <activity android:name=".GameStart" />
-        <activity android:name=".Test" />
+        <activity android:name=".Test"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".GameFunction" />
         <activity android:name=".Room" />
         <activity android:name=".ImageDetail" />
@@ -40,7 +35,18 @@
         <activity android:name="com.lzy.imagepicker.ui.ImageGridActivity" />
         <activity android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity" />
         <activity android:name=".SceneDetail" />
-        <activity android:name=".PhotoView"></activity>
+        <activity android:name=".PhotoView" />
+        <activity android:name=".Login" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBarWithBackGround">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
