@@ -8,49 +8,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.util.HashMap;
 
 import MyClass.CustomVideoView;
+import MyClass.HttpUtil;
+import MyClass.MyStringCallBack;
 
 public class Test extends AppCompatActivity{
-
-    private CustomVideoView videoView;
-    private MediaController mediaController;
+    TextView text;
+    HttpUtil httpUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
-        bindViews();
-    }
-
-    private void bindViews() {
-        videoView = (CustomVideoView) findViewById(R.id.videoView);
-        videoView.setPlayPauseListener(new CustomVideoView.PlayPauseListener() {
+        text = (TextView)findViewById(R.id.text);
+        httpUtil = new HttpUtil();
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("file","认知焦虑测评.txt");
+        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
             @Override
-            public void onPlay() {
-                //开始播放之后消除背景
-                videoView.setBackground(null);
-            }
-            @Override
-            public void onPause() {
-                System.out.println("Pause!");//our needed process when the video is paused
+            public void onResponse(String response, int id) {
+                super.onResponse(response, id);
+                String[] split = response.split("\n");
+                for(int i=0;i<split.length;i++)
+                {
+                    System.out.println(i+" "+split[i]);
+                    Log.e("split",i+" "+split[i]);
+                }
             }
         });
-
-        String videoUrl = "http://192.168.154.1:8080/file/人为什么要努力.mp4";
-        Bitmap bitmap = null;
-        //videoView.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
-        videoView.setVideoPath(videoUrl);
-        //设置视频缩略图
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(videoUrl, new HashMap());
-        bitmap = retriever.getFrameAtTime();
-        videoView.setBackground(new BitmapDrawable(getResources(),bitmap));
-        mediaController = new MediaController(this);
-        videoView.setMediaController(mediaController);
-        mediaController.setMediaPlayer(videoView);
     }
 }

@@ -549,6 +549,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+    //隐藏输入框
     @Override
     public boolean dispatchTouchEvent (MotionEvent ev) {
         if(ev.getAction() == MotionEvent.ACTION_DOWN){

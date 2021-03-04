@@ -14,7 +14,10 @@
     <string name="nickname">XXX(昵称)</string>
     <string name="comment">评论</string>
     <string name="good">点赞</string>
+    <string name="unlike">不喜欢</string>
+    <string name="collect">收藏</string>
     <string name="focus">关注</string>
+    <string name="share">分享</string>
     <string name="rank">排位</string>
     <string name="medal">勋章</string>
     <string name="zero">0</string>
@@ -29,6 +32,20 @@
     <string name="assessReporter">评估报告单元</string>
     <string name="vedio">视频</string>
     <string name="text">文本</string>
+    <string name="input">请输入...</string>
+    <string name="one">1 完全不同意</string>
+    <string name="two">2 很不同意</string>
+    <string name="three">3 有点不同意</string>
+    <string name="four">4 既不反对也不同意</string>
+    <string name="five">5 有点同意</string>
+    <string name="six">6 很同意</string>
+    <string name="seven">7 完全同意</string>
+    <string name="last">上一题</string>
+    <string name="next">下一题</string>
+    <string name="submit">提交</string>
+    <string name="assessResult">测评结果</string>
+    <string name="again_assess">重新测评</string>
+    <string name="back">返回</string>
 
     <string name="holder1">holder1</string>
     <string name="holder2">holder2</string>

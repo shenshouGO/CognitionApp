@@ -29,8 +29,11 @@ public class Comment {
             u_id = JO.getString("u_id");
             u_name = JO.getString("u_name");
             u_img = JO.getString("u_img");
-            if(JO.has("c_c_id")){
-                c_c_id = JO.getString("c_c_id");
+            if(JO.has("c_c_id")||JO.has("s_c_id")){
+                if(JO.has("c_c_id"))
+                    c_c_id = JO.getString("c_c_id");
+                else
+                    c_c_id = JO.getString("s_c_id");
                 r_u_id = JO.getString("r_u_id");
                 r_u_name = JO.getString("r_u_name");
                 r_u_img = JO.getString("r_u_img");

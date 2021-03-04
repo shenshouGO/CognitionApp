@@ -65,7 +65,8 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.assessReporter:
-                Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.assessReporter),Toast.LENGTH_LONG).show();
+                intent = new Intent(getActivity(), AssessReort.class);
+                startActivity(intent);
                 break;
         }
     }

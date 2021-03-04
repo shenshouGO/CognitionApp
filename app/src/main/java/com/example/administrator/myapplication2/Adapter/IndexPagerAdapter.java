@@ -9,6 +9,7 @@ import com.example.administrator.myapplication2.GameFragment;
 import com.example.administrator.myapplication2.MainActivity;
 import com.example.administrator.myapplication2.MyFragment;
 import com.example.administrator.myapplication2.MyInfo;
+import com.example.administrator.myapplication2.ResourceFragment;
 
 /**
  * Created by Administrator on 2021/2/28.
@@ -16,14 +17,14 @@ import com.example.administrator.myapplication2.MyInfo;
 
 public class IndexPagerAdapter extends FragmentPagerAdapter {
     private final int PAGER_COUNT = 2;
-    private MyFragment myFragment1 = null;
-    private MyFragment myFragment2 = null;
+    private ResourceFragment myFragment1 = null;
+    private ResourceFragment myFragment2 = null;
 
 
     public IndexPagerAdapter(FragmentManager fm) {
         super(fm);
-        myFragment1 = MyFragment.newInstance("视频");
-        myFragment2 = MyFragment.newInstance("文本");
+        myFragment1 = ResourceFragment.newInstance("视频");
+        myFragment2 = ResourceFragment.newInstance("文本");
     }
 
 
