@@ -113,8 +113,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         final UserInfo UI = (UserInfo)getApplication();
         UI.setId(sharedPreferences.getString("id", null));
         UI.setName(sharedPreferences.getString("user_name", null));
-        UI.setId(sharedPreferences.getString("img", null));
-        UI.setId(sharedPreferences.getString("telephone", null));
+        UI.setImg(sharedPreferences.getString("img", null));
+        UI.setTelephone(sharedPreferences.getString("telephone", null));
 
         intent = new Intent(Login.this,MainActivity.class);
         startActivity(intent);

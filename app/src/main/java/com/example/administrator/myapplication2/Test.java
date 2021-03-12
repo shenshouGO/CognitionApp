@@ -1,45 +1,60 @@
 package com.example.administrator.myapplication2;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.MediaController;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
-import java.util.HashMap;
+public class Test extends AppCompatActivity implements View.OnClickListener,
+        ActivityCompat.OnRequestPermissionsResultCallback{
+    private static final String TAG = Test.class.getSimpleName();
 
-import MyClass.CustomVideoView;
-import MyClass.HttpUtil;
-import MyClass.MyStringCallBack;
+    private static final int REQ_CODE_INIT_APIKEY = 0;
 
-public class Test extends AppCompatActivity{
-    TextView text;
-    HttpUtil httpUtil;
+    Button initWithApiKey = null;
+    Button setTags = null;
+    Button delTags = null;
+    Button clearLog = null;
+    Button showTags = null;
+    Button unbind = null;
+    Button setunDisturb = null;
+    TextView logText = null;
+    ScrollView scrollView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
-        text = (TextView)findViewById(R.id.text);
-        httpUtil = new HttpUtil();
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("file","认知焦虑测评.txt");
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
-            @Override
-            public void onResponse(String response, int id) {
-                super.onResponse(response, id);
-                String[] split = response.split("\n");
-                for(int i=0;i<split.length;i++)
-                {
-                    System.out.println(i+" "+split[i]);
-                    Log.e("split",i+" "+split[i]);
-                }
-            }
-        });
+
+        initWithApiKey = (Button) findViewById(R.id.btn_initAK);
+        setTags = (Button) findViewById(R.id.btn_setTags);
+        delTags = (Button) findViewById(R.id.btn_delTags);
+        clearLog = (Button) findViewById(R.id.btn_clear_log);
+        showTags = (Button) findViewById(R.id.btn_showTags);
+        unbind = (Button) findViewById(R.id.btn_unbindTags);
+        setunDisturb = (Button) findViewById(R.id.btn_setunDisturb);
+        logText = (TextView) findViewById(R.id.text_log);
+        scrollView = (ScrollView) findViewById(R.id.stroll_text);
+
+        initWithApiKey.setOnClickListener(this);
+        setTags.setOnClickListener(this);
+        delTags.setOnClickListener(this);
+        clearLog.setOnClickListener(this);
+        showTags.setOnClickListener(this);
+        unbind.setOnClickListener(this);
+        setunDisturb.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_initAK:
+                break;
+            default:
+                break;
+        }
     }
 }

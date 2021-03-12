@@ -154,7 +154,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 try{
-                    if(!comments.get(i).getU_name().equals("t1")){
+                    if(!comments.get(i).getU_name().equals(UI.getName())){
                         isComment = false;
                         if(comments.get(i).getC_c_id().equals("0"))
                             s_c_id = comments.get(i).getId();
@@ -276,12 +276,12 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         params = new HashMap<String, String>();
         try {
             params.put("s_r_id",info.getString("id"));
-//            params.put("u_id",UI.getId());
-//            params.put("u_name",UI.getName());
-//            params.put("u_img",UI.getImg());
-            params.put("u_id","1");
-            params.put("u_name","t1");
-            params.put("u_img","t1.jpg");
+            params.put("u_id",UI.getId());
+            params.put("u_name",UI.getName());
+            params.put("u_img",UI.getImg());
+//            params.put("u_id","1");
+//            params.put("u_name","t1");
+//            params.put("u_img","t1.jpg");
             if(isComment){
                 params.put("s_c_id","0");
                 params.put("r_u_id","0");

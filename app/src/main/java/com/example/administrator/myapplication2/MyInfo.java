@@ -17,6 +17,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import MyClass.UserInfo;
+
 /**
  * Created by Administrator on 2021/2/25.
  */
@@ -37,6 +39,7 @@ public class MyInfo extends Fragment implements View.OnClickListener{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final UserInfo UI = (UserInfo)getActivity().getApplication();
         View view = inflater.inflate(R.layout.my_info, container, false);
         img = (ImageView)view.findViewById(R.id.img);
         name = (TextView) view.findViewById(R.id.name);
@@ -48,6 +51,7 @@ public class MyInfo extends Fragment implements View.OnClickListener{
         integral = (TextView) view.findViewById(R.id.integral);
         help = (TextView) view.findViewById(R.id.help);
         out = (TextView) view.findViewById(R.id.out);
+        name.setText(UI.getName());
         comment.setText("0\n"+context.getResources().getString(R.string.comment));
         focus.setText("0\n"+context.getResources().getString(R.string.focus));
         good.setText("0\n"+context.getResources().getString(R.string.good));

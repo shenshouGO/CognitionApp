@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.myapplication2.Adapter.ImagePickerAdapter;
@@ -43,6 +44,7 @@ import okhttp3.Call;
 
 public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
     private ImageView send;
+    private TextView title;
     private EditText scene;
     private RecyclerView image_screen;
     private ArrayList<String> mPicList = new ArrayList<>();
@@ -50,6 +52,8 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
     private Map<String,String> params;
     private String content;
     final Handler handler = new MyHandler();
+    private Intent intent;
+    private String type;
 
     public static final int IMAGE_ITEM_ADD = -1;
     public static final int REQUEST_CODE_SELECT = 100;
@@ -67,10 +71,17 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release_scene);
 
+        title = (TextView) findViewById(R.id.title);
         send = (ImageView)findViewById(R.id.send);
         scene = (EditText)findViewById(R.id.scene);
         image_screen = (RecyclerView) findViewById(R.id.image_screen);
         httpUtil = new HttpUtil();
+        intent = getIntent();
+        type = intent.getStringExtra("type");
+        if(type.equals("发布动态")){
+            title.setText("发布动态");
+            scene.setHint("说点什么吧...");
+        }
         final UserInfo UI = (UserInfo)getApplication();
 
         send.setOnClickListener(new View.OnClickListener() {
@@ -92,17 +103,22 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
                 Log.e("content:",content);
                 Log.e("s:",s);
 
-                params = new HashMap<String, String>();
-                params.put("u_id",""+1);
-                params.put("u_name",UI.getName());
-                params.put("img","img");
-                params.put("scene",s);
-                params.put("time",""+new Date().getTime());
+//                params = new HashMap<String, String>();
+//                params.put("u_id",""+1);
+//                params.put("u_name",UI.getName());
+//                params.put("img","img");
+//                params.put("scene",s);
+//                params.put("time",""+new Date().getTime());
 
                 url="http://192.168.154.1:8080/CognitionAPP/createScene.do?";
-                url+="u_id="+1;
+                url+="u_id="+UI.getId();
                 url+="&u_name="+UI.getName();
-                url+="&u_img="+"img";
+                url+="&u_img="+UI.getImg();
+                if(type.equals("发布动态")){
+                    url+="&type=动态";
+                }else {
+                    url+="&type=情景";
+                }
                 url+="&scene="+s;
                 url+="&time="+new Date().getTime();
                 Log.e("url",url);
@@ -115,7 +131,7 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
     }
 
     private void uploadImage(ArrayList<ImageItem> pathList) {
-        httpUtil.postFileRequest(url, params, pathList, new MyStringCallBack() {
+        httpUtil.postFileRequest(url, null, pathList, new MyStringCallBack() {
 
             @Override
             public void onError(Call call, Exception e, int id) {

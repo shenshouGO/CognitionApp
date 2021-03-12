@@ -51,8 +51,8 @@
         <activity
             android:name=".TextDetail"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".AssessDetail"></activity>
+        <activity android:name=".AssessDetail" />
         <activity android:name=".AssessReort" />
+        <activity android:name=".RankList"></activity>
     </application>
-
 </manifest>

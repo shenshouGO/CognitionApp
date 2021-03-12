@@ -130,6 +130,9 @@ public class AssessDetail extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.last:
+                if (chooses.getCheckedRadioButtonId()!=-1){
+                    countScore();
+                }
                 current--;
                 message = Message.obtain();
                 message.what = 1;

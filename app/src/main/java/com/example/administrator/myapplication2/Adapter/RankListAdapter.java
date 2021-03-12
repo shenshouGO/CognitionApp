@@ -5,36 +5,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.example.administrator.myapplication2.DynamicFragment;
-import com.example.administrator.myapplication2.GameFragment;
-import com.example.administrator.myapplication2.IndexFragment;
 import com.example.administrator.myapplication2.MainActivity;
 import com.example.administrator.myapplication2.MyFragment;
-import com.example.administrator.myapplication2.MyInfo;
-import com.example.administrator.myapplication2.R;
-import com.example.administrator.myapplication2.Test;
+import com.example.administrator.myapplication2.RankList;
 
 /**
- * Created by Administrator on 2021/2/25.
+ * Created by Administrator on 2021/3/6.
  */
 
-public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-
+public class RankListAdapter extends FragmentPagerAdapter {
     private final int PAGER_COUNT = 4;
-    private IndexFragment myFragment1 = null;
-    private GameFragment myFragment2 = null;
-    private DynamicFragment myFragment3 = null;
-    private MyInfo myFragment4 = null;
+    private MyFragment myFragment1 = null;
+    private MyFragment myFragment2 = null;
+    private MyFragment myFragment3 = null;
+    private MyFragment myFragment4 = null;
 
-
-    public MyFragmentPagerAdapter(FragmentManager fm) {
+    public RankListAdapter(FragmentManager fm) {
         super(fm);
-        myFragment1 = new IndexFragment();
-        myFragment2 = GameFragment.newInstance("{}");
-        myFragment3 = new DynamicFragment();
-        myFragment4 = MyInfo.newInstance("{}");
+        myFragment1 = MyFragment.newInstance("热评榜");
+        myFragment2 = MyFragment.newInstance("材料榜");
+        myFragment3 = MyFragment.newInstance("排位榜");
+        myFragment4 = MyFragment.newInstance("积分榜");
     }
-
 
     @Override
     public int getCount() {
@@ -56,20 +48,19 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (position) {
-            case MainActivity.PAGE_ONE:
+            case RankList.PAGE_ONE:
                 fragment = myFragment1;
                 break;
-            case MainActivity.PAGE_TWO:
+            case RankList.PAGE_TWO:
                 fragment = myFragment2;
                 break;
-            case MainActivity.PAGE_THREE:
+            case RankList.PAGE_THREE:
                 fragment = myFragment3;
                 break;
-            case MainActivity.PAGE_FOUR:
+            case RankList.PAGE_FOUR:
                 fragment = myFragment4;
                 break;
         }
         return fragment;
     }
-
 }

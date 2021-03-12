@@ -63,11 +63,6 @@ public class ResourceFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 try{
-//                    if(type.equals("视频")){
-//                        Toast.makeText(getActivity(),"视频"+i,Toast.LENGTH_SHORT).show();
-//                    }else{
-//
-//                    }
                     intent = new Intent(getContext(),TextDetail.class);
                     intent.putExtra("info", results.getJSONObject(""+i).toString());
                     startActivity(intent);

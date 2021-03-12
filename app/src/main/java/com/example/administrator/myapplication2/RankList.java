@@ -1,43 +1,25 @@
 package com.example.administrator.myapplication2;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
-import com.example.administrator.myapplication2.Adapter.MyFragmentPagerAdapter;
+import com.example.administrator.myapplication2.Adapter.RankListAdapter;
 
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-import MyClass.UserInfo;
-
-
-//import static android.os.Build.VERSION_CODES.R;
-
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
+public class RankList extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
         ViewPager.OnPageChangeListener,View.OnClickListener {
-    //UI Objects
     private RadioGroup rg_tab_bar;
-    private RadioButton rb_home;
-    private RadioButton rb_game;
-    private RadioButton rb_dynamic;
-    private RadioButton rb_me;
+    private RadioButton hot_list;
+    private RadioButton resource_list;
+    private RadioButton rank_list;
+    private RadioButton integral_list;
     private ViewPager vpager;
 
-    private MyFragmentPagerAdapter mAdapter;
+    private RankListAdapter mAdapter;
 
     //几个代表页面的常量
     public static final int PAGE_ONE = 0;
@@ -45,36 +27,23 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public static final int PAGE_THREE = 2;
     public static final int PAGE_FOUR = 3;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        setContentView(R.layout.activity_rank_list);
+
+        mAdapter = new RankListAdapter(getSupportFragmentManager());
         bindViews();
-        rb_home.setChecked(true);
+        hot_list.setChecked(true);
     }
 
     private void bindViews() {
         rg_tab_bar = (RadioGroup) findViewById(R.id.rg_tab_bar);
-        rb_home = (RadioButton) findViewById(R.id.rb_home);
-        rb_game = (RadioButton) findViewById(R.id.rb_game);
-        rb_dynamic = (RadioButton) findViewById(R.id.rb_dynamic);
-        rb_me = (RadioButton) findViewById(R.id.rb_me);
+        hot_list = (RadioButton) findViewById(R.id.hot_list);
+        resource_list = (RadioButton) findViewById(R.id.resource_list);
+        rank_list = (RadioButton) findViewById(R.id.rank_list);
+        integral_list = (RadioButton) findViewById(R.id.integral_list);
         rg_tab_bar.setOnCheckedChangeListener(this);
-
-        Drawable[] homeD = rb_home.getCompoundDrawables();
-        Drawable[] gameD = rb_game.getCompoundDrawables();
-        Drawable[] dynamicD = rb_dynamic.getCompoundDrawables();
-        Drawable[] meD = rb_me.getCompoundDrawables();
-        homeD[1].setBounds(0,0,50,45);
-        gameD[1].setBounds(0,0,50,50);
-        dynamicD[1].setBounds(0,0,50,50);
-        meD[1].setBounds(0,0,50,50);
-        rb_home.setCompoundDrawables(homeD[0],homeD[1],homeD[2],homeD[3]);
-        rb_game.setCompoundDrawables(gameD[0],gameD[1],gameD[2],gameD[3]);
-        rb_dynamic.setCompoundDrawables(dynamicD[0],dynamicD[1],dynamicD[2],dynamicD[3]);
-        rb_me.setCompoundDrawables(meD[0],meD[1],meD[2],meD[3]);
 
         vpager = (ViewPager) findViewById(R.id.vpager);
         vpager.setAdapter(mAdapter);
@@ -90,16 +59,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
-            case R.id.rb_home:
+            case R.id.hot_list:
                 vpager.setCurrentItem(PAGE_ONE);
                 break;
-            case R.id.rb_game:
+            case R.id.resource_list:
                 vpager.setCurrentItem(PAGE_TWO);
                 break;
-            case R.id.rb_dynamic:
+            case R.id.rank_list:
                 vpager.setCurrentItem(PAGE_THREE);
                 break;
-            case R.id.rb_me:
+            case R.id.integral_list:
                 vpager.setCurrentItem(PAGE_FOUR);
                 break;
         }
@@ -121,16 +90,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         if (state == 2) {
             switch (vpager.getCurrentItem()) {
                 case PAGE_ONE:
-                    rb_home.setChecked(true);
+                    hot_list.setChecked(true);
                     break;
                 case PAGE_TWO:
-                    rb_game.setChecked(true);
+                    resource_list.setChecked(true);
                     break;
                 case PAGE_THREE:
-                    rb_dynamic.setChecked(true);
+                    rank_list.setChecked(true);
                     break;
                 case PAGE_FOUR:
-                    rb_me.setChecked(true);
+                    integral_list.setChecked(true);
                     break;
             }
         }

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.myapplication2.Adapter.MixedAdapter;
@@ -37,6 +38,7 @@ import MyClass.UserInfo;
 
 public class SceneDetail extends AppCompatActivity implements View.OnClickListener{
     private ListView listView;
+    private TextView title;
 
     private MixedAdapter mixedAdapter;
     private JSONObject results;
@@ -59,9 +61,13 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scene_detail);
 
+        title = (TextView) findViewById(R.id.title);
         listView = (ListView)findViewById(R.id.list);
         httpUtil = new HttpUtil();
         intent = getIntent();
+        if(intent.getStringExtra("type") !=null){
+            title.setText("动态详情");
+        }
         ll = (LinearLayout) findViewById(R.id.edit_frame);
         edit = (EditText) findViewById(R.id.edit);
         send = (Button) findViewById(R.id.send);

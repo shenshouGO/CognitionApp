@@ -75,6 +75,7 @@ public class DescribeScene extends AppCompatActivity implements View.OnClickList
                     break;
                 case R.id.add:
                     Intent intent = new Intent(DescribeScene.this, ReleaseScene.class);
+                    intent.putExtra("type","发布情景");
                     startActivity(intent);
                     break;
             }
