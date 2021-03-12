@@ -5,9 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.example.administrator.myapplication2.HotCognitionFragment;
 import com.example.administrator.myapplication2.MainActivity;
 import com.example.administrator.myapplication2.MyFragment;
 import com.example.administrator.myapplication2.RankList;
+import com.example.administrator.myapplication2.ResourceRankFragment;
 
 /**
  * Created by Administrator on 2021/3/6.
@@ -15,15 +17,15 @@ import com.example.administrator.myapplication2.RankList;
 
 public class RankListAdapter extends FragmentPagerAdapter {
     private final int PAGER_COUNT = 4;
-    private MyFragment myFragment1 = null;
-    private MyFragment myFragment2 = null;
+    private HotCognitionFragment myFragment1 = null;
+    private ResourceRankFragment myFragment2 = null;
     private MyFragment myFragment3 = null;
     private MyFragment myFragment4 = null;
 
     public RankListAdapter(FragmentManager fm) {
         super(fm);
-        myFragment1 = MyFragment.newInstance("热评榜");
-        myFragment2 = MyFragment.newInstance("材料榜");
+        myFragment1 = new HotCognitionFragment();
+        myFragment2 = new ResourceRankFragment();
         myFragment3 = MyFragment.newInstance("排位榜");
         myFragment4 = MyFragment.newInstance("积分榜");
     }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.administrator.myapplication2.Adapter.HotCognitionAdapter;
 import com.example.administrator.myapplication2.Adapter.MixedAdapter;
 import com.example.administrator.myapplication2.Adapter.OtherCognitionsAdapter;
 import com.example.administrator.myapplication2.R;
@@ -17,7 +18,9 @@ public class MyStringCallBack extends StringCallback {
 
     public OtherCognitionsAdapter.ViewHolder holder;
     public MixedAdapter.ViewHolder1 holder1;
+    public HotCognitionAdapter.ViewHolder holder2;
     public ImageView v;
+    public int position;
     private Context mContext;
 
     public MyStringCallBack(){
@@ -30,6 +33,11 @@ public class MyStringCallBack extends StringCallback {
 
     public MyStringCallBack(MixedAdapter.ViewHolder1 holder){
         this.holder1 = holder;
+    }
+
+    public MyStringCallBack(int position, HotCognitionAdapter.ViewHolder holder){
+        this.position = position;
+        this.holder2 = holder;
     }
 
     public MyStringCallBack(Context mContext,ImageView v){
