@@ -1,11 +1,6 @@
 package com.example.administrator.myapplication2;
 
-import android.app.Application;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Picture;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.myapplication2.Adapter.HorizontalListViewAdapter;
@@ -29,35 +20,21 @@ import org.json.JSONObject;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import MyClass.HorizontalListView;
 import MyClass.HttpUtil;
-import MyClass.InternetRequest;
 import MyClass.MyStringCallBack;
-import MyClass.UserInfo;
 
 public class PictureStory extends AppCompatActivity {
-    private Button b;
-    private ImageView iv;
     private String path;
-    private Context context;
-    private Dialog dialog;
-    private Bitmap bmp;
-    private ImageView imageView;
-    private boolean big;
-    private Intent intent;
-    private Bundle bundle;
     private HorizontalListView resourceList;
     private HorizontalListViewAdapter hListViewAdapter;
     private List<Resource> resources;
     private ListView lv;
     private ScreenAdapter sa;
     private List<Resource> screens;
-    private InternetRequest IR;
     private JSONObject results;
     private JSONObject JO;
-    private String str;
     private HttpUtil httpUtil;
     final Handler handler = new MyHandler();
     private Message message;

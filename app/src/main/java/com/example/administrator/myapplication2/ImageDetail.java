@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-
 import java.io.File;
 import java.io.FileInputStream;
 

@@ -2,9 +2,7 @@ package com.example.administrator.myapplication2;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -12,13 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.example.administrator.myapplication2.Adapter.IndexPagerAdapter;
-import com.example.administrator.myapplication2.Adapter.MyFragmentPagerAdapter;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by Administrator on 2021/2/26.

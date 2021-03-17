@@ -2,19 +2,38 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "30.0.3"
+    buildToolsVersion "26.0.3"
     defaultConfig {
         applicationId "com.example.administrator.myapplication2"
-        minSdkVersion 23
+        minSdkVersion 20
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled=true
         dexOptions {
             preDexLibraries false
             jumboMode true
             javaMaxHeapSize "2g"
             incremental false
+        }
+
+        manifestPlaceholders = [
+                //从 3.1.2.0 版本开始，APPID 占位符从 GETUI_APP_ID 切换为 GETUI_APPID
+                //后续所有产品的 APPID 均统一配置为 GETUI_APPID 占位符
+                GETUI_APPID       : "F3X4WEsJsY6Aj2rtPP9n9",
+
+                //渠道若为纯数字则不能超过 int 表示的范围。
+                GT_INSTALL_CHANNEL      : "your channel"
+        ]
+
+        ndk {
+            // 注意：这里需要添加项目所需 CPU 类型的最小集
+            abiFilters "armeabi"
+        }
+
+        jackOptions {
+            enabled true
         }
     }
     buildTypes {
@@ -24,8 +43,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility org.gradle.api.JavaVersion.VERSION_1_8
+        targetCompatibility org.gradle.api.JavaVersion.VERSION_1_8
     }
 }
 
@@ -40,9 +59,21 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.8.0'
     compile 'com.lzy.widget:imagepicker:0.5.4'
     compile 'com.zhy:okhttputils:2.6.2'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.android.support:design:25.3.0'
+
+    compile 'com.getui:gtsdk:3.1.4.0'  //个推SDK
+    compile 'com.getui:gtc:3.1.0.0'  //个推核心组件
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    compile 'com.squareup.okhttp3:mockwebserver:3.9.1'
+    compile 'com.squareup.okio:okio:1.11.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.2.6'
+    compile 'io.reactivex.rxjava2:rxandroid:2.1.1'
     testCompile 'junit:junit:4.12'
 }
 

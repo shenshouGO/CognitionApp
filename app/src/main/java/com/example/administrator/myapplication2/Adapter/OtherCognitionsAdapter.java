@@ -1,22 +1,15 @@
 package com.example.administrator.myapplication2.Adapter;
 
 import android.content.Context;
-import android.os.Message;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.administrator.myapplication2.Bean.Answer;
 import com.example.administrator.myapplication2.Bean.OtherCognitions;
-import com.example.administrator.myapplication2.OtherCognition;
-import com.example.administrator.myapplication2.PictureStory;
 import com.example.administrator.myapplication2.R;
 
 import java.util.HashMap;

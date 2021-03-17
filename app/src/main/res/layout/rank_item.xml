@@ -39,6 +39,13 @@
             android:scaleType="fitCenter"
             android:layout_margin="4dp"
             android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/img_pic"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <TextView

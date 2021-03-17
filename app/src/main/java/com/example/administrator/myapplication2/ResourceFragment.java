@@ -1,6 +1,5 @@
 package com.example.administrator.myapplication2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,17 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.administrator.myapplication2.Adapter.ResourceAdapter;
 import com.example.administrator.myapplication2.Bean.Resource;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;

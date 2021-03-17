@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.myapplication2.Adapter.MixedAdapter;
-import com.example.administrator.myapplication2.Adapter.OtherCognitionsAdapter;
 import com.example.administrator.myapplication2.Bean.OtherCognitions;
 
 import org.json.JSONException;

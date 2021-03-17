@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +12,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.administrator.myapplication2.Adapter.HotCognitionAdapter;
-import com.example.administrator.myapplication2.Adapter.OtherCognitionsAdapter;
-import com.example.administrator.myapplication2.Adapter.ResourceAdapter;
 import com.example.administrator.myapplication2.Bean.OtherCognitions;
-import com.example.administrator.myapplication2.Bean.Resource;
 
 import org.json.JSONObject;
 
@@ -45,6 +40,7 @@ public class HotCognitionFragment extends Fragment {
     private List<OtherCognitions> resources;
     private HotCognitionAdapter resourceAdapter;
     final Handler handler = new MyHandler();
+    private Intent intent;
     private HttpUtil httpUtil;
     private Map<String,String> params;
     private Date date;
@@ -63,10 +59,10 @@ public class HotCognitionFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 try{
-//                    intent = new Intent(getContext(),TextDetail.class);
-//                    intent.putExtra("info", results.getJSONObject(""+i).toString());
-//                    startActivity(intent);
-                    Toast.makeText(getActivity(),i+"",Toast.LENGTH_SHORT).show();
+                    intent = new Intent(getContext(),CognitionDetail.class);
+                    intent.putExtra("info", results.getJSONObject(""+i).toString());
+                    startActivity(intent);
+//                    Toast.makeText(getActivity(),i+"",Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
                     e.printStackTrace();
                 }

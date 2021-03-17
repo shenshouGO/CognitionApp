@@ -5,9 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
-
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -22,8 +19,8 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try{
                     sleep(1000);//使程序休眠1秒
-                    Intent it=new Intent(getApplicationContext(),Login.class);//启动MainActivity
-//                    Intent it=new Intent(getApplicationContext(),Test.class);
+//                    Intent it=new Intent(getApplicationContext(),Login.class);//启动MainActivity
+                    Intent it=new Intent(getApplicationContext(),Test.class);
                     startActivity(it);
                     finish();//关闭当前活动
                 }catch (Exception e){

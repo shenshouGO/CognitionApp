@@ -8,33 +8,27 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Contacts;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.myapplication2.Adapter.CommentAdapter;
 import com.example.administrator.myapplication2.Bean.Comment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -50,6 +44,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
     private CustomVideoView video;
     private MediaController mediaController;
     private TextView text;
+    private ImageView img;
     private ListView list;
     private TextView good;
     private TextView unlike;
@@ -88,6 +83,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         httpUtil = new HttpUtil();
         video = (CustomVideoView)findViewById(R.id.video);
         text = (TextView) findViewById(R.id.text);
+        img = (ImageView) findViewById(R.id.img);
         list = (ListView) findViewById(R.id.list);
         good = (TextView) findViewById(R.id.good);
         unlike = (TextView) findViewById(R.id.unlike);
@@ -108,7 +104,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
             if(info.getString("type").equals("视频")){
                 text.setVisibility(View.GONE);
                 setVideo();
-            }else{
+            }else if(info.getString("type").equals("文本")){
                 video.setVisibility(View.GONE);
                 params = new HashMap<String, String>();
                 params.put("file",info.getString("file"));
@@ -119,6 +115,11 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
                         text.setText(response);
                     }
                 });
+            }else{
+                text.setVisibility(View.GONE);
+                video.setVisibility(View.GONE);
+                img.setVisibility(View.VISIBLE);
+                Glide.with(TextDetail.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(img);
             }
             displayComments();
         } catch (JSONException e) {

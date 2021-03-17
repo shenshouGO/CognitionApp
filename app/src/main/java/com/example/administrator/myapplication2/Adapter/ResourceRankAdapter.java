@@ -2,7 +2,6 @@ package com.example.administrator.myapplication2.Adapter;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +11,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.myapplication2.Bean.JsonBean;
-import com.example.administrator.myapplication2.Bean.OtherCognitions;
 import com.example.administrator.myapplication2.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import MyClass.HttpUtil;
-import MyClass.MyStringCallBack;
 import MyClass.VedioAsyncTask;
 
 /**
@@ -97,6 +92,7 @@ public class ResourceRankAdapter extends BaseAdapter {
                 holder1 = new HotCognitionAdapter.ViewHolder();
                 holder1.rank = (TextView) convertView.findViewById(R.id.rank);
                 holder1.img_resource = (ImageView) convertView.findViewById(R.id.img_resource);
+                holder1.img_pic = (ImageView) convertView.findViewById(R.id.img_pic);
                 holder1.title = (TextView) convertView.findViewById(R.id.title);
                 convertView.setTag(holder1);
             }else{
@@ -113,12 +109,14 @@ public class ResourceRankAdapter extends BaseAdapter {
                     holder1.title.setText(split[0]);
                     holder1.img_resource.setVisibility(View.VISIBLE);
                     holder1.img_resource.setImageResource(R.drawable.banner_default);
+                    holder1.img_pic.setVisibility(View.GONE);
                     VedioAsyncTask vedioAsyncTask = new VedioAsyncTask(holder1.img_resource);
                     vedioAsyncTask.execute("http://192.168.154.1:8080/file/"+file);
                     break;
                 case TEXT:
                     Log.e("文本",file);
                     holder1.img_resource.setVisibility(View.GONE);
+                    holder1.img_pic.setVisibility(View.GONE);
                     holder1.rank.setText(position+1+"");
                     holder1.title.setVisibility(View.VISIBLE);
                     holder1.title.setText(split[0]);
@@ -127,11 +125,10 @@ public class ResourceRankAdapter extends BaseAdapter {
                     Log.e("图片",file);
                     holder1.rank.setText(position+1+"");
                     holder1.title.setVisibility(View.GONE);
-                    holder1.img_resource.setVisibility(View.VISIBLE);
-                    holder1.img_resource.setImageResource(R.drawable.banner_default);
-                    Glide.with(mContext).load("http://192.168.154.1:8080/file/"+file).into(holder1.img_resource);
-//                    holder3.rank.setText(position+1+"");
-//                    holder3.title.setVisibility(View.GONE);
+                    holder1.img_resource.setVisibility(View.GONE);
+                    holder1.img_pic.setVisibility(View.VISIBLE);
+                    holder1.img_pic.setImageResource(R.drawable.banner_default);
+                    Glide.with(mContext).load("http://192.168.154.1:8080/file/"+file).into(holder1.img_pic);
                     break;
             }
         } catch (JSONException e) {

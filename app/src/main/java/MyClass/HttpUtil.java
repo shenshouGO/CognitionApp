@@ -46,6 +46,17 @@ public class HttpUtil {
         okHttpClient = new OkHttpClient();
     }
 
+    //Json请求
+    public static void postJson(String url, String params, MyStringCallBack callback){
+        OkHttpUtils
+                .postString()
+                .url(url)
+                .content(params)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .build()
+                .execute(callback);
+    }
+
     //封装请求
     public void postRequest(String url, Map<String, String> params, MyStringCallBack callback) {
         Log.e("Request URL",url);

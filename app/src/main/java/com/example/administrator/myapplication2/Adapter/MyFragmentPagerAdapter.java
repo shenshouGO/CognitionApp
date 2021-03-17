@@ -9,10 +9,7 @@ import com.example.administrator.myapplication2.DynamicFragment;
 import com.example.administrator.myapplication2.GameFragment;
 import com.example.administrator.myapplication2.IndexFragment;
 import com.example.administrator.myapplication2.MainActivity;
-import com.example.administrator.myapplication2.MyFragment;
 import com.example.administrator.myapplication2.MyInfo;
-import com.example.administrator.myapplication2.R;
-import com.example.administrator.myapplication2.Test;
 
 /**
  * Created by Administrator on 2021/2/25.

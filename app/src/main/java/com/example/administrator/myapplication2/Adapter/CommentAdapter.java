@@ -15,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.administrator.myapplication2.Bean.Answer;
 import com.example.administrator.myapplication2.Bean.Comment;
 import com.example.administrator.myapplication2.R;
 

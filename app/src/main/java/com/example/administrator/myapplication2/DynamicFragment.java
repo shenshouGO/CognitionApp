@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.myapplication2.Adapter.DynamicAdapter;
-import com.example.administrator.myapplication2.Adapter.OtherCognitionsAdapter;
 import com.example.administrator.myapplication2.Bean.OtherCognitions;
 
 import org.json.JSONObject;
@@ -151,8 +150,8 @@ public class DynamicFragment extends Fragment implements View.OnClickListener{
     private void displayDynamic(){
         final UserInfo UI = (UserInfo)getActivity().getApplication();
         params = new HashMap<String, String>();
-        params.put("ID",UI.getId());
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displayArticle.do",params,new MyStringCallBack() {
+        params.put("sql","select * from cognition_resource where u_id = "+UI.getId()+" and type = '动态' order by time desc");
+        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);

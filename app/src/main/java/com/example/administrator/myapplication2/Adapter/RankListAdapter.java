@@ -6,10 +6,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.example.administrator.myapplication2.HotCognitionFragment;
-import com.example.administrator.myapplication2.MainActivity;
-import com.example.administrator.myapplication2.MyFragment;
 import com.example.administrator.myapplication2.RankList;
 import com.example.administrator.myapplication2.ResourceRankFragment;
+import com.example.administrator.myapplication2.UserRankFragment;
 
 /**
  * Created by Administrator on 2021/3/6.
@@ -19,15 +18,15 @@ public class RankListAdapter extends FragmentPagerAdapter {
     private final int PAGER_COUNT = 4;
     private HotCognitionFragment myFragment1 = null;
     private ResourceRankFragment myFragment2 = null;
-    private MyFragment myFragment3 = null;
-    private MyFragment myFragment4 = null;
+    private UserRankFragment myFragment3 = null;
+    private UserRankFragment myFragment4 = null;
 
     public RankListAdapter(FragmentManager fm) {
         super(fm);
         myFragment1 = new HotCognitionFragment();
         myFragment2 = new ResourceRankFragment();
-        myFragment3 = MyFragment.newInstance("排位榜");
-        myFragment4 = MyFragment.newInstance("积分榜");
+        myFragment3 = UserRankFragment.newInstance(0);
+        myFragment4 = UserRankFragment.newInstance(1);
     }
 
     @Override

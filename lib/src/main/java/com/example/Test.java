@@ -1,16 +1,8 @@
 package com.example;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Administrator on 2020/12/30.
@@ -18,27 +10,44 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
-        try {
-            InputStream is = new FileInputStream("f:/resource/" + "认知焦虑测评.txt");
-            InputStreamReader reader = new InputStreamReader(is,"UTF-8");
-            BufferedReader br = new BufferedReader(reader);
-            String line;
-            String s="";
-            while ((line = br.readLine()) != null) {
-                s+=line+"\n";
-            }
+        String appkey = "YuPK31YsFr8cEaAjSEAku1";
+        String timestamp = ""+System.currentTimeMillis();
+        System.out.println(timestamp);
+        String masterSecret = "kINn82fIED9DFCyWJANKH";
+        System.out.print(shaEncrypt(appkey+timestamp+masterSecret));
+    }
 
-            br.close();
-            reader.close();
-            is.close();
-            System.out.println(s);
-            String[] split = s.split("\n");
-            int[] ints = new int[split.length];
-            for(int i = 0;i<ints.length;i++){
-                System.out.println(i+" "+ints[i]);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static String shaEncrypt(String strSrc) {
+        MessageDigest md = null;
+        String strDes = null;
+        byte[] bt = strSrc.getBytes();
+        try {
+            md = MessageDigest.getInstance("SHA-256");// 将此换成SHA-1、SHA-512、SHA-384等参数
+            md.update(bt);
+            strDes = bytes2Hex(md.digest()); // to HexString
+        } catch (NoSuchAlgorithmException e) {
+            return null;
         }
+        return strDes;
+    }
+
+    /**
+     * byte数组转换为16进制字符串
+     *
+     * @param bts
+     *            数据源
+     * @return 16进制字符串
+     */
+    private static String bytes2Hex(byte[] bts) {
+        String des = "";
+        String tmp = null;
+        for (int i = 0; i < bts.length; i++) {
+            tmp = (Integer.toHexString(bts[i] & 0xFF));
+            if (tmp.length() == 1) {
+                des += "0";
+            }
+            des += tmp;
+        }
+        return des;
     }
 }

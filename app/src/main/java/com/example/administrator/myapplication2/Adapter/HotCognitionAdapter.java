@@ -1,7 +1,6 @@
 package com.example.administrator.myapplication2.Adapter;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +89,7 @@ public class HotCognitionAdapter extends BaseAdapter {
         TextView rank;
         ImageView img_resource;
         ImageView img_head;
+        ImageView img_pic;
         TextView title;
         TextView text;
     }

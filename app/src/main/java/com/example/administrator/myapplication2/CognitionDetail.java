@@ -1,11 +1,8 @@
 package com.example.administrator.myapplication2;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -93,9 +90,6 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     private String r_img;
     private Button delete;
     private ThreadPoolExecutor tpe;
-    private String userId;
-    private String userName;
-    private String userImg;
     private HttpUtil httpUtil;
     private Map<String,String> params;
     private String[] split;
@@ -130,8 +124,6 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         tpe = new ThreadPoolExecutor(3, 5, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
         isScore = false;
         httpUtil = new HttpUtil();
-
-        userName = UI.getName();
 
         intent = this.getIntent();
         try{

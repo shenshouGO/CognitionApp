@@ -2,7 +2,6 @@ package MyClass;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -15,11 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.myapplication2.PhotoView;
 import com.example.administrator.myapplication2.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 

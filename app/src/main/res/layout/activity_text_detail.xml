@@ -21,6 +21,14 @@
             android:text="@string/text"
             android:textSize="25dp"
             android:background="@color/white"/>
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            android:background="@color/white"/>
     </RelativeLayout>
 
     <ListView
