@@ -27,7 +27,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         myFragment1 = new IndexFragment();
-        myFragment2 = GameFragment.newInstance("{}");
+        myFragment2 = new GameFragment();
         myFragment3 = new DynamicFragment();
         myFragment4 = MyInfo.newInstance("{}");
     }

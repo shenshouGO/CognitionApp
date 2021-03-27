@@ -3,6 +3,9 @@ package com.example;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2020/12/30.
@@ -10,44 +13,14 @@ import java.security.NoSuchAlgorithmException;
 
 public class Test {
     public static void main(String[] args) {
-        String appkey = "YuPK31YsFr8cEaAjSEAku1";
-        String timestamp = ""+System.currentTimeMillis();
-        System.out.println(timestamp);
-        String masterSecret = "kINn82fIED9DFCyWJANKH";
-        System.out.print(shaEncrypt(appkey+timestamp+masterSecret));
-    }
-
-    public static String shaEncrypt(String strSrc) {
-        MessageDigest md = null;
-        String strDes = null;
-        byte[] bt = strSrc.getBytes();
+        String s = "1999-7-21";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
         try {
-            md = MessageDigest.getInstance("SHA-256");// 将此换成SHA-1、SHA-512、SHA-384等参数
-            md.update(bt);
-            strDes = bytes2Hex(md.digest()); // to HexString
-        } catch (NoSuchAlgorithmException e) {
-            return null;
+            date = simpleDateFormat.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        return strDes;
-    }
-
-    /**
-     * byte数组转换为16进制字符串
-     *
-     * @param bts
-     *            数据源
-     * @return 16进制字符串
-     */
-    private static String bytes2Hex(byte[] bts) {
-        String des = "";
-        String tmp = null;
-        for (int i = 0; i < bts.length; i++) {
-            tmp = (Integer.toHexString(bts[i] & 0xFF));
-            if (tmp.length() == 1) {
-                des += "0";
-            }
-            des += tmp;
-        }
-        return des;
+        System.out.println(date.getTime());
     }
 }

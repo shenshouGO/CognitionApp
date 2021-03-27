@@ -84,6 +84,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/userdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_data"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:drawableRight="@drawable/more"
+            android:gravity="center_vertical"/>
+        <TextView
             android:id="@+id/integral"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

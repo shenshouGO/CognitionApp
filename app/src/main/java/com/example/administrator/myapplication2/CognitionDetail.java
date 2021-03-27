@@ -361,12 +361,13 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     }
 
     private void createScore(){
+        final UserInfo UI = (UserInfo)getApplication();
         tpe.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     IR.addPara("c_r_id",info.getString("id"));
-                    IR.addPara("u_id","1");
+                    IR.addPara("u_id",UI.getId());
                     IR.addPara("validity_score",""+valid);
                     IR.addPara("novelty_score",""+novel);
                     str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createScore.do");
@@ -383,13 +384,14 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     }
 
     private void Good(){
+        final UserInfo UI = (UserInfo)getApplication();
         tpe.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     if(goodId.equals("0")){
                         IR.addPara("c_id",info.getString("id"));
-                        IR.addPara("u_id","1");
+                        IR.addPara("u_id",UI.getId());
                         str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createCognitionGood.do");
                     }else{
                         IR.addPara("ID",goodId);
@@ -407,12 +409,13 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     }
 
     private void isGood(){
+        final UserInfo UI = (UserInfo)getApplication();
         tpe.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     IR.addPara("c_id",info.getString("id"));
-                    IR.addPara("u_id","1");
+                    IR.addPara("u_id",UI.getId());
                     str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/matchUserAndCognitionGood.do");
 
                     if(str.equals("No give good"))
@@ -422,7 +425,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     Log.e("goodId",goodId);
 
                     IR.addPara("c_r_id",info.getString("id"));
-                    IR.addPara("u_id","1");
+                    IR.addPara("u_id",UI.getId());
                     str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/matchUserAndScore.do");
 
                     if(str.equals("Unevaluated")){
@@ -476,12 +479,13 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     }
 
     private void createComment(final String comment){
+        final UserInfo UI = (UserInfo)getApplication();
         tpe.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     IR.addPara("c_r_id",info.getString("id"));
-                    IR.addPara("u_id","1");
+                    IR.addPara("u_id",UI.getId());
 //                    IR.addPara("u_name",UI.getName());
                     IR.addPara("u_img","null.jpg");
                     if(isComment){

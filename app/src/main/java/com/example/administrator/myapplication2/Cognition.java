@@ -70,7 +70,7 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
         final UserInfo UI = (UserInfo)getApplication();
         try{
             info = new JSONObject(intent.getStringExtra("info"));
-            Glide.with(Cognition.this).load("http://47.95.197.189:8080/file/"+info.getString("file")).into(pic);
+            Glide.with(Cognition.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(pic);
 
             IR = new InternetRequest();
         }catch (Exception e){
@@ -86,19 +86,20 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void run() {
                         try {
-                            IR.addPara("ID","1");
+                            IR.addPara("ID",UI.getId());
                             IR.addPara("u_name",UI.getName());
-                            IR.addPara("u_img","null.jpg");
+                            IR.addPara("u_img",UI.getImg());
                             IR.addPara("c_r_id",info.getString("id"));
                             IR.addPara("c_r_file",info.getString("file"));
                             IR.addPara("cognition",data);
-                            str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/createCognition.do");
+                            str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createCognition.do");
 //                            str = "Create successfully";
 
                             if(str.equals("Create successfully")){
                                 intent = new Intent(Cognition.this, OtherCognition.class);
                                 intent.putExtra("info", info.toString());
                                 startActivity(intent);
+                                finish();
                             }else{
                                 Looper.prepare();
                                 Toast.makeText(Cognition.this,"重评失败！",Toast.LENGTH_SHORT).show();

@@ -11,7 +11,7 @@
     <string name="game">游戏</string>
     <string name="dynamic">动态</string>
     <string name="me">我的</string>
-    <string name="nickname">XXX(昵称)</string>
+    <string name="nickname">昵称</string>
     <string name="comment">评论</string>
     <string name="good">点赞</string>
     <string name="unlike">不喜欢</string>
@@ -53,6 +53,20 @@
     <string name="resource_list">材料榜</string>
     <string name="rank_list">排位榜</string>
     <string name="integral_list">积分榜</string>
+    <string name="good_and_score">赞和评分</string>
+    <string name="add_focus">新增关注</string>
+    <string name="user_data">详细资料</string>
+    <string name="edit_user_data">修改资料</string>
+    <string name="preserve">保存</string>
+    <string name="sex">性别</string>
+    <string name="age">年龄</string>
+    <string name="birthday">生日</string>
+    <string name="job">职业</string>
+    <string name="telephone">电话</string>
+    <string name="email">邮箱</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="no"></string>
 
     <string name="holder1">holder1</string>
     <string name="holder2">holder2</string>

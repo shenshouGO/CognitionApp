@@ -22,6 +22,8 @@ import MyClass.MyStringCallBack;
 import MyClass.UserInfo;
 import okhttp3.Call;
 
+import static com.example.administrator.myapplication2.RegisterActivity.CheckMobilePhoneNum;
+
 public class Login extends AppCompatActivity implements View.OnClickListener{
     private EditText account;
     private EditText password;
@@ -63,36 +65,42 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     if (TextUtils.isEmpty(account.getText()) || TextUtils.isEmpty(password.getText())) {
                         Toast.makeText(Login.this,"账号或密码不可为空！",Toast.LENGTH_SHORT).show();
                     }else{
-                        params = new HashMap<String ,String>();
-                        params.put("telephone",account.getText().toString());
-                        params.put("password",password.getText().toString());
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/passwordLogin.do",params,new MyStringCallBack(){
-                            @Override
-                            public void onError(Call call, Exception e, int id) {
-                                Toast.makeText(Login.this,"登录失败！",Toast.LENGTH_SHORT).show();
-                            }
+                        if(!CheckMobilePhoneNum(account.getText().toString())) {
+                            Toast.makeText(Login.this, "请输入正确手机号格式！", Toast.LENGTH_SHORT).show();
+                        }else{
+                            params = new HashMap<String ,String>();
+                            params.put("telephone",account.getText().toString());
+                            params.put("password",password.getText().toString());
+                            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/passwordLogin.do",params,new MyStringCallBack(){
+                                @Override
+                                public void onError(Call call, Exception e, int id) {
+                                    Toast.makeText(Login.this,"登录失败！",Toast.LENGTH_SHORT).show();
+                                }
 
-                            @Override
-                            public void onResponse(String response, int id) {
-                                if(response.equals("Password error")){
-                                    Toast.makeText(Login.this,"密码错误！",Toast.LENGTH_SHORT).show();
-                                }else{
-                                    try {
-                                        JSONObject JO = new JSONObject(response);
-                                        sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("id", JO.getString("id"));
-                                        editor.putString("user_name", JO.getString("name"));
-                                        editor.putString("img", JO.getString("img_name"));
-                                        editor.putString("telephone", JO.getString("telephone"));
-                                        editor.commit();
-                                        signIn();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                                @Override
+                                public void onResponse(String response, int id) {
+                                    if(response.equals("Password error")){
+                                        Toast.makeText(Login.this,"密码错误！",Toast.LENGTH_SHORT).show();
+                                    }else if (response.equals("Unregistered")){
+                                        Toast.makeText(Login.this,"该手机号未被注册！",Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        try {
+                                            JSONObject JO = new JSONObject(response);
+                                            sharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("id", JO.getString("id"));
+                                            editor.putString("user_name", JO.getString("name"));
+                                            editor.putString("img", JO.getString("img_name"));
+                                            editor.putString("telephone", JO.getString("telephone"));
+                                            editor.commit();
+                                            signIn();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                     break;
                 case R.id.forget_password:

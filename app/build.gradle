@@ -10,7 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled=true
+        multiDexEnabled = true
         dexOptions {
             preDexLibraries false
             jumboMode true
@@ -24,7 +24,7 @@ android {
                 GETUI_APPID       : "F3X4WEsJsY6Aj2rtPP9n9",
 
                 //渠道若为纯数字则不能超过 int 表示的范围。
-                GT_INSTALL_CHANNEL      : "your channel"
+                GT_INSTALL_CHANNEL: "your channel"
         ]
 
         ndk {
@@ -53,6 +53,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    //个推SDK
+    //个推核心组件
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:26.+'
@@ -61,9 +64,8 @@ dependencies {
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.android.support:design:25.3.0'
-
-    compile 'com.getui:gtsdk:3.1.4.0'  //个推SDK
-    compile 'com.getui:gtc:3.1.0.0'  //个推核心组件
+    compile 'com.getui:gtsdk:3.1.4.0'
+    compile 'com.getui:gtc:3.1.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     compile 'com.squareup.okhttp3:mockwebserver:3.9.1'

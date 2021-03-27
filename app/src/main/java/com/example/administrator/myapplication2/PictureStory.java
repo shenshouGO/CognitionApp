@@ -18,6 +18,7 @@ import com.example.administrator.myapplication2.Bean.Resource;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -69,9 +70,11 @@ public class PictureStory extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.resourceScreen);
         resources = new LinkedList<Resource>() ;
         screens = new LinkedList<Resource>() ;
-        path = "http://47.95.197.189:8080/file/";
+        path = "http://192.168.154.1:8080/file/";
 
-        httpUtil.postRequest("http://47.95.197.189:8080/CognitionAPP/displayCognitionResource.do",null,new MyStringCallBack() {
+        HashMap<String,String> params = new HashMap<String ,String>();
+        params.put("sql","select * from cognition_resource where type = '图片' order by score desc");
+        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);

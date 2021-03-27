@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +36,6 @@ public class DescribeScene extends AppCompatActivity implements View.OnClickList
     private OtherCognitionsAdapter oca;
     final Handler handler = new MyHandler();
     private HttpUtil httpUtil;
-    private String url;
     private Date date;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private Intent intent;
@@ -90,7 +90,9 @@ public class DescribeScene extends AppCompatActivity implements View.OnClickList
     }
 
     private void displayScene(){
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displayScene.do",null,new MyStringCallBack() {
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("sql","select * from cognition_resource where unit = 1 and type = '情景' order by time desc");
+        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);

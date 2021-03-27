@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -71,6 +72,8 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
     private JSONObject info;
     private HttpUtil httpUtil;
     private Map<String,String> params;
+    private int goodId;
+    private int dislikeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +154,9 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         send.setOnClickListener(this);
         delete.setOnClickListener(this);
 
+        goodId = 0;
+        dislikeId = 0;
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
@@ -180,6 +186,98 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
                 }
             }
         });
+
+        initFunction();
+    }
+
+    private void initFunction(){
+        final UserInfo UI = (UserInfo)getApplication();
+        try {
+            params = new HashMap<String, String>();
+            params.put("r_id",info.getString("id"));
+            params.put("u_id",UI.getId());
+            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/matchUserAndResourceGood.do",params,new MyStringCallBack() {
+                @Override
+                public void onResponse(String response, int id) {
+                    super.onResponse(response, id);
+                    if (!response.equals("No give good")){
+                        goodId = Integer.parseInt(response);
+
+                        message = Message.obtain();
+                        message.what = 3;
+                        handler.sendMessage(message);
+                    }
+                }
+            });
+
+            params = new HashMap<String, String>();
+            params.put("sql","select id from resource_dislike where u_id="+UI.getId()+" and r_id = "+info.getString("id"));
+            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                @Override
+                public void onResponse(String response, int id) {
+                    super.onResponse(response, id);
+                    if (!response.equals("{}")){
+                        try {
+                            JO = new JSONObject(response);
+                            dislikeId = JO.getJSONObject("0").getInt("id");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        message = Message.obtain();
+                        message.what = 4;
+                        handler.sendMessage(message);
+                    }
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Log.e("MyHandler :",""+msg.what);
+            try {
+                switch (msg.what){
+                    case 1://收起编辑区和输入法
+                        edit_frame.setVisibility(View.INVISIBLE);
+                        delete.setVisibility(View.INVISIBLE);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if(imm != null)
+                            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+                        break;
+                    case 2://更新评论区
+                        ca = new CommentAdapter(TextDetail.this,comments);
+                        list.setAdapter(ca);
+                        break;
+                    case 3://渲染点赞
+                        Drawable drawable_good;
+                        if (goodId == 0){
+                            drawable_good = getDrawable(R.drawable.disgood);
+                        }else{
+                            drawable_good = getDrawable(R.drawable.isgood);
+                        }
+                        drawable_good.setBounds(0, 0, 50, 45);
+                        good.setCompoundDrawables(null, drawable_good, null, null);
+                        break;
+                    case 4://渲染不喜欢
+                        Drawable drawable_dislike;
+                        if (dislikeId == 0){
+                            drawable_dislike = getDrawable(R.drawable.unlike);
+                        }else{
+                            drawable_dislike = getDrawable(R.drawable.unlike1);
+                        }
+                        drawable_dislike.setBounds(0, 0, 50, 45);
+                        unlike.setCompoundDrawables(null, drawable_dislike, null, null);
+                        break;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setVideo(){
@@ -216,12 +314,117 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v){
+        final UserInfo UI = (UserInfo)getApplication();
         switch (v.getId()){
             case R.id.good:
-                Toast.makeText(TextDetail.this,"点赞",Toast.LENGTH_SHORT).show();
+                if(goodId == 0){
+                    params = new HashMap<String, String>();
+                    try {
+                        params.put("r_id",info.getString("id"));
+                        params.put("u_id",UI.getId());
+                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createResourceGood.do",params,new MyStringCallBack() {
+                            @Override
+                            public void onResponse(String response, int id) {
+                                super.onResponse(response, id);
+                                Log.e("TextDetail :",response);
+                                switch (response){
+                                    case "Insert good unsuccessfully":
+                                    case "Update good unsuccessfully":
+                                    case "Give good unsuccessfully":
+                                        Toast.makeText(TextDetail.this,"点赞失败",Toast.LENGTH_SHORT).show();
+                                        Log.e("TextDetail 点赞失败:",response);
+                                        break;
+                                    default:
+                                        goodId = Integer.parseInt(response);
+                                        message = Message.obtain();
+                                        message.what = 3;
+                                        handler.sendMessage(message);
+                                }
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    params = new HashMap<String, String>();
+                    params.put("ID",""+goodId);
+                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/deleteResourceGood.do",params,new MyStringCallBack() {
+                        @Override
+                        public void onResponse(String response, int id) {
+                            super.onResponse(response, id);
+                            Log.e("TextDetail :",response);
+                            switch (response){
+                                case "Good is unexited":
+                                case "Delete unsuccessfully":
+                                case "update unsuccessfully":
+                                    Toast.makeText(TextDetail.this,"点赞失败",Toast.LENGTH_SHORT).show();
+                                    Log.e("TextDetail 点赞失败:",response);
+                                    break;
+                                case "Delete successfully":
+                                    goodId = 0;
+                                    message = Message.obtain();
+                                    message.what = 3;
+                                    handler.sendMessage(message);
+                            }
+                        }
+                    });
+                }
                 break;
             case R.id.unlike:
-                Toast.makeText(TextDetail.this,"不喜欢",Toast.LENGTH_SHORT).show();
+                if(dislikeId == 0){
+                    params = new HashMap<String, String>();
+                    try {
+                        params.put("r_id",info.getString("id"));
+                        params.put("u_id",UI.getId());
+                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createResourceDislike.do",params,new MyStringCallBack() {
+                            @Override
+                            public void onResponse(String response, int id) {
+                                super.onResponse(response, id);
+                                Log.e("TextDetail :",response);
+                                switch (response){
+                                    case "Insert dislike unsuccessfully":
+                                    case "Update dislike unsuccessfully":
+                                    case "Give dislike unsuccessfully":
+                                        Toast.makeText(TextDetail.this,"不喜欢失败",Toast.LENGTH_SHORT).show();
+                                        Log.e("TextDetail 不喜欢失败:",response);
+                                        break;
+                                    default:
+                                        dislikeId = Integer.parseInt(response);
+                                        message = Message.obtain();
+                                        message.what = 4;
+                                        handler.sendMessage(message);
+                                }
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    params = new HashMap<String, String>();
+                    params.put("ID",""+dislikeId);
+                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/deleteResourceDislike.do",params,new MyStringCallBack() {
+                        @Override
+                        public void onResponse(String response, int id) {
+                            super.onResponse(response, id);
+                            Log.e("TextDetail :",response);
+                            switch (response){
+                                case "Dislike is unexited":
+                                case "Delete unsuccessfully":
+                                case "update unsuccessfully":
+                                    Toast.makeText(TextDetail.this,"不喜欢失败",Toast.LENGTH_SHORT).show();
+                                    Log.e("TextDetail 不喜欢失败:",response);
+                                    break;
+                                case "Delete successfully":
+                                    dislikeId = 0;
+                                    message = Message.obtain();
+                                    message.what = 4;
+                                    handler.sendMessage(message);
+                            }
+                        }
+                    });
+                }
                 break;
             case R.id.comment:
                 isComment = true;
@@ -280,9 +483,6 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
             params.put("u_id",UI.getId());
             params.put("u_name",UI.getName());
             params.put("u_img",UI.getImg());
-//            params.put("u_id","1");
-//            params.put("u_name","t1");
-//            params.put("u_img","t1.jpg");
             if(isComment){
                 params.put("s_c_id","0");
                 params.put("r_u_id","0");
@@ -345,30 +545,6 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
             });
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-    }
-
-    private class MyHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            try {
-                switch (msg.what){
-                    case 1://收起编辑区和输入法
-                        edit_frame.setVisibility(View.INVISIBLE);
-                        delete.setVisibility(View.INVISIBLE);
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        if(imm != null)
-                            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-                        break;
-                    case 2://更新评论区
-                        ca = new CommentAdapter(TextDetail.this,comments);
-                        list.setAdapter(ca);
-                        break;
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
         }
     }
 

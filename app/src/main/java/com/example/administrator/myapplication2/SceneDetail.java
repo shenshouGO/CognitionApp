@@ -103,11 +103,11 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
             switch (v.getId()) {
                 case R.id.send:
                     String s =edit.getText().toString();
+                    edit.setText("");
                     params = new HashMap<String, String>();
-                    params.put("ID","1");
-//                    params.put("u_name",UI.getName());
-                    params.put("u_name","XXX");
-                    params.put("u_img","null.jpg");
+                    params.put("ID",UI.getId());
+                    params.put("u_name",UI.getName());
+                    params.put("u_img",UI.getImg());
                     params.put("c_r_id",info.getString("id"));
                     params.put("c_r_file",info.getString("file"));
                     params.put("cognition",s);

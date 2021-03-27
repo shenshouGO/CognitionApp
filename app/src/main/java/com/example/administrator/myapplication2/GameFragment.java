@@ -1,25 +1,18 @@
 package com.example.administrator.myapplication2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * Created by Administrator on 2021/2/26.
  */
 
 public class GameFragment extends Fragment implements View.OnClickListener{
-    private Context context;
-    private JSONObject Info;
     private TextView pictureStory;
     private TextView describeScene;
     private TextView gameUnit;
@@ -60,27 +53,6 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                 intent = new Intent(getActivity(), AssessReort.class);
                 startActivity(intent);
                 break;
-        }
-    }
-
-    public static final GameFragment newInstance(String info)
-    {
-        GameFragment fragment = new GameFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("info", info);
-        fragment.setArguments(bundle);
-
-        return fragment ;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        try {
-            Info = new JSONObject(getArguments().getString("info"));
-            context = getContext();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 }

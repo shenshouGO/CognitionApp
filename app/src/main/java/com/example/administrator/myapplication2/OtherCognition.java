@@ -73,7 +73,7 @@ public class OtherCognition extends AppCompatActivity {
         intent = this.getIntent();
         try{
             info = new JSONObject(intent.getStringExtra("info"));
-            Glide.with(OtherCognition.this).load("http://47.95.197.189:8080/file/"+info.getString("file")).into(pic);
+            Glide.with(OtherCognition.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(pic);
             Log.e("show successfully:","");
 
             IR = new InternetRequest();
@@ -114,7 +114,7 @@ public class OtherCognition extends AppCompatActivity {
             public void run() {
                 try {
                     IR.addPara("ID",info.getString("id"));
-                    str = IR.requestPost("http://47.95.197.189:8080/CognitionAPP/displayCognition.do");
+                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/displayCognition.do");
                     results = new JSONObject(str);
                     resources = new LinkedList<OtherCognitions>() ;
                     for(int i = 0;i<results.length();i++){

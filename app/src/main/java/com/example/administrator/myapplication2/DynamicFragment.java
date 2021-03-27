@@ -97,9 +97,9 @@ public class DynamicFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.message:
-//                intent = new Intent(getActivity(), PictureStory.class);
-//                startActivity(intent);
-                Toast.makeText(getActivity(),"消息",Toast.LENGTH_SHORT).show();
+                intent = new Intent(getActivity(), MessageActivity.class);
+                startActivity(intent);
+//                Toast.makeText(getActivity(),"消息",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.focus:
 //                intent = new Intent(getActivity(), DescribeScene.class);

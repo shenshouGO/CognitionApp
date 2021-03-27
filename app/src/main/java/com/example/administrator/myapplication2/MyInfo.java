@@ -33,13 +33,14 @@ public class MyInfo extends Fragment implements View.OnClickListener{
     private TextView focus;
     private TextView good;
     private TextView rank;
+    private TextView userData;
     private TextView integral;
     private TextView help;
     private TextView out;
+    private Intent intent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final UserInfo UI = (UserInfo)getActivity().getApplication();
         View view = inflater.inflate(R.layout.my_info, container, false);
         img = (ImageView)view.findViewById(R.id.img);
         name = (TextView) view.findViewById(R.id.name);
@@ -48,14 +49,10 @@ public class MyInfo extends Fragment implements View.OnClickListener{
         focus = (TextView) view.findViewById(R.id.focus);
         good = (TextView) view.findViewById(R.id.good);
         rank = (TextView) view.findViewById(R.id.rank);
+        userData = (TextView) view.findViewById(R.id.userdata);
         integral = (TextView) view.findViewById(R.id.integral);
         help = (TextView) view.findViewById(R.id.help);
         out = (TextView) view.findViewById(R.id.out);
-        name.setText(UI.getName());
-        comment.setText("0\n"+context.getResources().getString(R.string.comment));
-        focus.setText("0\n"+context.getResources().getString(R.string.focus));
-        good.setText("0\n"+context.getResources().getString(R.string.good));
-        rank.setText("0\n"+context.getResources().getString(R.string.rank));
 
         img.setOnClickListener(this);
         name.setOnClickListener(this);
@@ -64,11 +61,27 @@ public class MyInfo extends Fragment implements View.OnClickListener{
         focus.setOnClickListener(this);
         good.setOnClickListener(this);
         rank.setOnClickListener(this);
+        userData.setOnClickListener(this);
         integral.setOnClickListener(this);
         help.setOnClickListener(this);
         out.setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        display();
+    }
+
+    private void display(){
+        final UserInfo UI = (UserInfo)getActivity().getApplication();
+        name.setText(UI.getName());
+        comment.setText("0\n"+context.getResources().getString(R.string.comment));
+        focus.setText("0\n"+context.getResources().getString(R.string.focus));
+        good.setText("0\n"+context.getResources().getString(R.string.good));
+        rank.setText("0\n"+context.getResources().getString(R.string.rank));
     }
 
     @Override
@@ -94,6 +107,11 @@ public class MyInfo extends Fragment implements View.OnClickListener{
                 break;
             case R.id.rank:
                 Toast.makeText(context,R.string.rank,Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.userdata:
+                intent = new Intent(context,UserData.class);
+                intent.putExtra("userId","0");
+                startActivity(intent);
                 break;
             case R.id.integral:
                 Toast.makeText(context,R.string.integral,Toast.LENGTH_SHORT).show();
