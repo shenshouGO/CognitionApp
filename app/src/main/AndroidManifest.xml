@@ -80,7 +80,11 @@
 
         <activity android:name=".MessageActivity" />
         <activity android:name=".UserData" />
-        <activity android:name=".EditUserData"></activity>
+        <activity android:name=".EditUserData" />
+        <activity android:name=".AccountSecurity" />
+        <activity android:name=".ModifyPassword" />
+        <activity android:name=".SetPasswordQuestion" />
+        <activity android:name=".AnswerPasswordQuestion"></activity>
     </application>
 
 </manifest>

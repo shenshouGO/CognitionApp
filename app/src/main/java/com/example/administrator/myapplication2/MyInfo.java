@@ -35,7 +35,7 @@ public class MyInfo extends Fragment implements View.OnClickListener{
     private TextView rank;
     private TextView userData;
     private TextView integral;
-    private TextView help;
+    private TextView security;
     private TextView out;
     private Intent intent;
 
@@ -51,7 +51,7 @@ public class MyInfo extends Fragment implements View.OnClickListener{
         rank = (TextView) view.findViewById(R.id.rank);
         userData = (TextView) view.findViewById(R.id.userdata);
         integral = (TextView) view.findViewById(R.id.integral);
-        help = (TextView) view.findViewById(R.id.help);
+        security = (TextView) view.findViewById(R.id.security);
         out = (TextView) view.findViewById(R.id.out);
 
         img.setOnClickListener(this);
@@ -63,7 +63,7 @@ public class MyInfo extends Fragment implements View.OnClickListener{
         rank.setOnClickListener(this);
         userData.setOnClickListener(this);
         integral.setOnClickListener(this);
-        help.setOnClickListener(this);
+        security.setOnClickListener(this);
         out.setOnClickListener(this);
 
         return view;
@@ -116,8 +116,9 @@ public class MyInfo extends Fragment implements View.OnClickListener{
             case R.id.integral:
                 Toast.makeText(context,R.string.integral,Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.help:
-                Toast.makeText(context,R.string.help,Toast.LENGTH_SHORT).show();
+            case R.id.security:
+                intent = new Intent(getActivity(),AccountSecurity.class);
+                startActivity(intent);
                 break;
             case R.id.out:
 //                Toast.makeText(context,R.string.out,Toast.LENGTH_SHORT).show();
@@ -126,7 +127,7 @@ public class MyInfo extends Fragment implements View.OnClickListener{
                 editor.clear();
                 editor.commit();
 
-                Intent intent = new Intent(getActivity(),Login.class);
+                intent = new Intent(getActivity(),Login.class);
                 startActivity(intent);
                 getActivity().finish();
                 break;

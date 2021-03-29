@@ -44,7 +44,7 @@
     <style name="vertical_text_sytle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:text">@string/text</item>
+        <item name="android:text">@string/no</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:padding">10dp</item>

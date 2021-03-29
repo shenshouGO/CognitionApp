@@ -62,11 +62,22 @@
     <string name="age">年龄</string>
     <string name="birthday">生日</string>
     <string name="job">职业</string>
-    <string name="telephone">电话</string>
+    <string name="telephone">手机号</string>
     <string name="email">邮箱</string>
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="no"></string>
+    <string name="account_security">帐号安全</string>
+    <string name="modify_password">修改密码</string>
+    <string name="set_password_question">设置密保问题</string>
+    <string name="original_password">原密码</string>
+    <string name="new_password">新密码</string>
+    <string name="repeat_new_password">重复新密码</string>
+    <string name="password_question">密保问题</string>
+    <string name="password_answer">密保答案</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="input_telephone">请输入手机号...</string>
+
 
     <string name="holder1">holder1</string>
     <string name="holder2">holder2</string>

@@ -104,6 +104,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     }
                     break;
                 case R.id.forget_password:
+                    intent = new Intent(Login.this,AnswerPasswordQuestion.class);
+                    startActivity(intent);
                     break;
                 case R.id.register:
                     intent = new Intent(Login.this,RegisterActivity.class);

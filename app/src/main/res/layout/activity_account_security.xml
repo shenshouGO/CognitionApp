@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/head"
+        android:background="@color/white"
+        android:gravity="left">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/arrow"
+            android:scaleType="center"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_security"
+            android:textColor="@color/usu"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_margin="3dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/modify_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/modify_password"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:drawableRight="@drawable/more"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/set_pass_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_password_question"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:drawableRight="@drawable/more"
+        android:gravity="center_vertical"/>
+</LinearLayout>
