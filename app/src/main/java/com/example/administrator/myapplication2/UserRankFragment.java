@@ -71,9 +71,9 @@ public class UserRankFragment  extends Fragment {
     private void displayResource() {
         params = new HashMap<String, String>();
         if(type == 0)
-            params.put("sql", "select * from user order by integral_game desc");
+            params.put("sql", "select * from user order by integral_game desc limit 20");
         else
-            params.put("sql", "select * from user order by integral_sum desc");
+            params.put("sql", "select * from user order by integral_sum desc limit 20");
         httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do", params, new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {

@@ -60,25 +60,25 @@
         android:layout_marginBottom="1dp">
 
         <TextView
-            android:id="@+id/subject"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="本次重评主题：政治" />
-
-        <TextView
-            android:id="@+id/resource"
+            android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="本次重评材料：图片"/>
 
         <TextView
-            android:id="@+id/type"
+            android:id="@+id/mode"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="本次重评方式：命题"/>
+
+        <TextView
+            android:id="@+id/subject"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="本次重评主题：政治" />
 
     </LinearLayout>
 

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import MyClass.UserInfo;
+
 public class AccountSecurity extends AppCompatActivity implements View.OnClickListener{
     private ImageView back;
     private TextView modify_password;
@@ -30,12 +32,14 @@ public class AccountSecurity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        final UserInfo UI = (UserInfo)getApplication();
         switch (v.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.modify_password:
                 intent = new Intent(AccountSecurity.this,ModifyPassword.class);
+                intent.putExtra("u_id",UI.getId());
                 startActivity(intent);
                 break;
             case R.id.set_pass_question:

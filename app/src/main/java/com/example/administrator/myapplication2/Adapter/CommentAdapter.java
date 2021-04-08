@@ -77,8 +77,8 @@ public class CommentAdapter extends BaseAdapter {
         if(convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(R.layout.answer,parent,false);
             holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.comment = (TextView) convertView.findViewById(R.id.answer);
+            holder.name = (TextView) convertView.findViewById(R.id.answer);
+//            holder.comment = (TextView) convertView.findViewById(R.id.answer);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
@@ -86,7 +86,7 @@ public class CommentAdapter extends BaseAdapter {
         switch (type){
             case TYPE_COMMENT:
                 final String u_name = mData.get(position).getU_name();
-                s = u_name+"：";
+                s = u_name+"："+mData.get(position).getComment();
                 spannableString=new SpannableString(s);
                 final int start1 = s.indexOf(u_name);
                 spannableString.setSpan(new ClickableSpan(){
@@ -109,7 +109,7 @@ public class CommentAdapter extends BaseAdapter {
                 s = u_name2+" 回复 ";
                 final int start2 = 0;
                 final int start3 = s.length();
-                s = s+r_u_name+"：";
+                s = s+r_u_name+"："+mData.get(position).getComment();
                 spannableString=new SpannableString(s);
 
                 spannableString.setSpan(new ClickableSpan(){
@@ -141,12 +141,12 @@ public class CommentAdapter extends BaseAdapter {
         }
         holder.name.setMovementMethod(LinkMovementMethod.getInstance());
         holder.name.setText(spannableString);
-        holder.comment.setText(mData.get(position).getComment());
+//        holder.comment.setText(mData.get(position).getComment());
         return convertView;
     }
 
     static class ViewHolder{
         TextView name;
-        TextView comment;
+//        TextView comment;
     }
 }

@@ -55,19 +55,16 @@ public class AnswerAdapter extends BaseAdapter {
         if(convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(R.layout.answer,parent,false);
             holder = new AnswerAdapter.ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.answer = (TextView) convertView.findViewById(R.id.answer);
             convertView.setTag(holder);
         }else{
             holder = (AnswerAdapter.ViewHolder) convertView.getTag();
         }
-        holder.name.setText(mData.get(position).getName()+"：");
-        holder.answer.setText(mData.get(position).getAnswer());
+        holder.answer.setText(mData.get(position).getName()+"："+mData.get(position).getAnswer());
         return convertView;
     }
 
     static class ViewHolder{
-        TextView name;
         TextView answer;
     }
 }

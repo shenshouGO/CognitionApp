@@ -120,6 +120,7 @@ public class ResourceRankAdapter extends BaseAdapter {
                     holder1.rank.setText(position+1+"");
                     holder1.title.setVisibility(View.VISIBLE);
                     holder1.title.setText(split[0]);
+                    holder1.title.setHeight(150);
                     break;
                 case IMAGE:
                     Log.e("图片",file);

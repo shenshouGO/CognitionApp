@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,6 +19,11 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import MyClass.HttpUtil;
+import MyClass.MyStringCallBack;
 import MyClass.UserInfo;
 
 /**
@@ -39,6 +46,10 @@ public class MyInfo extends Fragment implements View.OnClickListener{
     private TextView out;
     private Intent intent;
 
+    private HttpUtil httpUtil;
+    private Map<String,String> params;
+    final Handler handler = new MyHandler();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_info, container, false);
@@ -54,6 +65,8 @@ public class MyInfo extends Fragment implements View.OnClickListener{
         security = (TextView) view.findViewById(R.id.security);
         out = (TextView) view.findViewById(R.id.out);
 
+        httpUtil = new HttpUtil();
+
         img.setOnClickListener(this);
         name.setOnClickListener(this);
         medal.setOnClickListener(this);
@@ -66,6 +79,8 @@ public class MyInfo extends Fragment implements View.OnClickListener{
         security.setOnClickListener(this);
         out.setOnClickListener(this);
 
+        display();
+
         return view;
     }
 
@@ -77,11 +92,73 @@ public class MyInfo extends Fragment implements View.OnClickListener{
 
     private void display(){
         final UserInfo UI = (UserInfo)getActivity().getApplication();
-        name.setText(UI.getName());
-        comment.setText("0\n"+context.getResources().getString(R.string.comment));
-        focus.setText("0\n"+context.getResources().getString(R.string.focus));
-        good.setText("0\n"+context.getResources().getString(R.string.good));
-        rank.setText("0\n"+context.getResources().getString(R.string.rank));
+        params = new HashMap<String, String>();
+        params.put("sql","select * from user where id ="+UI.getId());
+        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+            @Override
+            public void onResponse(String response, int id) {
+                super.onResponse(response, id);
+                Log.e("response:",response+" "+id);
+                if(!response.equals("{}")){
+                    Message message = new Message();
+                    message.what = 1;
+                    message.obj = response;
+                    handler.sendMessage(message);
+                }
+            }
+        });
+    }
+
+    private class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            try {
+                if (msg.what == 1) {
+                    JSONObject user = new JSONObject(msg.obj.toString());
+                    name.setText(user.getJSONObject("0").getString("name"));
+                    int integral = user.getJSONObject("0").getInt("integral_sum");
+
+                    switch ((integral-1)/200){
+                        case 0:
+                            medal.setText("初出茅庐");
+                            break;
+                        case 1:
+                            medal.setText("崭露头角");
+                            break;
+                        case 2:
+                            medal.setText("声名鹊起");
+                            break;
+                        case 3:
+                            medal.setText("远近闻名");
+                            break;
+                        case 4:
+                            medal.setText("闻名一方");
+                            break;
+                        case 5:
+                            medal.setText("声名远扬");
+                            break;
+                        case 6:
+                            medal.setText("名扬四海");
+                            break;
+                        case 7:
+                            medal.setText("名震八方");
+                            break;
+                        case 8:
+                        default:
+                            medal.setText("名冠天下");
+                            break;
+                    }
+
+                    comment.setText("0\n"+context.getResources().getString(R.string.comment));
+                    focus.setText("0\n"+context.getResources().getString(R.string.focus));
+                    good.setText("0\n"+context.getResources().getString(R.string.good));
+                    rank.setText("0\n"+context.getResources().getString(R.string.rank));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

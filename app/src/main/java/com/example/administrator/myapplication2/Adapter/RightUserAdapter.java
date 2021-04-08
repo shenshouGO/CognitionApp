@@ -61,7 +61,7 @@ public class RightUserAdapter extends BaseAdapter {
         }
         holder.img.setBackgroundResource(mData.get(position).getImg());
         holder.name.setText(mData.get(position).getName());
-        holder.num.setText(position+5+"");
+        holder.num.setText(position+3+"");
         holder.status.setText(mData.get(position).getStatus());
         return convertView;
     }

@@ -74,7 +74,7 @@ public class HotCognitionFragment extends Fragment {
 
     private void displayResource(){
         params = new HashMap<String, String>();
-        params.put("sql","select * from cognition_result order by comment desc");
+        params.put("sql","select * from cognition_result order by comment desc limit 20");
         httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {

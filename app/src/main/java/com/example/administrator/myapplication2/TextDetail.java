@@ -160,6 +160,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                Log.e("list",comments.get(i).getU_name()+" "+UI.getName());
                 try{
                     if(!comments.get(i).getU_name().equals(UI.getName())){
                         isComment = false;

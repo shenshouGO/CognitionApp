@@ -74,7 +74,7 @@
             android:textColor="@color/usu"/>
 
         <Spinner
-            android:id="@+id/mode_subject"
+            android:id="@+id/subject_spin"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:entries="@array/game_subject"

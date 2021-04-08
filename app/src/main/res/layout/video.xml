@@ -5,12 +5,11 @@
     android:background="@color/white">
 
     <RelativeLayout
-        android:layout_width="230dp"
-        android:layout_height="180dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <MyClass.CustomVideoView
             android:id="@+id/video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-
 </LinearLayout>

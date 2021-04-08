@@ -46,7 +46,7 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.gameUnit:
-                intent = new Intent(getActivity(), GameFunction.class);
+                intent = new Intent(getActivity(), Game.class);
                 startActivity(intent);
                 break;
             case R.id.assessReporter:

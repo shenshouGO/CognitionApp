@@ -113,7 +113,11 @@ public class EditUserData extends AppCompatActivity implements View.OnClickListe
                 //初始化当前日期
                 Calendar calendar = Calendar.getInstance();
                 try {
-                    calendar.setTime(simpleDateFormat.parse(info.getString("birthday")));
+                    if(info.getString("birthday") == null){
+                        calendar.setTime(simpleDateFormat.parse(System.currentTimeMillis()+""));
+                    }else {
+                        calendar.setTime(simpleDateFormat.parse(info.getString("birthday")));
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -167,7 +171,7 @@ public class EditUserData extends AppCompatActivity implements View.OnClickListe
                                 sign = true;
                             }else{
                                 sign = false;
-                                Toast.makeText(EditUserData.this, "该账号已被注册！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EditUserData.this, "该昵称已被注册！", Toast.LENGTH_SHORT).show();
                             }
                         }
                         if(sign){

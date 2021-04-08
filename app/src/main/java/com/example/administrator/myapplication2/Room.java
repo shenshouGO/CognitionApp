@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaMetadataRetriever;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
@@ -22,11 +24,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.MediaController;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.myapplication2.Adapter.AnswerAdapter;
 import com.example.administrator.myapplication2.Adapter.DoubleScoreAdapter;
 import com.example.administrator.myapplication2.Adapter.LeftUserAdapter;
@@ -49,11 +53,18 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
+import MyClass.CustomVideoView;
 import MyClass.FileUtils;
+import MyClass.HttpUtil;
+import MyClass.MyStringCallBack;
+
+import static android.view.View.VISIBLE;
 
 public class Room extends AppCompatActivity {
     private ListView left_user;
@@ -92,6 +103,9 @@ public class Room extends AppCompatActivity {
     private JSONObject JO;
     private RelativeLayout material;
     private ImageView iv;
+    private CustomVideoView video;
+    private MediaController mediaController;
+    private TextView text;
     private String path;
     final Handler handler = new MyHandler();
     private FileUtils fu;
@@ -112,10 +126,23 @@ public class Room extends AppCompatActivity {
     private Boolean playing;
     private ImageView back;
 
+    private TextView type_text;
+    private TextView mode_text;
+    private TextView subject_text;
+    private String type;
+    private String mode;
+    private String subject;
+
+    private HttpUtil httpUtil;
+    private Map<String,String> params;
+    private Context mContext = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.room);
+
+        httpUtil = new HttpUtil();
 
         left_user = (ListView) findViewById(R.id.left_user);
         right_user = (ListView) findViewById(R.id.right_user);
@@ -123,6 +150,9 @@ public class Room extends AppCompatActivity {
         rv = (ListView) findViewById(R.id.rv);
         et = (EditText) findViewById(R.id.et);
         ready = (Button) findViewById(R.id.ready);
+        type_text = (TextView) findViewById(R.id.type);
+        mode_text = (TextView) findViewById(R.id.mode);
+        subject_text = (TextView) findViewById(R.id.subject);
         send = (Button) findViewById(R.id.send);
         material = (RelativeLayout) findViewById(R.id.material);
         edit_frame = (LinearLayout) findViewById(R.id.edit_frame);
@@ -133,9 +163,23 @@ public class Room extends AppCompatActivity {
 
         intent=this.getIntent();
         num = intent.getIntExtra("num",1);
-//        num = 0;
         name = intent.getStringExtra("name");
-//        name = "user1";
+        type = intent.getStringExtra("type");
+        mode = intent.getStringExtra("mode");
+        subject = intent.getStringExtra("subject");
+
+        type_text.setText("本次重评材料：");
+        mode_text.setText("本次重评方式：");
+        subject_text.setText("本次材料主题：");
+
+        iv = new ImageView(this);
+        video = new CustomVideoView(this);
+        text = new TextView(this);
+
+//        type_text.setText("本次重评材料：图片");
+//        mode_text.setText("本次重评方式：命题");
+//        subject_text.setText("本次材料主题：生活");
+
         img = R.drawable.ic_launcher_round;
         sign = 0;
         gameing = false;
@@ -179,7 +223,7 @@ public class Room extends AppCompatActivity {
                     Message message;
 
                     outputStream = socket.getOutputStream();
-                    outputStream.write(( "join//" + num + "//" + name + "//" + img + "//" + status[1]).getBytes("utf-8"));
+                    outputStream.write(( "join//" + num + "//" + name + "//" + img + "//" + status[1]+"!").getBytes("utf-8"));
                     outputStream.flush();
 
                     while (playing&&(len = inputStream.read(buffer)) != -1) {
@@ -187,7 +231,7 @@ public class Room extends AppCompatActivity {
                         Log.e("string",str);
                         if(!gameing){
                             if(strToList(str) == 1){
-                                outputStream.write(("list//" + JA.toString()).getBytes("utf-8"));
+                                outputStream.write(("list//" + JA.toString()+"!").getBytes("utf-8"));
                                 outputStream.flush();
                             }
 
@@ -225,7 +269,7 @@ public class Room extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try{
-                                    outputStream.write(("start//"+(n+1)).getBytes("utf-8"));
+                                    outputStream.write(("start//"+(n+1)+"!").getBytes("utf-8"));
                                     outputStream.flush();
                                 }catch (Exception e) {
                                     e.printStackTrace();
@@ -246,7 +290,7 @@ public class Room extends AppCompatActivity {
                         @Override
                         public void run() {
                             try{
-                                outputStream.write(("status//"+index + "//" + sign).getBytes("utf-8"));
+                                outputStream.write(("status//"+index + "//" + sign+"!").getBytes("utf-8"));
                                 outputStream.flush();
                             }catch (Exception e) {
                                 e.printStackTrace();
@@ -267,7 +311,7 @@ public class Room extends AppCompatActivity {
                     public void run() {
                         try {
                             OutputStream outputStream = socket.getOutputStream();
-                            outputStream.write((name + "//" + data).getBytes("utf-8"));
+                            outputStream.write((name + "//" + data+"!").getBytes("utf-8"));
                             outputStream.flush();
 
                         } catch (IOException e) {
@@ -327,100 +371,123 @@ public class Room extends AppCompatActivity {
 
     private  int strToList(String str){
         try{
-            String[] split = str.split("//");
-            if(split[0].equals("join")){
-                if(num == 0){
-                    int minIndex = 3;
-                    int minNum = 3;
-                    for(int i=0;i<JA.length();i++){
-                        JO = JA.getJSONObject(i);
-                        if(JO.get("name").equals(" ")){
-                            int n = JO.getInt("num");
-                            if(n<minNum){
-                                minIndex = i;
-                                minNum = n;
+            String[] splits = str.split("!");
+            for (int k = 0;k<splits.length;k++){
+                String[] split = splits[k].split("//");
+                if(split[0].equals("join")){
+                    if(num == 0){
+                        int minIndex = 3;
+                        int minNum = 3;
+                        for(int i=0;i<JA.length();i++){
+                            JO = JA.getJSONObject(i);
+                            if(JO.get("name").equals(" ")){
+                                int n = JO.getInt("num");
+                                if(n<minNum){
+                                    minIndex = i;
+                                    minNum = n;
+                                }
                             }
                         }
-                    }
-                    JO = JA.getJSONObject(minIndex);
-                    JO.put("name",split[2]);
-                    JO.put("img",split[3]);
-                    JO.put("status",split[4]);
-                    createList();
-                    return 1;
-                }
-            }else if(split[0].equals("list")){
-                if(!(num == 0)){
-                    JA = new JSONArray(split[1]);
-                    createList();
-                }
-            }else if(split[0].equals("leave")){
-                if(num == 0){
-                    int n = JA.getJSONObject(Integer.parseInt(split[1])).getInt("num");
-                    JO = JA.getJSONObject(Integer.parseInt(split[1]));
-                    JO.put("num",3);
-                    JO.put("name"," ");
-                    JO.put("img",R.drawable.p);
-                    JO.put("status"," ");
-                    user = users.get(Integer.parseInt(split[1]));
-                    user.setNum(3);
-                    user.setName(" ");
-                    user.setImg(R.drawable.p);
-                    user.setStatus(" ");
+                        JO = JA.getJSONObject(minIndex);
+                        JO.put("name",split[2]);
+                        JO.put("img",split[3]);
+                        JO.put("status",split[4]);
 
-                    if(n == 0) {
-                        for (int i = 0; i < JA.length(); i++) {
-                            JO = JA.getJSONObject(i);
-                            int j = JO.getInt("num");
-                            JO.put("num", j - 1);
-                            if(j == 1)
-                                JO.put("status",status[0]);
-                        }
-                    }else{
-                        for (int i = 0; i < JA.length(); i++) {
-                            JO = JA.getJSONObject(i);
-                            int j = JO.getInt("num");
-                            if (n <= j) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    outputStream.write(("resource//"+type+"/"+mode+"/"+subject+"!").getBytes("utf-8"));
+                                    outputStream.flush();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+
+                        createList();
+                        return 1;
+                    }
+                }else if(split[0].equals("list")){
+                    if(!(num == 0)){
+                        JA = new JSONArray(split[1]);
+                        createList();
+                    }
+                }else if(split[0].equals("leave")){
+                    if(num == 0){
+                        int n = JA.getJSONObject(Integer.parseInt(split[1])).getInt("num");
+                        JO = JA.getJSONObject(Integer.parseInt(split[1]));
+                        JO.put("num",3);
+                        JO.put("name"," ");
+                        JO.put("img",R.drawable.p);
+                        JO.put("status"," ");
+                        user = users.get(Integer.parseInt(split[1]));
+                        user.setNum(3);
+                        user.setName(" ");
+                        user.setImg(R.drawable.p);
+                        user.setStatus(" ");
+
+                        if(n == 0) {
+                            for (int i = 0; i < JA.length(); i++) {
+                                JO = JA.getJSONObject(i);
+                                int j = JO.getInt("num");
                                 JO.put("num", j - 1);
+                                if(j == 1)
+                                    JO.put("status",status[0]);
+                            }
+                        }else{
+                            for (int i = 0; i < JA.length(); i++) {
+                                JO = JA.getJSONObject(i);
+                                int j = JO.getInt("num");
+                                if (n <= j) {
+                                    JO.put("num", j - 1);
+                                }
                             }
                         }
+                        return 1;
                     }
-                    return 1;
+                }else if(split[0].equals("start")){
+//                    iv = new ImageView(this);
+//                    iv.setVisibility(View.VISIBLE);
+//                    path = "http://47.95.197.189:8080/file/1.jpg";
+//
+//                    fu = new FileUtils();
+//                    fu.downLoad(path,"maidang.jpg");
+//                    path = Environment.getExternalStorageDirectory().toString() + "/shidoe";
+                    gameing = true;
+
+                    Message message = Message.obtain();
+                    message.what = 2;
+                    message.obj = split[1];
+                    handler.sendMessage(message);
+
+//                    iv.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            intent = new Intent(Room.this,ImageDetail.class);
+//                            intent.putExtra("path",path);
+//                            intent.putExtra("img","maidang.jpg");
+//                            startActivity(intent);
+//                        }
+//                    });
+                }else if(split[0].equals("status")){
+                    user = users.get(Integer.parseInt(split[1]));
+                    String sta = status[Integer.parseInt(split[2])+1];
+                    user.setStatus(sta);
+                    JA.getJSONObject(Integer.parseInt(split[1])).put("status",sta);
+                }else if(split[0].equals("resource")){
+                    split = split[1].split("/");
+                    type = split[0];
+                    mode = split[1];
+                    subject = split[2];
+                    for (int i = 0;i<split.length;i++){
+                        Log.e("resource",split[i]);
+                    }
+
+                    Message message = Message.obtain();
+                    message.what = 8;
+                    handler.sendMessage(message);
                 }
-            }else if(split[0].equals("start")){
-//                for(int i= 0;i<users.size();i++)
-//                {
-//                    users.get(i).setStatus(" ");
-//                }
-
-                iv = new ImageView(this);
-                iv.setVisibility(View.VISIBLE);
-                path = "http://47.95.197.189:8080/file/1.jpg";
-
-                fu = new FileUtils();
-                fu.downLoad(path,"maidang.jpg");
-                path = Environment.getExternalStorageDirectory().toString() + "/shidoe";
-                gameing = true;
-
-                Message message = Message.obtain();
-                message.what = 2;
-                message.obj = split[1];
-                handler.sendMessage(message);
-
-                iv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        intent = new Intent(Room.this,ImageDetail.class);
-                        intent.putExtra("path",path);
-                        intent.putExtra("img","maidang.jpg");
-                        startActivity(intent);
-                    }
-                });
-            }else if(split[0].equals("status")){
-                user = users.get(Integer.parseInt(split[1]));
-                String sta = status[Integer.parseInt(split[2])+1];
-                user.setStatus(sta);
-                JA.getJSONObject(Integer.parseInt(split[1])).put("status",sta);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -469,7 +536,7 @@ public class Room extends AppCompatActivity {
             public void run() {
                 try {
                     playing = false;
-                    outputStream.write(("leave//" + index).getBytes("utf-8"));
+                    outputStream.write(("leave//" + index+"!").getBytes("utf-8"));
                     outputStream.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -498,20 +565,30 @@ public class Room extends AppCompatActivity {
                     right_user.setAdapter(rua);
                 }else if(msg.what == 2){
                     ready.setVisibility(View.GONE);
-                    if(index != cp)
-                        edit_frame.setVisibility(View.VISIBLE);
                     cp = Integer.parseInt((String)msg.obj);
                     Toast.makeText(Room.this,cp+"号为裁判，其余为玩家！",Toast.LENGTH_SHORT).show();
                     cp--;
+                    if(index != cp)
+                        edit_frame.setVisibility(VISIBLE);
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                File f = new File(path, "maidang.jpg");
-                                Bitmap bmp = BitmapFactory.decodeStream(new FileInputStream(f));
-                                iv.setImageBitmap(bmp);
-                                material.addView(iv);
+//                                File f = new File(path, "maidang.jpg");
+//                                Bitmap bmp = BitmapFactory.decodeStream(new FileInputStream(f));
+//                                iv.setImageBitmap(bmp);
+                                switch (type){
+                                    case "视频":
+                                        material.addView(video);
+                                        break;
+                                    case "图片":
+                                        material.addView(iv);
+                                        break;
+                                    case "文本":
+                                        material.addView(text);
+                                        break;
+                                }
 
                                 Toast.makeText(Room.this,"开始游戏，请玩家在75s内进行重评!",Toast.LENGTH_SHORT).show();
                                 countDown(10*1000,4);
@@ -584,9 +661,9 @@ public class Room extends AppCompatActivity {
                     ms.what = 1;
                     handler.sendMessage(ms);
                     ready.setText("准备");
-                    ready.setVisibility(View.VISIBLE);
+                    ready.setVisibility(VISIBLE);
                 }if(msg.what == 7){
-                    final String s = (String)msg.obj;
+                    final String s = (String)msg.obj+"!";
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -598,6 +675,78 @@ public class Room extends AppCompatActivity {
                             }
                         }
                     }).start();
+                }else if(msg.what == 8){
+                    //更新材料
+                    type_text.setText("本次重评材料："+type);
+                    mode_text.setText("本次重评方式："+mode);
+                    subject_text.setText("本次材料主题："+subject);
+
+                    switch (type){
+                        case "视频":
+                            video.setPlayPauseListener(new CustomVideoView.PlayPauseListener() {
+                                @Override
+                                public void onPlay() {
+                                    //开始播放之后消除背景
+                                    video.setBackground(null);
+                                }
+                                @Override
+                                public void onPause() {
+                                    System.out.println("Pause!");//our needed process when the video is paused
+                                }
+                            });
+
+                            String videoUrl = null;
+                            videoUrl = "http://192.168.154.1:8080/file/你的答案.mp4";
+                            Bitmap bitmap = null;
+                            //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
+                            video.setVideoPath(videoUrl);
+                            //设置视频缩略图
+                            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+                            retriever.setDataSource(videoUrl, new HashMap());
+                            bitmap = retriever.getFrameAtTime();
+                            video.setBackground(new BitmapDrawable(getResources(),bitmap));
+                            mediaController = new MediaController(mContext);
+                            video.setMediaController(mediaController);
+                            mediaController.setMediaPlayer(video);
+
+                            material.addView(video);
+                            break;
+                        case "图片":
+                            iv.setVisibility(VISIBLE);
+                            path = "http://47.95.197.189:8080/file/1.jpg";
+//                            fu = new FileUtils();
+//                            fu.downLoad(path,"maidang.jpg");
+//                            path = Environment.getExternalStorageDirectory().toString() + "/shidoe";
+//                            File f = new File(path, "maidang.jpg");
+//                            Bitmap bmp = BitmapFactory.decodeStream(new FileInputStream(f));
+//                            iv.setImageBitmap(bmp);
+                            Glide.with(mContext).load(path).into(iv);
+
+                            iv.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    intent = new Intent(Room.this,ImageDetail.class);
+                                    intent.putExtra("path",path);
+                                    intent.putExtra("img","maidang.jpg");
+                                    startActivity(intent);
+                                }
+                            });
+                            material.addView(iv);
+                            break;
+                        case "文本":
+                            text.setVisibility(VISIBLE);
+
+                            params = new HashMap<String, String>();
+                            params.put("file","文本材料1.txt");
+                            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                                @Override
+                                public void onResponse(String response, int id) {
+                                    text.setText(response);
+                                }
+                            });
+                            material.addView(text);
+                            break;
+                    }
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -726,20 +875,42 @@ public class Room extends AppCompatActivity {
             for(int i = 1;i<doubleScore.size();i++){
                 ds = doubleScore.get(i);
                 doubleS.add(new ResultScore(ds.getName(),ds.getValidity(),ds.getNovelty(),ds.getAverage(),"+"+dis[i]));
+                if(num == 0){
+                    params = new HashMap<String, String>();
+                    params.put("name",ds.getName());
+                    params.put("integral",""+dis[i]);
+                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createGameIntegral.do",params,new MyStringCallBack(){
+                        @Override
+                        public void onResponse(String response, int id) {
+                            Log.e("response:",response);
+                        }
+                    });
+                }
             }
 
             resultS.add(new ResultScore("被评玩家","评价玩家","公正性","平均分","积分"));
             String cpName = JA.getJSONObject(cp).getString("name");
             double s = returnS*1.0/returnScores.length();
             String a = String.format("%.1f",s);
-            String ri;
-            if(s>=5)
-                ri = "+5";
-            else
-                ri = "+0";
+            int ri = 0;
+            if(s>=6)
+                ri = 5;
+            else if(s>=4)
+                ri = 3;
             for(int i = 0;i<returnScores.length();i++){
                 JO = returnScores.getJSONObject(i);
-                resultS.add(new ResultScore(cpName,JO.getString("name"),JO.getString("score"),a,ri));
+                resultS.add(new ResultScore(cpName,JO.getString("name"),JO.getString("score"),a,"+"+ri));
+            }
+            if(num == 0){
+                params = new HashMap<String, String>();
+                params.put("name",cpName);
+                params.put("integral",""+ri);
+                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createGameIntegral.do",params,new MyStringCallBack(){
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e("response:",response);
+                    }
+                });
             }
 
             ResultScoreAdapter rsa1 = new ResultScoreAdapter(Room.this,doubleS);
@@ -803,7 +974,7 @@ public class Room extends AppCompatActivity {
     }
 
     private void countDown(long countTime, final int num){
-        time.setVisibility(View.VISIBLE);
+        time.setVisibility(VISIBLE);
         CountDownTimer timer = new CountDownTimer(countTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {

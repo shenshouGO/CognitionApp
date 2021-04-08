@@ -84,7 +84,8 @@
         <activity android:name=".AccountSecurity" />
         <activity android:name=".ModifyPassword" />
         <activity android:name=".SetPasswordQuestion" />
-        <activity android:name=".AnswerPasswordQuestion"></activity>
+        <activity android:name=".AnswerPasswordQuestion" />
+        <activity android:name=".Game"></activity>
     </application>
 
 </manifest>

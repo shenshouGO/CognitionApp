@@ -41,7 +41,7 @@ public class UserData extends AppCompatActivity implements View.OnClickListener{
     final Handler handler = new MyHandler();
 
     private String userId;
-    private String[] sexs = new String[2];
+    private String[] sexs = new String[3];
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -67,6 +67,7 @@ public class UserData extends AppCompatActivity implements View.OnClickListener{
         userId = intent.getStringExtra("userId");
         sexs[0] = "女";
         sexs[1] = "男";
+        sexs[2] = "未设置";
     }
 
     @Override
