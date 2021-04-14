@@ -50,7 +50,7 @@
             android:id="@+id/good"
             style="@style/tab_menu_item"
             android:drawableTop="@drawable/disgood"
-            android:text="@string/good"/>
+            android:text="@string/like"/>
 
         <TextView
             android:id="@+id/unlike"

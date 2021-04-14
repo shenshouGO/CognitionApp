@@ -53,8 +53,10 @@ public class ResourceRankFragment  extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 try{
-                    intent = new Intent(getContext(),TextDetail.class);
+                    intent = new Intent(getContext(),RankResource.class);
                     intent.putExtra("info", results.getJSONObject(""+i).toString());
+                    intent.putExtra("type", "材料榜单");
+                    intent.putExtra("rank", i+1+"");
                     startActivity(intent);
 //                    Toast.makeText(getActivity(),i+"",Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
@@ -68,7 +70,7 @@ public class ResourceRankFragment  extends Fragment {
 
     private void displayResource(){
         params = new HashMap<String, String>();
-        params.put("sql","select * from cognition_resource where unit = 0 order by score desc limit 20");
+        params.put("sql","select * from cognition_resource where unit = 0 order by score desc limit 10");
         httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {

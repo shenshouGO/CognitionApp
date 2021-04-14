@@ -191,7 +191,8 @@ public class MyInfo extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.integral:
-                Toast.makeText(context,R.string.integral,Toast.LENGTH_SHORT).show();
+                intent = new Intent(context,Integral.class);
+                startActivity(intent);
                 break;
             case R.id.security:
                 intent = new Intent(getActivity(),AccountSecurity.class);

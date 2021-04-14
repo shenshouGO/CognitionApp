@@ -55,8 +55,6 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
         hot_spin = (Spinner) findViewById(R.id.hot_spin);
         subject_spin.setOnItemSelectedListener(this);
         type_spin.setOnItemSelectedListener(this);
-        type.setVisibility(View.GONE);
-        type_spin.setVisibility(View.GONE);
         hot_spin.setOnItemSelectedListener(this);
         resources = new LinkedList<Resource>() ;
         screens = new LinkedList<Resource>() ;
@@ -72,8 +70,8 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
                     results = new JSONObject(response);
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
-                        resources.add(new Resource(path+JO.getString("file"),"TOP"+(i+1)));
-                        screens.add(new Resource(path+JO.getString("file"),JO.getString("theme")));
+//                        resources.add(new Resource(JO.getString("file"),"TOP"+(i+1),"",""));
+                        screens.add(new Resource(JO.getString("file"),"",JO.getString("type"),JO.getString("theme")));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -131,12 +129,16 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         Log.e("subject_spin:",subject_spin.getSelectedItem().toString());
+        Log.e("type_spin:",type_spin.getSelectedItem().toString());
         Log.e("hot_spin:",hot_spin.getSelectedItem().toString());
 
         String where = "";
         String order = "";
+        if(type_spin.getSelectedItemPosition()!=0){
+            where += "and type = '"+ type_spin.getSelectedItem()+"' ";
+        }
         if(subject_spin.getSelectedItemPosition()!=0){
-            where = "and theme = '"+ subject_spin.getSelectedItem()+"'";
+            where += "and theme = '"+ subject_spin.getSelectedItem()+"' ";
         }
         switch (hot_spin.getSelectedItemPosition()){
             case 1:
@@ -151,7 +153,7 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
                 break;
         }
 
-        String sql = "select * from cognition_resource where type = '图片' "+where+" order by "+order;
+        String sql = "select * from cognition_resource where unit = 0 "+where+" order by "+order;
         Log.e("sql:",sql);
 
         HashMap<String,String> params = new HashMap<String ,String>();
@@ -161,11 +163,12 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);
                 try {
+                    Log.e("response:",response);
                     results = new JSONObject(response);
                     screens = new LinkedList<Resource>() ;
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
-                        screens.add(new Resource(path+JO.getString("file"),JO.getString("theme")));
+                        screens.add(new Resource(JO.getString("file"),"",JO.getString("type"),JO.getString("theme")));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

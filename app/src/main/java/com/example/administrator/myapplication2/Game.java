@@ -17,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import MyClass.UserInfo;
 
 public class Game extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
@@ -38,6 +40,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener,Adap
     private String type;
     private String mode;
     private String subject;
+    private Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener,Adap
         type_spin = (Spinner) create_room_view.findViewById(R.id.type_spin);
         mode_spin = (Spinner) create_room_view.findViewById(R.id.mode_spin);
         subject_spin = (Spinner) create_room_view.findViewById(R.id.subject_spin);
+        random = new Random();
 
 
         quick_join.setOnClickListener(this);
@@ -74,6 +78,9 @@ public class Game extends AppCompatActivity implements View.OnClickListener,Adap
         final UserInfo UI = (UserInfo) getApplication();
         switch (v.getId()) {
             case R.id.create_room:
+                type_spin.setSelection(0,true);
+                mode_spin.setSelection(0,true);
+                subject_spin.setSelection(0,true);
                 setView(create_room_view);
                 break;
             case R.id.set:
@@ -94,8 +101,20 @@ public class Game extends AppCompatActivity implements View.OnClickListener,Adap
                 intent = new Intent(Game.this, Room.class);
                 intent.putExtra("num",0);
                 intent.putExtra("name", UI.getName());
+                if(type.equals("随机")){
+                    type_spin.setSelection(random.nextInt(3)+1,true);
+                    type = type_spin.getSelectedItem().toString();
+                }
                 intent.putExtra("type", type);
+                if(mode.equals("随机")){
+                    mode_spin.setSelection(random.nextInt(2)+1,true);
+                    mode = mode_spin.getSelectedItem().toString();
+                }
                 intent.putExtra("mode", mode);
+                if(subject.equals("随机")){
+                    subject_spin.setSelection(random.nextInt(3)+1,true);
+                    subject = subject_spin.getSelectedItem().toString();
+                }
                 intent.putExtra("subject", subject);
                 startActivity(intent);
                 alert.dismiss();

@@ -42,6 +42,7 @@ import com.example.administrator.myapplication2.Bean.ResultScore;
 import com.example.administrator.myapplication2.Bean.User;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -132,6 +133,8 @@ public class Room extends AppCompatActivity {
     private String type;
     private String mode;
     private String subject;
+    private Random random = new Random();
+    String file;
 
     private HttpUtil httpUtil;
     private Map<String,String> params;
@@ -162,11 +165,11 @@ public class Room extends AppCompatActivity {
         back = (ImageView) findViewById(R.id.back);
 
         intent=this.getIntent();
-        num = intent.getIntExtra("num",1);
-        name = intent.getStringExtra("name");
-        type = intent.getStringExtra("type");
-        mode = intent.getStringExtra("mode");
-        subject = intent.getStringExtra("subject");
+        num = intent.getIntExtra("num",1);//获取身份标号，0为房主，1为普通玩家
+        name = intent.getStringExtra("name");//获取进入房间的用户名称
+        type = intent.getStringExtra("type");//获取该房间的材料类型
+        mode = intent.getStringExtra("mode");//获取该房间的材料重评方式
+        subject = intent.getStringExtra("subject");//获取该房间的材料主题
 
         type_text.setText("本次重评材料：");
         mode_text.setText("本次重评方式：");
@@ -211,10 +214,12 @@ public class Room extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //Android不支持在主线程中进行网络操作，所以新建一个线程进行socket连接
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    //建立socket连接
                     socket = new Socket("192.168.154.1", 10010);
                     InputStream inputStream = socket.getInputStream();
                     byte[] buffer = new byte[1024];
@@ -222,10 +227,12 @@ public class Room extends AppCompatActivity {
                     String str;
                     Message message;
 
+                    //当有用户进行socket连接进入房间时，发送加入房间的消息
                     outputStream = socket.getOutputStream();
                     outputStream.write(( "join//" + num + "//" + name + "//" + img + "//" + status[1]+"!").getBytes("utf-8"));
                     outputStream.flush();
 
+                    //根据当前游戏状态和接收到的消息进行数据更新操作
                     while (playing&&(len = inputStream.read(buffer)) != -1) {
                         str = new String(buffer, 0, len);
                         Log.e("string",str);
@@ -262,8 +269,8 @@ public class Room extends AppCompatActivity {
             public void onClick(View v) {
                 if(num == 0){
                     if(isReady()==true){
-                        Random r = new Random();
-                        final int n = r.nextInt(3);
+                        Random random = new Random();
+                        final int n = random.nextInt(3);
 
                         new Thread(new Runnable() {
                             @Override
@@ -369,12 +376,13 @@ public class Room extends AppCompatActivity {
         return false;
     }
 
+    //处理接收到的socket消息
     private  int strToList(String str){
         try{
-            String[] splits = str.split("!");
+            String[] splits = str.split("!");//防止多条消息合并遗漏数据，用'!'分隔逐一处理
             for (int k = 0;k<splits.length;k++){
                 String[] split = splits[k].split("//");
-                if(split[0].equals("join")){
+                if(split[0].equals("join")){//接收到用户加入房间的消息
                     if(num == 0){
                         int minIndex = 3;
                         int minNum = 3;
@@ -388,32 +396,47 @@ public class Room extends AppCompatActivity {
                                 }
                             }
                         }
-                        JO = JA.getJSONObject(minIndex);
+                        JO = JA.getJSONObject(minIndex);//更新加入用户的信息
                         JO.put("name",split[2]);
                         JO.put("img",split[3]);
                         JO.put("status",split[4]);
 
-                        new Thread(new Runnable() {
+                        params = new HashMap<String,String>();
+                        params.put("sql","select file from cognition_resource where type = '" + type +"' and theme = '"+subject+"'");
+                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
                             @Override
-                            public void run() {
+                            public void onResponse(String response, int id) {
                                 try {
-                                    outputStream.write(("resource//"+type+"/"+mode+"/"+subject+"!").getBytes("utf-8"));
-                                    outputStream.flush();
-                                } catch (IOException e) {
+                                    JO = new JSONObject(response);
+                                    JO = JO.getJSONObject(random.nextInt(JO.length())+"");
+                                    file = JO.getString("file");
+
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {//由房主将游戏材料的相关信息发出
+                                                outputStream.write(("resource//"+type+"/"+mode+"/"+subject+"/"+file+"!").getBytes("utf-8"));
+                                                outputStream.flush();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }).start();
+                                } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-                        }).start();
+                        });
 
                         createList();
                         return 1;
                     }
-                }else if(split[0].equals("list")){
+                }else if(split[0].equals("list")){//接收到更新用户列表信息的消息
                     if(!(num == 0)){
                         JA = new JSONArray(split[1]);
                         createList();
                     }
-                }else if(split[0].equals("leave")){
+                }else if(split[0].equals("leave")){//接收到用户离开房间的消息
                     if(num == 0){
                         int n = JA.getJSONObject(Integer.parseInt(split[1])).getInt("num");
                         JO = JA.getJSONObject(Integer.parseInt(split[1]));
@@ -446,14 +469,7 @@ public class Room extends AppCompatActivity {
                         }
                         return 1;
                     }
-                }else if(split[0].equals("start")){
-//                    iv = new ImageView(this);
-//                    iv.setVisibility(View.VISIBLE);
-//                    path = "http://47.95.197.189:8080/file/1.jpg";
-//
-//                    fu = new FileUtils();
-//                    fu.downLoad(path,"maidang.jpg");
-//                    path = Environment.getExternalStorageDirectory().toString() + "/shidoe";
+                }else if(split[0].equals("start")){//接收到游戏开始的消息
                     gameing = true;
 
                     Message message = Message.obtain();
@@ -461,25 +477,17 @@ public class Room extends AppCompatActivity {
                     message.obj = split[1];
                     handler.sendMessage(message);
 
-//                    iv.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            intent = new Intent(Room.this,ImageDetail.class);
-//                            intent.putExtra("path",path);
-//                            intent.putExtra("img","maidang.jpg");
-//                            startActivity(intent);
-//                        }
-//                    });
-                }else if(split[0].equals("status")){
+                }else if(split[0].equals("status")){//接收到用户改变准备状态的消息
                     user = users.get(Integer.parseInt(split[1]));
                     String sta = status[Integer.parseInt(split[2])+1];
                     user.setStatus(sta);
                     JA.getJSONObject(Integer.parseInt(split[1])).put("status",sta);
-                }else if(split[0].equals("resource")){
+                }else if(split[0].equals("resource")){//接收到更新游戏材料相关信息的消息
                     split = split[1].split("/");
                     type = split[0];
                     mode = split[1];
                     subject = split[2];
+                    file = split[3];
                     for (int i = 0;i<split.length;i++){
                         Log.e("resource",split[i]);
                     }
@@ -696,7 +704,8 @@ public class Room extends AppCompatActivity {
                             });
 
                             String videoUrl = null;
-                            videoUrl = "http://192.168.154.1:8080/file/你的答案.mp4";
+//                            videoUrl = "http://192.168.154.1:8080/file/你的答案.mp4";
+                            videoUrl = "http://192.168.154.1:8080/file/"+file;
                             Bitmap bitmap = null;
                             //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
                             video.setVideoPath(videoUrl);
@@ -713,21 +722,24 @@ public class Room extends AppCompatActivity {
                             break;
                         case "图片":
                             iv.setVisibility(VISIBLE);
-                            path = "http://47.95.197.189:8080/file/1.jpg";
+                            path = "http://192.168.154.1:8080/file/"+file;
 //                            fu = new FileUtils();
 //                            fu.downLoad(path,"maidang.jpg");
 //                            path = Environment.getExternalStorageDirectory().toString() + "/shidoe";
 //                            File f = new File(path, "maidang.jpg");
 //                            Bitmap bmp = BitmapFactory.decodeStream(new FileInputStream(f));
 //                            iv.setImageBitmap(bmp);
+
                             Glide.with(mContext).load(path).into(iv);
 
                             iv.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     intent = new Intent(Room.this,ImageDetail.class);
-                                    intent.putExtra("path",path);
-                                    intent.putExtra("img","maidang.jpg");
+//                                    intent.putExtra("path",path);
+//                                    intent.putExtra("img","maidang.jpg");
+                                    intent.putExtra("path","http://192.168.154.1:8080/file/");
+                                    intent.putExtra("img",file);
                                     startActivity(intent);
                                 }
                             });
@@ -737,7 +749,8 @@ public class Room extends AppCompatActivity {
                             text.setVisibility(VISIBLE);
 
                             params = new HashMap<String, String>();
-                            params.put("file","文本材料1.txt");
+//                            params.put("file","文本材料1.txt");
+                            params.put("file",file);
                             httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                                 @Override
                                 public void onResponse(String response, int id) {

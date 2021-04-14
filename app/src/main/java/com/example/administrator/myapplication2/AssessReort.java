@@ -96,7 +96,7 @@ public class AssessReort extends AppCompatActivity implements View.OnClickListen
                     resources = new LinkedList<Resource>() ;
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
-                        resources.add(new Resource(JO.getString("file"),""));
+                        resources.add(new Resource(JO.getString("file"),"","",""));
                     }
                     aa = new AssessAdapter(AssessReort.this,resources);
                     resourceScreen.setAdapter(aa);

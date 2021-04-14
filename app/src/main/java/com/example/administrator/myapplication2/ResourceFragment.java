@@ -102,7 +102,7 @@ public class ResourceFragment extends Fragment {
                     resources = new LinkedList<Resource>() ;
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
-                        resources.add(new Resource(JO.getString("file"),type));
+                        resources.add(new Resource(JO.getString("file"),type,"",""));
                     }
                     resourceAdapter = new ResourceAdapter(getContext(),resources);
                     resourceScreen.setAdapter(resourceAdapter);

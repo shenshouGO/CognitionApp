@@ -85,7 +85,9 @@
         <activity android:name=".ModifyPassword" />
         <activity android:name=".SetPasswordQuestion" />
         <activity android:name=".AnswerPasswordQuestion" />
-        <activity android:name=".Game"></activity>
+        <activity android:name=".Game" />
+        <activity android:name=".Integral" />
+        <activity android:name=".RankResource"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,7 @@
     <string-array name="game_type">
         <item>随机</item>
         <item>命题</item>
-        <item>涂鸦</item>
+        <!--<item>涂鸦</item>-->
         <item>描述</item>
     </string-array>
 

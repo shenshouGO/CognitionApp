@@ -14,7 +14,9 @@
     <string name="me">我的</string>
     <string name="nickname">昵称</string>
     <string name="comment">评论</string>
+    <string name="score">评分</string>
     <string name="good">点赞</string>
+    <string name="like">喜欢</string>
     <string name="unlike">不喜欢</string>
     <string name="collect">收藏</string>
     <string name="focus">关注</string>
@@ -78,6 +80,11 @@
     <string name="password_answer">密保答案</string>
     <string name="forget_password">忘记密码</string>
     <string name="input_telephone">请输入手机号...</string>
+    <string name="integral_sum">总积分</string>
+    <string name="integral_source">积分来源</string>
+    <string name="integral_time">积分时间</string>
+    <string name="send">发送</string>
+    <string name="cognition_hint">高质量的评论会更多人赞同哦</string>
 
     <string name="holder1">holder1</string>
     <string name="holder2">holder2</string>

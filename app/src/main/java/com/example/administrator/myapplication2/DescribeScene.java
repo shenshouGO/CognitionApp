@@ -71,6 +71,7 @@ public class DescribeScene extends AppCompatActivity implements View.OnClickList
         try{
             switch (v.getId()) {
                 case R.id.back:
+                    finish();
                     break;
                 case R.id.add:
                     Intent intent = new Intent(DescribeScene.this, ReleaseScene.class);

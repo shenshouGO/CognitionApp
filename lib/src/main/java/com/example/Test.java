@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by Administrator on 2020/12/30.
@@ -13,14 +14,9 @@ import java.util.Date;
 
 public class Test {
     public static void main(String[] args) {
-        String s = "1999-7-21";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = simpleDateFormat.parse(s);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        String[] splits = "sdfsj.txt".split("\\.");
+        for (int i = 0;i<splits.length;i++){
+            System.out.println(splits[i]);
         }
-        System.out.println(date.getTime());
     }
 }

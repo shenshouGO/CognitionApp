@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,6 +49,8 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
         words = (TextView)findViewById(R.id.words);
         mosaic = (TextView)findViewById(R.id.mosaic);
         draw = (TextView)findViewById(R.id.draw);
+        mosaic.setVisibility(View.INVISIBLE);
+        draw.setVisibility(View.INVISIBLE);
 
         Drawable[] nameD = name.getCompoundDrawables();
         Drawable[] wordsD = words.getCompoundDrawables();
@@ -80,37 +83,41 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String data = cognition.getText().toString();
-                cognition.setText("请输入内容...");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            IR.addPara("ID",UI.getId());
-                            IR.addPara("u_name",UI.getName());
-                            IR.addPara("u_img",UI.getImg());
-                            IR.addPara("c_r_id",info.getString("id"));
-                            IR.addPara("c_r_file",info.getString("file"));
-                            IR.addPara("cognition",data);
-                            str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createCognition.do");
-//                            str = "Create successfully";
+                if(TextUtils.isEmpty(cognition.getText())){
+                    Toast.makeText(Cognition.this,"请输入内容再发送！",Toast.LENGTH_SHORT).show();
+                }else{
+                    final String data = cognition.getText().toString();
+                    cognition.setText("请输入内容...");
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                IR.addPara("ID",UI.getId());
+                                IR.addPara("u_name",UI.getName());
+                                IR.addPara("u_img",UI.getImg());
+                                IR.addPara("c_r_id",info.getString("id"));
+                                IR.addPara("c_r_file",info.getString("file"));
+                                IR.addPara("cognition",data);
+                                str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createCognition.do");
+                                //str = "Create successfully";
 
-                            if(str.equals("Create successfully")){
-                                intent = new Intent(Cognition.this, OtherCognition.class);
-                                intent.putExtra("info", info.toString());
-                                startActivity(intent);
-                                finish();
-                            }else{
-                                Looper.prepare();
-                                Toast.makeText(Cognition.this,"重评失败！",Toast.LENGTH_SHORT).show();
-                                Looper.loop();
+                                if(str.equals("Create successfully")){
+                                    intent = new Intent(Cognition.this, OtherCognition.class);
+                                    intent.putExtra("info", info.toString());
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+                                    Looper.prepare();
+                                    Toast.makeText(Cognition.this,"重评失败！",Toast.LENGTH_SHORT).show();
+                                    Looper.loop();
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
-                    }
-                }).start();
+                    }).start();
+                }
             }
         });
     }

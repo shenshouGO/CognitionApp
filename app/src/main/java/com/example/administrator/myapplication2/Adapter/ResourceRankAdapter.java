@@ -94,6 +94,7 @@ public class ResourceRankAdapter extends BaseAdapter {
                 holder1.img_resource = (ImageView) convertView.findViewById(R.id.img_resource);
                 holder1.img_pic = (ImageView) convertView.findViewById(R.id.img_pic);
                 holder1.title = (TextView) convertView.findViewById(R.id.title);
+                holder1.text = (TextView) convertView.findViewById(R.id.text);
                 convertView.setTag(holder1);
             }else{
                 holder1 = (HotCognitionAdapter.ViewHolder) convertView.getTag();
@@ -118,9 +119,10 @@ public class ResourceRankAdapter extends BaseAdapter {
                     holder1.img_resource.setVisibility(View.GONE);
                     holder1.img_pic.setVisibility(View.GONE);
                     holder1.rank.setText(position+1+"");
+                    holder1.text.setVisibility(View.INVISIBLE);
+                    holder1.text.setHeight(150);
                     holder1.title.setVisibility(View.VISIBLE);
                     holder1.title.setText(split[0]);
-                    holder1.title.setHeight(150);
                     break;
                 case IMAGE:
                     Log.e("图片",file);
@@ -136,10 +138,5 @@ public class ResourceRankAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         return convertView;
-    }
-
-    public static class ViewHolder{
-        TextView rank;
-        TextView title;
     }
 }
