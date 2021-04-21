@@ -42,20 +42,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/resource"
-        android:layout_below="@+id/head"
-        android:gravity="center">
+        android:layout_below="@+id/head">
         <ImageView
             android:id="@+id/pic"
             android:layout_width="350dp"
             android:layout_height="250dp"
             android:scaleType="fitCenter"
-            android:layout_margin="8dp" />
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:id="@+id/text"
             android:layout_width="350dp"
             android:layout_height="250dp"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:textSize="30sp"
+            android:visibility="gone"/>
+
+        <MyClass.CustomVideoView
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 
@@ -92,16 +101,6 @@
             android:text="文本"
             android:textSize="20sp"
             android:drawableTop="@drawable/cognition"
-            android:gravity="center_horizontal" />
-
-        <TextView
-            android:id="@+id/mosaic"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="马赛克"
-            android:textSize="20sp"
-            android:drawableTop="@drawable/mosaic"
             android:gravity="center_horizontal" />
 
         <TextView

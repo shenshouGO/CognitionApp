@@ -40,6 +40,7 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
     private ListView lv;
     private ScreenAdapter sa;
     private List<Resource> screens;
+    private JSONObject ranks;
     private JSONObject results;
     private JSONObject JO;
     private HttpUtil httpUtil;
@@ -61,16 +62,17 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
         path = "http://192.168.154.1:8080/file/";
 
         HashMap<String,String> params = new HashMap<String ,String>();
-        params.put("sql","select * from cognition_resource where type = '图片' order by score desc");
+        params.put("sql","select * from cognition_resource where unit = 0 order by score desc limit 10");
         httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);
                 try {
                     results = new JSONObject(response);
+                    ranks = new JSONObject(response);
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
-//                        resources.add(new Resource(JO.getString("file"),"TOP"+(i+1),"",""));
+                        resources.add(new Resource(JO.getString("file"),"TOP"+(i+1),JO.getString("type"),JO.getString("theme")));
                         screens.add(new Resource(JO.getString("file"),"",JO.getString("type"),JO.getString("theme")));
                     }
                 } catch (JSONException e) {
@@ -78,7 +80,6 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
                 }
                 message = Message.obtain();
                 message.what = 1;
-//                    message.obj = str;
                 handler.sendMessage(message);
             }
         });
@@ -86,7 +87,13 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
         resourceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(PictureStory.this,"你点击了第" + i + "项",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PictureStory.this, Cognition.class);
+                try {
+                    intent.putExtra("info", ranks.getJSONObject(""+i).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                startActivity(intent);
             }
         });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -76,7 +76,6 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
             title.setText("发布动态");
             scene.setHint("说点什么吧...");
         }
-        final UserInfo UI = (UserInfo)getApplication();
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +103,7 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
 //                params.put("scene",s);
 //                params.put("time",""+new Date().getTime());
 
+                final UserInfo UI = (UserInfo)getApplication();
                 url="http://192.168.154.1:8080/CognitionAPP/createScene.do?";
                 url+="u_id="+UI.getId();
                 url+="&u_name="+UI.getName();

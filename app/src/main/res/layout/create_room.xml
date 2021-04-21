@@ -93,7 +93,8 @@
             android:text="设置房间密码"
             android:layout_below="@+id/subject"
             android:layout_marginTop="10dp"
-            android:textColor="@color/usu"/>
+            android:textColor="@color/usu"
+            android:visibility="gone"/>
 
         <Switch
             android:id="@+id/set"
@@ -101,7 +102,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/setPass"
             android:layout_alignTop="@+id/setPass"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="30dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/password"
@@ -111,7 +113,8 @@
             android:text="密码"
             android:layout_below="@+id/setPass"
             android:layout_marginTop="10dp"
-            android:textColor="@color/usu"/>
+            android:textColor="@color/usu"
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/pass"
@@ -120,7 +123,8 @@
             android:layout_toRightOf="@+id/password"
             android:layout_alignTop="@+id/password"
             android:layout_marginLeft="30dp"
-            android:background="@color/gray" />
+            android:background="@color/gray"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <LinearLayout

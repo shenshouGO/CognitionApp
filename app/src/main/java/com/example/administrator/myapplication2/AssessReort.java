@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.administrator.myapplication2.Adapter.AssessAdapter;
 import com.example.administrator.myapplication2.Bean.Resource;
@@ -41,6 +42,7 @@ public class AssessReort extends AppCompatActivity implements View.OnClickListen
     private JSONObject JO;
 
     private ImageView back;
+    private TextView title;
     private ImageView add;
     private ListView resourceScreen;
 
@@ -50,6 +52,8 @@ public class AssessReort extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_describe_scene);
 
         back = (ImageView) findViewById(R.id.back);
+        title = (TextView) findViewById(R.id.title);
+        title.setText(getResources().getString(R.string.assessReporter));
         add = (ImageView) findViewById(R.id.add);
         add.setVisibility(View.GONE);
         resourceScreen = (ListView) findViewById(R.id.resourceScreen);

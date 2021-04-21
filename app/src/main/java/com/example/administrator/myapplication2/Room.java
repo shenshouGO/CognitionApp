@@ -64,6 +64,7 @@ import MyClass.CustomVideoView;
 import MyClass.FileUtils;
 import MyClass.HttpUtil;
 import MyClass.MyStringCallBack;
+import MyClass.UserInfo;
 
 import static android.view.View.VISIBLE;
 
@@ -94,7 +95,7 @@ public class Room extends AppCompatActivity {
     private int sum;
     private int index;
     private String name;
-    private int img;
+    private String img;
     private int sign;
     private String[] status = {"房主","未准备","已准备"};
     private Intent intent;
@@ -170,6 +171,9 @@ public class Room extends AppCompatActivity {
         type = intent.getStringExtra("type");//获取该房间的材料类型
         mode = intent.getStringExtra("mode");//获取该房间的材料重评方式
         subject = intent.getStringExtra("subject");//获取该房间的材料主题
+        type = "图片";
+        mode = "描述";
+        subject = "生活";
 
         type_text.setText("本次重评材料：");
         mode_text.setText("本次重评方式：");
@@ -179,11 +183,6 @@ public class Room extends AppCompatActivity {
         video = new CustomVideoView(this);
         text = new TextView(this);
 
-//        type_text.setText("本次重评材料：图片");
-//        mode_text.setText("本次重评方式：命题");
-//        subject_text.setText("本次材料主题：生活");
-
-        img = R.drawable.ic_launcher_round;
         sign = 0;
         gameing = false;
         scoring = false;
@@ -205,7 +204,7 @@ public class Room extends AppCompatActivity {
                     JO = new JSONObject();
                     JO.put("num",i);
                     JO.put("name"," ");
-                    JO.put("img",R.drawable.p);
+                    JO.put("img"," ");
                     JO.put("status"," ");
                     JA.put(JO);
                 }
@@ -227,9 +226,11 @@ public class Room extends AppCompatActivity {
                     String str;
                     Message message;
 
+                    final UserInfo UI= (UserInfo)getApplication();
+
                     //当有用户进行socket连接进入房间时，发送加入房间的消息
                     outputStream = socket.getOutputStream();
-                    outputStream.write(( "join//" + num + "//" + name + "//" + img + "//" + status[1]+"!").getBytes("utf-8"));
+                    outputStream.write(( "join//" + num + "//" + name + "//" + UI.getImg() + "//" + status[1]+"!").getBytes("utf-8"));
                     outputStream.flush();
 
                     //根据当前游戏状态和接收到的消息进行数据更新操作
@@ -409,7 +410,8 @@ public class Room extends AppCompatActivity {
                                 try {
                                     JO = new JSONObject(response);
                                     JO = JO.getJSONObject(random.nextInt(JO.length())+"");
-                                    file = JO.getString("file");
+//                                    file = JO.getString("file");
+                                    file = "毒蛇攻击.png";
 
                                     new Thread(new Runnable() {
                                         @Override
@@ -442,12 +444,12 @@ public class Room extends AppCompatActivity {
                         JO = JA.getJSONObject(Integer.parseInt(split[1]));
                         JO.put("num",3);
                         JO.put("name"," ");
-                        JO.put("img",R.drawable.p);
+                        JO.put("img"," ");
                         JO.put("status"," ");
                         user = users.get(Integer.parseInt(split[1]));
                         user.setNum(3);
                         user.setName(" ");
-                        user.setImg(R.drawable.p);
+                        user.setImg(" ");
                         user.setStatus(" ");
 
                         if(n == 0) {
@@ -507,7 +509,7 @@ public class Room extends AppCompatActivity {
         try{
             users = new LinkedList<User>() ;
             for(int i = 0;i<JA.length();i++){
-                user = new User(JA.getJSONObject(i).getString("name"),JA.getJSONObject(i).getInt("img"),JA.getJSONObject(i).getInt("num"),JA.getJSONObject(i).getString("status"));
+                user = new User(JA.getJSONObject(i).getString("name"),JA.getJSONObject(i).getString("img"),JA.getJSONObject(i).getInt("num"),JA.getJSONObject(i).getString("status"));
                 users.add(user);
                 if(JA.getJSONObject(i).getString("name").equals(name)){
                     num = JA.getJSONObject(i).getInt("num");

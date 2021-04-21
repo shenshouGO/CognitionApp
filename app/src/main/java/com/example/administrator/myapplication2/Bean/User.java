@@ -6,11 +6,11 @@ package com.example.administrator.myapplication2.Bean;
 
 public class User {
     private String name;
-    private int img;
+    private String img;
     private int num;
     private String status;
 
-    public User(String name,int img,int num,String status){
+    public User(String name,String img,int num,String status){
         this.name = name;
         this.img = img;
         this.num = num;
@@ -21,7 +21,7 @@ public class User {
         return name;
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
@@ -37,7 +37,7 @@ public class User {
         this.name = name;
     }
 
-    public void setImg(int img){
+    public void setImg(String img){
         this.img = img;
     }
 

@@ -96,6 +96,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         collect = (TextView) findViewById(R.id.collect);
         collect.setVisibility(View.GONE);
         share = (TextView) findViewById(R.id.share);
+        share.setVisibility(View.GONE);
         edit_frame = (RelativeLayout) findViewById(R.id.edit_frame);
         edit_frame.setVisibility(View.GONE);
         delete.setVisibility(View.GONE);

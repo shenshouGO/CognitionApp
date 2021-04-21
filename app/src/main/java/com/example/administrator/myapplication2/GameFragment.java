@@ -1,6 +1,7 @@
 package com.example.administrator.myapplication2;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,10 +27,28 @@ public class GameFragment extends Fragment implements View.OnClickListener{
         describeScene = (TextView) view.findViewById(R.id.describeScene);
         gameUnit = (TextView) view.findViewById(R.id.gameUnit);
         assessReporter = (TextView) view.findViewById(R.id.assessReporter);
+
         pictureStory.setOnClickListener(this);
         describeScene.setOnClickListener(this);
         gameUnit.setOnClickListener(this);
         assessReporter.setOnClickListener(this);
+
+        Drawable[] assessD = assessReporter.getCompoundDrawables();
+        Drawable[] gameD = gameUnit.getCompoundDrawables();
+        Drawable[] pictureD = pictureStory.getCompoundDrawables();
+        Drawable[] describeD = describeScene.getCompoundDrawables();
+        assessD[1].setBounds(0,10,150,160);
+        gameD[1].setBounds(0,10,150,160);
+        pictureD[1].setBounds(0,10,150,160);
+        describeD[1].setBounds(0,10,150,160);
+        assessD[3].setBounds(0,20,400,100);
+        gameD[3].setBounds(0,20,400,100);
+        pictureD[3].setBounds(0,20,400,100);
+        describeD[3].setBounds(0,20,400,100);
+        assessReporter.setCompoundDrawables(assessD[0],assessD[1],assessD[2],assessD[3]);
+        gameUnit.setCompoundDrawables(gameD[0],gameD[1],gameD[2],gameD[3]);
+        pictureStory.setCompoundDrawables(pictureD[0],pictureD[1],pictureD[2],pictureD[3]);
+        describeScene.setCompoundDrawables(describeD[0],describeD[1],describeD[2],describeD[3]);
 
         return view;
     }

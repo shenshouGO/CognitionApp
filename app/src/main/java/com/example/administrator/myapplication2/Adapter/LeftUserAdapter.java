@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.myapplication2.R;
 import com.example.administrator.myapplication2.Bean.User;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class LeftUserAdapter extends BaseAdapter {
     private Context mContext;
     private List<User> mData = null;
+    private String path = "http://192.168.154.1:8080/file/";
 
     public LeftUserAdapter(Context mContext,List<User> mData) {
         this.mContext = mContext;
@@ -59,7 +61,11 @@ public class LeftUserAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.img.setBackgroundResource(mData.get(position).getImg());
+        if(mData.get(position).getImg().equals(" ")){
+            holder.img.setBackgroundResource(R.drawable.p);
+        }else{
+            Glide.with(mContext).load(path+mData.get(position).getImg()).into(holder.img);
+        }
         holder.name.setText(mData.get(position).getName());
         holder.num.setText(position+1+"");
         holder.status.setText(mData.get(position).getStatus());
