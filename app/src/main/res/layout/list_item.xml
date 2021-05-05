@@ -32,7 +32,6 @@
         android:layout_height="wrap_content"
         android:text="TOP"
         android:textColor="@color/usu"
-        android:layout_alignRight="@+id/img"
         android:background="@color/white"
         android:textSize="20sp"
         android:layout_marginTop="7dp"

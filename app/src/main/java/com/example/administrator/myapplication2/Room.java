@@ -319,7 +319,7 @@ public class Room extends AppCompatActivity {
                     public void run() {
                         try {
                             OutputStream outputStream = socket.getOutputStream();
-                            outputStream.write((name + "//" + data+"!").getBytes("utf-8"));
+                            outputStream.write((name + "//" + data).getBytes("utf-8"));
                             outputStream.flush();
 
                         } catch (IOException e) {
@@ -601,7 +601,7 @@ public class Room extends AppCompatActivity {
                                 }
 
                                 Toast.makeText(Room.this,"开始游戏，请玩家在75s内进行重评!",Toast.LENGTH_SHORT).show();
-                                countDown(10*1000,4);
+                                countDown(15*1000,4);
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
@@ -656,7 +656,18 @@ public class Room extends AppCompatActivity {
                     returnS = 0;
                     gameing = false;
                     scoring = false;
-                    material.removeView(iv);
+//                    material.removeView(iv);
+                    switch (type){
+                        case "视频":
+                            material.removeView(video);
+                            break;
+                        case "图片":
+                            material.removeView(iv);
+                            break;
+                        case "文本":
+                            material.removeView(text);
+                            break;
+                    }
                     aa.clear();
                     aaa = new JSONArray() ;
                     rv.setAdapter(null);
@@ -673,7 +684,7 @@ public class Room extends AppCompatActivity {
                     ready.setText("准备");
                     ready.setVisibility(VISIBLE);
                 }if(msg.what == 7){
-                    final String s = (String)msg.obj+"!";
+                    final String s = (String)msg.obj;
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -720,10 +731,10 @@ public class Room extends AppCompatActivity {
                             video.setMediaController(mediaController);
                             mediaController.setMediaPlayer(video);
 
-                            material.addView(video);
+//                            material.addView(video);
                             break;
                         case "图片":
-                            iv.setVisibility(VISIBLE);
+//                            iv.setVisibility(VISIBLE);
                             path = "http://192.168.154.1:8080/file/"+file;
 //                            fu = new FileUtils();
 //                            fu.downLoad(path,"maidang.jpg");
@@ -745,10 +756,10 @@ public class Room extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             });
-                            material.addView(iv);
+//                            material.addView(iv);
                             break;
                         case "文本":
-                            text.setVisibility(VISIBLE);
+//                            text.setVisibility(VISIBLE);
 
                             params = new HashMap<String, String>();
 //                            params.put("file","文本材料1.txt");
@@ -759,7 +770,7 @@ public class Room extends AppCompatActivity {
                                     text.setText(response);
                                 }
                             });
-                            material.addView(text);
+//                            material.addView(text);
                             break;
                     }
                 }

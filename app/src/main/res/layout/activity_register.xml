@@ -39,7 +39,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="15dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -54,7 +54,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape"
+                android:background="@color/usu"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:hint="请输入昵称"
                 android:lines="1"/>
         </LinearLayout>
@@ -62,7 +65,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="15dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -77,7 +80,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape"
+                android:background="@color/usu"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:hint="请输入手机号"
                 android:lines="1"
                 android:inputType="phone"/>
@@ -86,7 +92,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="15dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -101,7 +107,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape"
+                android:background="@color/usu"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:inputType="textPassword"
                 android:hint="请输入密码"
                 android:lines="1" />
@@ -110,7 +119,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="15dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -125,8 +134,11 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape"
                 android:hint="请重复输入密码"
+                android:background="@color/usu"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:inputType="textPassword"
                 android:lines="1"/>
         </LinearLayout>
@@ -138,6 +150,8 @@
             android:text="注册"
             android:background="@drawable/shape"
             android:layout_margin="20dp"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@color/usu"
+            android:textStyle="bold"/>
     </LinearLayout>
 </RelativeLayout>

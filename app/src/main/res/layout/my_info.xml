@@ -19,7 +19,7 @@
             android:layout_height="50dp"
             android:background="@drawable/shape"
             android:src="@drawable/ic_launcher"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:layout_margin="4dp"/>
 
         <TextView

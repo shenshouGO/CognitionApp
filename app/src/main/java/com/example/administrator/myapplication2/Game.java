@@ -3,6 +3,7 @@ package com.example.administrator.myapplication2;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,6 +72,13 @@ public class Game extends AppCompatActivity implements View.OnClickListener,Adap
         mode_spin.setOnItemSelectedListener(this);
         subject_spin.setOnItemSelectedListener(this);
         back.setOnClickListener(this);
+
+        Drawable[] createD = create_room.getCompoundDrawables();
+        Drawable[] quickD = quick_join.getCompoundDrawables();
+        createD[1].setBounds(0,10,150,140);
+        quickD[1].setBounds(0,10,150,140);
+        create_room.setCompoundDrawables(createD[0],createD[1],createD[2],createD[3]);
+        quick_join.setCompoundDrawables(quickD[0],quickD[1],quickD[2],quickD[3]);
     }
 
     @Override

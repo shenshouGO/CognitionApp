@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/usu">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,10 +40,11 @@
             android:id="@+id/create_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/pic1"
+            android:background="@color/white"
+            android:drawableTop="@drawable/create_room"
             android:text="@string/create_room"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
+            android:textColor="@color/usu"
             android:layout_margin="10dp"
             android:gravity="center"
             android:textSize="20sp"/>
@@ -52,10 +53,11 @@
             android:id="@+id/quick_join"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/pic1"
+            android:background="@color/white"
+            android:drawableTop="@drawable/quick_join"
             android:text="@string/quick_join"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
+            android:textColor="@color/usu"
             android:layout_margin="10dp"
             android:gravity="center"
             android:textSize="20sp"/>

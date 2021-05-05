@@ -1,6 +1,7 @@
 package com.example.administrator.myapplication2.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,9 @@ public class LeftUserAdapter extends BaseAdapter {
         }
         if(mData.get(position).getImg().equals(" ")){
             holder.img.setBackgroundResource(R.drawable.p);
+            Log.e("img:","null");
         }else{
+            Log.e("img:",path+mData.get(position).getImg());
             Glide.with(mContext).load(path+mData.get(position).getImg()).into(holder.img);
         }
         holder.name.setText(mData.get(position).getName());

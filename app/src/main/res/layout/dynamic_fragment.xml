@@ -26,7 +26,8 @@
             android:textSize="25sp"
             android:textColor="@color/black"
             android:gravity="center"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/focus"
@@ -37,7 +38,8 @@
             android:textSize="25sp"
             android:textColor="@color/black"
             android:gravity="center"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/find"
@@ -72,7 +74,7 @@
             android:layout_height="50dp"
             android:background="@drawable/shape"
             android:src="@drawable/ic_launcher"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:layout_margin="4dp"/>
 
         <TextView

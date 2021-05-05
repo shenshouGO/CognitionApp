@@ -2,13 +2,18 @@ package com.example.administrator.myapplication2;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaMetadataRetriever;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.MediaController;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,25 +22,33 @@ import com.bumptech.glide.Glide;
 import com.example.administrator.myapplication2.Adapter.OtherCognitionsAdapter;
 import com.example.administrator.myapplication2.Bean.OtherCognitions;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import MyClass.CustomVideoView;
+import MyClass.HttpUtil;
 import MyClass.InternetRequest;
+import MyClass.MyStringCallBack;
+
 import android.os.Handler;
 import android.os.Message;
 
 public class OtherCognition extends AppCompatActivity {
     private ImageView back;
-    private ImageView send;
     private ImageView pic;
     private TextView text;
+    private CustomVideoView video;
+    private MediaController mediaController;
     private ListView others;
     private Intent intent;
     private JSONObject info;
@@ -46,15 +59,13 @@ public class OtherCognition extends AppCompatActivity {
     private List<OtherCognitions> resources;
     private OtherCognitionsAdapter oca;
     private ThreadPoolExecutor tpe;
-    private RatingBar validity;
-    private RatingBar novelty;
     private Lis lis;
-    private AlertDialog alert = null;
-    private AlertDialog.Builder builder = null;
     private Date date;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); //yyyy-MM-dd :HH:mm:ss
     private Message message;
     final Handler handler = new MyHandler();
+    private HttpUtil httpUtil;
+    private Map<String,String> params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +73,45 @@ public class OtherCognition extends AppCompatActivity {
         setContentView(R.layout.other_cognition);
 
         back = (ImageView)findViewById(R.id.back);
-        send = (ImageView)findViewById(R.id.send);
         pic = (ImageView)findViewById(R.id.pic);
         text = (TextView)findViewById(R.id.text);
+        text.setMovementMethod(ScrollingMovementMethod.getInstance());
+        video = (CustomVideoView)findViewById(R.id.video);
         others = (ListView)findViewById(R.id.others);
         resources = new LinkedList<OtherCognitions>() ;
         lis = new Lis();
         pic.setOnClickListener(lis);
+        back.setOnClickListener(lis);
 
         intent = this.getIntent();
+        httpUtil = new HttpUtil();
         try{
             info = new JSONObject(intent.getStringExtra("info"));
-            Glide.with(OtherCognition.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(pic);
-            Log.e("show successfully:","");
+
+            if(info.getString("type").equals("视频")){
+                text.setVisibility(View.GONE);
+                pic.setVisibility(View.GONE);
+                video.setVisibility(View.VISIBLE);
+                setVideo();
+            }else if(info.getString("type").equals("文本")){
+                video.setVisibility(View.GONE);
+                pic.setVisibility(View.GONE);
+                text.setVisibility(View.VISIBLE);
+                params = new HashMap<String, String>();
+                params.put("file",info.getString("file"));
+                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                    @Override
+                    public void onResponse(String response, int id) {
+                        super.onResponse(response, id);
+                        text.setText(response);
+                    }
+                });
+            }else{
+                text.setVisibility(View.GONE);
+                video.setVisibility(View.GONE);
+                pic.setVisibility(View.VISIBLE);
+                Glide.with(OtherCognition.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(pic);
+            }
 
             IR = new InternetRequest();
         }catch (Exception e){
@@ -133,13 +170,48 @@ public class OtherCognition extends AppCompatActivity {
         });
     }
 
+    private void setVideo(){
+        video.setPlayPauseListener(new CustomVideoView.PlayPauseListener() {
+            @Override
+            public void onPlay() {
+                //开始播放之后消除背景
+                video.setBackground(null);
+            }
+            @Override
+            public void onPause() {
+                System.out.println("Pause!");//our needed process when the video is paused
+            }
+        });
+
+        String videoUrl = null;
+        try {
+            videoUrl = "http://192.168.154.1:8080/file/"+info.getString("file");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = null;
+        //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
+        video.setVideoPath(videoUrl);
+        //设置视频缩略图
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(videoUrl, new HashMap());
+        bitmap = retriever.getFrameAtTime();
+        video.setBackground(new BitmapDrawable(getResources(),bitmap));
+        mediaController = new MediaController(this);
+        video.setMediaController(mediaController);
+        mediaController.setMediaPlayer(video);
+    }
+
     public class Lis implements View.OnClickListener{
         @Override
         public void onClick(View v){
             Log.e("XXX","onClick");
             switch (v.getId()) {
                 case R.id.pic:
-                    Toast.makeText(OtherCognition.this,"pic",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(OtherCognition.this,"pic",Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.back:
+                    finish();
                     break;
             }
             Log.e("XXX","onClickSuccessfully");
