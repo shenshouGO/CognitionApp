@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.myapplication2.Bean.JsonBean;
 import com.example.administrator.myapplication2.R;
 
@@ -26,6 +27,7 @@ public class UserRankAdapter  extends BaseAdapter {
     private int type;
     private static final int GAME = 0;
     private static final int SUM = 1;
+    private String path = "http://192.168.154.1:8080/file/";
 
     public UserRankAdapter(Context mContext, List<JsonBean> mData,int type) {
         this.mContext = mContext;
@@ -71,6 +73,7 @@ public class UserRankAdapter  extends BaseAdapter {
         try {
             holder.rank.setText(position+1+"");
             holder.img_head.setVisibility(View.VISIBLE);
+            Glide.with(mContext).load(path+JO.getString("img_name")).into(holder.img_head);
             holder.title.setText(JO.getString("name"));
             holder.text.setVisibility(View.VISIBLE);
             switch (type){

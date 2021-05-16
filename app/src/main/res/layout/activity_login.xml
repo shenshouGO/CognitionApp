@@ -9,7 +9,7 @@
         android:layout_width="80dp"
         android:layout_height="120dp"
         android:scaleType="centerCrop"
-        android:background="@drawable/star"
+        android:background="@drawable/start"
         android:layout_margin="10dp"
         android:layout_centerHorizontal="true"/>
 
@@ -17,7 +17,7 @@
         android:id="@+id/AppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="APP名称"
+        android:text="@string/app_name"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:layout_below="@+id/logo"

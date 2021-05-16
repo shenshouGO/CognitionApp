@@ -76,7 +76,6 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     private String str;
     final Handler handler = new MyHandler();
     private Message message;
-    private FrameLayout frame;
     private LinearLayout ll;
     private EditText edit;
     private Button send;
@@ -112,7 +111,6 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         share = (ImageView) findViewById(R.id.share);
         score = (Button) findViewById(R.id.score);
         comment = (ListView) findViewById(R.id.comment);
-        frame = (FrameLayout) findViewById(R.id.frame);
         ll = (LinearLayout) findViewById(R.id.edit_frame);
         edit = (EditText) findViewById(R.id.edit);
         send = (Button) findViewById(R.id.send);
@@ -144,6 +142,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                 }
             });
             time.setText(simpleDateFormat.format(new Date(new Long(info.getString("time")))));
+            back.setOnClickListener(this);
             discuss.setOnClickListener(this);
             good.setOnClickListener(this);
             share.setOnClickListener(this);
@@ -162,6 +161,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         comment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                Log.e("comments",""+i);
                 try{
                     if(!comments.get(i).getU_name().equals(UI.getName())){
                         isComment = false;
@@ -195,6 +195,9 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         try{
             final UserInfo UI = (UserInfo)getApplication();
             switch (v.getId()) {
+                case R.id.back:
+                    finish();
+                    break;
                 case R.id.score:
                     final LayoutInflater inflater = CognitionDetail.this.getLayoutInflater();
                     View ds = inflater.inflate(R.layout.double_score, null,false);
@@ -289,7 +292,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Log.e("str",str);
+            Log.e("what",msg.what+"");
             try {
                 switch (msg.what){
                     case 1://更新评论区

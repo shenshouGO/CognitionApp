@@ -112,9 +112,10 @@ public class DynamicFragment extends Fragment implements View.OnClickListener{
 //                Toast.makeText(getActivity(),"发现",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.release:
-                Intent intent = new Intent(getActivity(), ReleaseScene.class);
-                intent.putExtra("type","发布动态");
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), ReleaseScene.class);
+//                intent.putExtra("type","发布动态");
+//                startActivity(intent);
+                Toast.makeText(getActivity(),"此功能暂不可用",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

@@ -41,7 +41,7 @@ import MyClass.HttpUtil;
 import MyClass.MyStringCallBack;
 import MyClass.UserInfo;
 
-public class TextDetail extends AppCompatActivity implements View.OnClickListener{
+public class TextDetail extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener{
     private CustomVideoView video;
     private MediaController mediaController;
     private TextView text;
@@ -155,40 +155,10 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         share.setOnClickListener(this);
         send.setOnClickListener(this);
         delete.setOnClickListener(this);
+        list.setOnItemClickListener(this);
 
         goodId = 0;
         dislikeId = 0;
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                Log.e("list",comments.get(i).getU_name()+" "+UI.getName());
-                try{
-                    if(!comments.get(i).getU_name().equals(UI.getName())){
-                        isComment = false;
-                        if(comments.get(i).getC_c_id().equals("0"))
-                            s_c_id = comments.get(i).getId();
-                        else
-                            s_c_id = comments.get(i).getC_c_id();
-                        r_id = comments.get(i).getU_id();
-                        r_name = comments.get(i).getU_name();
-                        r_img = comments.get(i).getU_img();
-                        edit_frame.setVisibility(View.VISIBLE);
-                        send.setVisibility(View.VISIBLE);
-                        edit.setHint("回复"+r_name+":");
-                        edit.requestFocus();
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(edit, InputMethodManager.RESULT_SHOWN);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
-                    }else{
-                        delete.setVisibility(View.VISIBLE);
-                        delete.setTag(comments.get(i).getId());
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
 
         initFunction();
     }
@@ -313,6 +283,36 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         mediaController = new MediaController(this);
         video.setMediaController(mediaController);
         mediaController.setMediaPlayer(video);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+        UserInfo UI = (UserInfo)getApplication();
+        Log.e("list",comments.get(i).getU_id()+" "+UI.getId());
+        try{
+            if(!comments.get(i).getU_id().equals(UI.getId())){
+                isComment = false;
+                if(comments.get(i).getC_c_id().equals("0"))
+                    s_c_id = comments.get(i).getId();
+                else
+                    s_c_id = comments.get(i).getC_c_id();
+                r_id = comments.get(i).getU_id();
+                r_name = comments.get(i).getU_name();
+                r_img = comments.get(i).getU_img();
+                edit_frame.setVisibility(View.VISIBLE);
+                send.setVisibility(View.VISIBLE);
+                edit.setHint("回复"+r_name+":");
+                edit.requestFocus();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(edit, InputMethodManager.RESULT_SHOWN);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+            }else{
+                delete.setVisibility(View.VISIBLE);
+                delete.setTag(comments.get(i).getId());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

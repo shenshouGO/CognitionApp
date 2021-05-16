@@ -4,12 +4,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/hint_img"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/study_unit"/>
+
     <RadioGroup
         android:id="@+id/rg_tab_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@+id/hint_img">
 
         <RadioButton
             android:id="@+id/rb_vedio"

@@ -35,7 +35,8 @@
             android:background="@drawable/search"
             android:scaleType="center"
             android:layout_margin="5dp"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -59,7 +60,8 @@
             android:background="@drawable/more"
             android:scaleType="center"
             android:layout_margin="8dp"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"/>
 
         <MyClass.HorizontalListView
             android:layout_width="match_parent"

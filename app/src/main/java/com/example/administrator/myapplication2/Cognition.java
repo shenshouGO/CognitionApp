@@ -134,7 +134,7 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
                 text.setVisibility(View.GONE);
                 video.setVisibility(View.GONE);
                 pic.setVisibility(View.VISIBLE);
-                draw.setVisibility(View.VISIBLE);
+                draw.setVisibility(View.INVISIBLE);
                 Glide.with(Cognition.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(pic);
             }
         }catch (Exception e){

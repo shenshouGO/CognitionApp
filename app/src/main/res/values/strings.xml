@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application2</string>
+    <string name="app_name">新晴</string>
     <string name="type">类型</string>
     <string name="mode">方式</string>
     <string name="subject">主题</string>
@@ -13,6 +13,7 @@
     <string name="dynamic">动态</string>
     <string name="me">我的</string>
     <string name="nickname">昵称</string>
+    <string name="edit">编辑</string>
     <string name="comment">评论</string>
     <string name="score">评分</string>
     <string name="good">点赞</string>
@@ -87,6 +88,7 @@
     <string name="send">发送</string>
     <string name="cognition_hint">高质量的评论会更多人赞同哦</string>
     <string name="train_platform">创造性认知重评\n训练平台</string>
+    <string name="study_unit">学习单元</string>
 
     <string name="holder1">holder1</string>
     <string name="holder2">holder2</string>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Administrator on 2021/2/26.
@@ -65,8 +66,9 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.gameUnit:
-                intent = new Intent(getActivity(), Game.class);
-                startActivity(intent);
+//                intent = new Intent(getActivity(), Game.class);
+//                startActivity(intent);
+                Toast.makeText(getActivity(),"此功能暂不可用",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.assessReporter:
                 intent = new Intent(getActivity(), AssessReort.class);

@@ -2,6 +2,8 @@ package com.example.administrator.myapplication2.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.Layout;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -9,6 +11,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -75,10 +78,9 @@ public class CommentAdapter extends BaseAdapter {
         int type = getItemViewType(position);
         ViewHolder holder = null;
         if(convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.answer,parent,false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.comment_item,parent,false);
             holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.answer);
-//            holder.comment = (TextView) convertView.findViewById(R.id.answer);
+            holder.comment = (TextView) convertView.findViewById(R.id.comment);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
@@ -139,14 +141,50 @@ public class CommentAdapter extends BaseAdapter {
                 Log.e("Comment","u_name = "+u_name2+"   r_u_name = "+r_u_name+" "+start2+" "+start3);
                 break;
         }
-        holder.name.setMovementMethod(LinkMovementMethod.getInstance());
-        holder.name.setText(spannableString);
-//        holder.comment.setText(mData.get(position).getComment());
+        holder.comment.setText(spannableString);
+        holder.comment.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+            boolean ret = false;
+            CharSequence text = ((TextView) v).getText();
+            Spannable stext = Spannable.Factory.getInstance().newSpannable(text);
+            TextView widget = (TextView) v;
+            int action = event.getAction();
+
+
+            if (action == MotionEvent.ACTION_UP ||action == MotionEvent.ACTION_DOWN) {
+            int x = (int) event.getX();
+            int y = (int) event.getY();
+
+
+            x -= widget.getTotalPaddingLeft();
+            y -= widget.getTotalPaddingTop();
+
+
+            x += widget.getScrollX();
+            y += widget.getScrollY();
+
+
+            Layout layout = widget.getLayout();
+            int line = layout.getLineForVertical(y);
+            int off = layout.getOffsetForHorizontal(line, x);
+
+
+            ClickableSpan[] link = stext.getSpans(off, off, ClickableSpan.class);
+
+
+            if (link.length != 0) {
+                if (action == MotionEvent.ACTION_UP) {
+                    link[0].onClick(widget);
+                }
+                ret = true;
+            }}
+            return ret;
+            }});
         return convertView;
     }
 
     static class ViewHolder{
-        TextView name;
-//        TextView comment;
+        TextView comment;
     }
 }
