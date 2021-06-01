@@ -71,7 +71,7 @@ public class HorizontalListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ScreenAdapter.ViewHolder holder;
         int type = getItemViewType(position);
-        String path = "http://192.168.154.1:8080/file/";
+        String path = "http://59.110.215.154:8080/resource/";
         if(convertView==null){
             holder = new ScreenAdapter.ViewHolder();
             convertView = mInflater.inflate(R.layout.list_item, null);
@@ -95,14 +95,14 @@ public class HorizontalListViewAdapter extends BaseAdapter {
                 holder.text.setVisibility(View.GONE);
                 holder.img.setImageResource(R.drawable.banner_default);
                 VedioAsyncTask vedioAsyncTask = new VedioAsyncTask(holder.img);
-                vedioAsyncTask.execute("http://192.168.154.1:8080/file/"+mData.get(position).getPath());
+                vedioAsyncTask.execute("http://59.110.215.154:8080/resource/"+mData.get(position).getPath());
                 break;
             case TYPE_TEXT:
                 holder.text.setVisibility(View.VISIBLE);
                 holder.img.setVisibility(View.GONE);
                 params = new HashMap<String, String>();
                 params.put("file",mData.get(position).getPath());
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder) {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder) {
                     @Override
                     public void onResponse(String response, int id) {
                         String[] splits = response.split("\\|\\|\\|");

@@ -82,7 +82,7 @@ public class AssessDetail extends AppCompatActivity implements View.OnClickListe
             title.setText(split[0]);
             params = new HashMap<String, String>();
             params.put("file",info.getString("file"));
-            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                 @Override
                 public void onResponse(String response, int id) {
                     super.onResponse(response, id);

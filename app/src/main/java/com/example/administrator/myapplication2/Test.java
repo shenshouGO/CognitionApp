@@ -48,7 +48,7 @@ public class Test extends AppCompatActivity implements View.OnClickListener,
         setContentView(R.layout.test);
 
         img = (ImageView) findViewById(R.id.img);
-        urlPath = "http://192.168.154.1:8080/file/1.jpg";
+        urlPath = "http://59.110.215.154:8080/resource/1.jpg";
         Picasso.with(Test.this).load(urlPath).into(img);
 
         img.setOnClickListener(this);
@@ -102,14 +102,14 @@ public class Test extends AppCompatActivity implements View.OnClickListener,
         });
 
         String videoUrl = null;
-        videoUrl = "http://192.168.154.1:8080/file/你的答案.mp4";
+        videoUrl = "http://59.110.215.154:8080/resource/你的答案.mp4";
 //        try {
-//            videoUrl = "http://192.168.154.1:8080/file/"+info.getString("file");
+//            videoUrl = "http://59.110.215.154:8080/resource/"+info.getString("file");
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
         Bitmap bitmap = null;
-        //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
+        //video.setVideoURI(Uri.parse("http://59.110.215.154:8080/resource/2019跨年.mp4" ));
         video.setVideoPath(videoUrl);
         //设置视频缩略图
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();

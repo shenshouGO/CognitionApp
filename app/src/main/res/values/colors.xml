@@ -10,4 +10,6 @@
     <color name="black">#000000</color>
     <color name="red">#fa0000</color>
     <color name="green">#4f7841</color>
+    <color name="usu_back">#3a5825</color>
+    <color name="yellow">#ffff24</color>
 </resources>

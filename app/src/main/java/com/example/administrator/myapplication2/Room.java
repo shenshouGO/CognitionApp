@@ -404,7 +404,7 @@ public class Room extends AppCompatActivity {
 
                         params = new HashMap<String,String>();
                         params.put("sql","select file from cognition_resource where type = '" + type +"' and theme = '"+subject+"'");
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
                             @Override
                             public void onResponse(String response, int id) {
                                 try {
@@ -717,10 +717,10 @@ public class Room extends AppCompatActivity {
                             });
 
                             String videoUrl = null;
-//                            videoUrl = "http://192.168.154.1:8080/file/你的答案.mp4";
-                            videoUrl = "http://192.168.154.1:8080/file/"+file;
+//                            videoUrl = "http://59.110.215.154:8080/resource/你的答案.mp4";
+                            videoUrl = "http://192.168.154.1:8080/resource/"+file;
                             Bitmap bitmap = null;
-                            //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
+                            //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/resource/2019跨年.mp4" ));
                             video.setVideoPath(videoUrl);
                             //设置视频缩略图
                             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -735,7 +735,7 @@ public class Room extends AppCompatActivity {
                             break;
                         case "图片":
 //                            iv.setVisibility(VISIBLE);
-                            path = "http://192.168.154.1:8080/file/"+file;
+                            path = "http://192.168.154.1:8080/resource/"+file;
 //                            fu = new FileUtils();
 //                            fu.downLoad(path,"maidang.jpg");
 //                            path = Environment.getExternalStorageDirectory().toString() + "/shidoe";
@@ -751,7 +751,7 @@ public class Room extends AppCompatActivity {
                                     intent = new Intent(Room.this,ImageDetail.class);
 //                                    intent.putExtra("path",path);
 //                                    intent.putExtra("img","maidang.jpg");
-                                    intent.putExtra("path","http://192.168.154.1:8080/file/");
+                                    intent.putExtra("path","http://192.168.154.1:8080/resource/");
                                     intent.putExtra("img",file);
                                     startActivity(intent);
                                 }
@@ -764,7 +764,7 @@ public class Room extends AppCompatActivity {
                             params = new HashMap<String, String>();
 //                            params.put("file","文本材料1.txt");
                             params.put("file",file);
-                            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                                 @Override
                                 public void onResponse(String response, int id) {
                                     text.setText(response);
@@ -905,7 +905,7 @@ public class Room extends AppCompatActivity {
                     params = new HashMap<String, String>();
                     params.put("name",ds.getName());
                     params.put("integral",""+dis[i]);
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createGameIntegral.do",params,new MyStringCallBack(){
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createGameIntegral.do",params,new MyStringCallBack(){
                         @Override
                         public void onResponse(String response, int id) {
                             Log.e("response:",response);
@@ -931,7 +931,7 @@ public class Room extends AppCompatActivity {
                 params = new HashMap<String, String>();
                 params.put("name",cpName);
                 params.put("integral",""+ri);
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createGameIntegral.do",params,new MyStringCallBack(){
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createGameIntegral.do",params,new MyStringCallBack(){
                     @Override
                     public void onResponse(String response, int id) {
                         Log.e("response:",response);

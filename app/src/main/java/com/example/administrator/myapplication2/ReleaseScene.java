@@ -104,7 +104,7 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
 //                params.put("time",""+new Date().getTime());
 
                 final UserInfo UI = (UserInfo)getApplication();
-                url="http://192.168.154.1:8080/CognitionAPP/createScene.do?";
+                url="http://59.110.215.154:8080/CognitionAPP/createScene.do?";
                 url+="u_id="+UI.getId();
                 url+="&u_name="+UI.getName();
                 url+="&u_img="+UI.getImg();

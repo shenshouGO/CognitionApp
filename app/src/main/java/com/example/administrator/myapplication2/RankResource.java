@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -124,7 +125,7 @@ public class RankResource extends AppCompatActivity implements View.OnClickListe
                 name.setText(info.getString("u_name"));
                 params = new HashMap<String, String>();
                 params.put("file",info.getString("file"));
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                     @Override
                     public void onResponse(String response, int id) {
                         cognition.setText(response);
@@ -140,10 +141,11 @@ public class RankResource extends AppCompatActivity implements View.OnClickListe
             splits = file.split("\\.");
             if(splits[1].equals("txt")){
                 text.setVisibility(View.VISIBLE);
+                text.setMovementMethod(ScrollingMovementMethod.getInstance());;
 
                 params = new HashMap<String, String>();
                 params.put("file",file);
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                     @Override
                     public void onResponse(String response, int id) {
                         splits = response.split("\\|\\|\\|");
@@ -165,9 +167,9 @@ public class RankResource extends AppCompatActivity implements View.OnClickListe
                 });
 
                 String videoUrl = null;
-                videoUrl = "http://192.168.154.1:8080/file/"+file;
+                videoUrl = "http://59.110.215.154:8080/resource/"+file;
                 Bitmap bitmap = null;
-                //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
+                //video.setVideoURI(Uri.parse("http://59.110.215.154:8080/resource/2019跨年.mp4" ));
                 video.setVideoPath(videoUrl);
                 //设置视频缩略图
                 MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -179,7 +181,7 @@ public class RankResource extends AppCompatActivity implements View.OnClickListe
                 mediaController.setMediaPlayer(video);
             }else{
                 pic.setVisibility(View.VISIBLE);
-                Glide.with(RankResource.this).load("http://192.168.154.1:8080/file/"+file).into(pic);
+                Glide.with(RankResource.this).load("http://59.110.215.154:8080/resource/"+file).into(pic);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -239,7 +241,7 @@ public class RankResource extends AppCompatActivity implements View.OnClickListe
                         }
                         params.put("cognition",data);
 
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createCognition.do",params,new MyStringCallBack() {
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createCognition.do",params,new MyStringCallBack() {
                             @Override
                             public void onResponse(String response, int id) {
                                 if(response.equals("Create successfully")){
@@ -271,7 +273,7 @@ public class RankResource extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);

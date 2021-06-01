@@ -42,6 +42,7 @@ import MyClass.MyStringCallBack;
 import MyClass.UserInfo;
 
 public class TextDetail extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener{
+    private ImageView back;
     private CustomVideoView video;
     private MediaController mediaController;
     private TextView text;
@@ -84,6 +85,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         httpUtil = new HttpUtil();
+        back = (ImageView) findViewById(R.id.back);
         video = (CustomVideoView)findViewById(R.id.video);
         text = (TextView) findViewById(R.id.text);
         img = (ImageView) findViewById(R.id.img);
@@ -113,7 +115,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
                 video.setVisibility(View.GONE);
                 params = new HashMap<String, String>();
                 params.put("file",info.getString("file"));
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                     @Override
                     public void onResponse(String response, int id) {
                         super.onResponse(response, id);
@@ -124,7 +126,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
                 text.setVisibility(View.GONE);
                 video.setVisibility(View.GONE);
                 img.setVisibility(View.VISIBLE);
-                Glide.with(TextDetail.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(img);
+                Glide.with(TextDetail.this).load("http://59.110.215.154:8080/resource/"+info.getString("file")).into(img);
             }
             displayComments();
         } catch (JSONException e) {
@@ -148,6 +150,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         collect.setCompoundDrawables(collectD[0],collectD[1],collectD[2],collectD[3]);
         share.setCompoundDrawables(shareD[0],shareD[1],shareD[2],shareD[3]);
 
+        back.setOnClickListener(this);
         good.setOnClickListener(this);
         unlike.setOnClickListener(this);
         comment.setOnClickListener(this);
@@ -169,7 +172,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
             params = new HashMap<String, String>();
             params.put("r_id",info.getString("id"));
             params.put("u_id",UI.getId());
-            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/matchUserAndResourceGood.do",params,new MyStringCallBack() {
+            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/matchUserAndResourceGood.do",params,new MyStringCallBack() {
                 @Override
                 public void onResponse(String response, int id) {
                     super.onResponse(response, id);
@@ -185,7 +188,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
 
             params = new HashMap<String, String>();
             params.put("sql","select id from resource_dislike where u_id="+UI.getId()+" and r_id = "+info.getString("id"));
-            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
                 @Override
                 public void onResponse(String response, int id) {
                     super.onResponse(response, id);
@@ -268,12 +271,12 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
 
         String videoUrl = null;
         try {
-            videoUrl = "http://192.168.154.1:8080/file/"+info.getString("file");
+            videoUrl = "http://59.110.215.154:8080/resource/"+info.getString("file");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Bitmap bitmap = null;
-        //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
+        //video.setVideoURI(Uri.parse("http://59.110.215.154:8080/resource/2019跨年.mp4" ));
         video.setVideoPath(videoUrl);
         //设置视频缩略图
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -319,13 +322,16 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v){
         final UserInfo UI = (UserInfo)getApplication();
         switch (v.getId()){
+            case R.id.back:
+                finish();
+                break;
             case R.id.good:
                 if(goodId == 0){
                     params = new HashMap<String, String>();
                     try {
                         params.put("r_id",info.getString("id"));
                         params.put("u_id",UI.getId());
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createResourceGood.do",params,new MyStringCallBack() {
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createResourceGood.do",params,new MyStringCallBack() {
                             @Override
                             public void onResponse(String response, int id) {
                                 super.onResponse(response, id);
@@ -352,7 +358,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
                 }else{
                     params = new HashMap<String, String>();
                     params.put("ID",""+goodId);
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/deleteResourceGood.do",params,new MyStringCallBack() {
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/deleteResourceGood.do",params,new MyStringCallBack() {
                         @Override
                         public void onResponse(String response, int id) {
                             super.onResponse(response, id);
@@ -380,7 +386,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
                     try {
                         params.put("r_id",info.getString("id"));
                         params.put("u_id",UI.getId());
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createResourceDislike.do",params,new MyStringCallBack() {
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createResourceDislike.do",params,new MyStringCallBack() {
                             @Override
                             public void onResponse(String response, int id) {
                                 super.onResponse(response, id);
@@ -407,7 +413,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
                 }else{
                     params = new HashMap<String, String>();
                     params.put("ID",""+dislikeId);
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/deleteResourceDislike.do",params,new MyStringCallBack() {
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/deleteResourceDislike.do",params,new MyStringCallBack() {
                         @Override
                         public void onResponse(String response, int id) {
                             super.onResponse(response, id);
@@ -458,7 +464,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
             case R.id.delete:
                 params = new HashMap<String, String>();
                 params.put("ID",delete.getTag().toString());
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/deleteStudyComment.do",params,new MyStringCallBack() {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/deleteStudyComment.do",params,new MyStringCallBack() {
                     @Override
                     public void onResponse(String response, int id) {
                         super.onResponse(response, id);
@@ -502,7 +508,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
             e.printStackTrace();
         }
 
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createStudyComment.do",params,new MyStringCallBack() {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createStudyComment.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);
@@ -524,7 +530,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
             comments.clear();
             params = new HashMap<String, String>();
             params.put("ID",info.getString("id"));
-            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displayStudyComment.do",params,new MyStringCallBack() {
+            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displayStudyComment.do",params,new MyStringCallBack() {
                 @Override
                 public void onResponse(String response, int id) {
                     super.onResponse(response, id);

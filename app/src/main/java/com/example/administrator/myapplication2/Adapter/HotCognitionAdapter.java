@@ -74,7 +74,7 @@ public class HotCognitionAdapter extends BaseAdapter {
         params = new HashMap<String, String>();
         params.put("file",mData.get(position).getText());
 //        holder.text.setText(mData.get(position).getText());
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(position,holder) {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack(position,holder) {
             @Override
             public void onResponse(String response, int id) {
                 split = response.split("\\|\\|\\|");

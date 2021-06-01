@@ -21,7 +21,7 @@ import java.util.List;
 public class RightUserAdapter extends BaseAdapter {
     private Context mContext;
     private List<User> mData = null;
-    private String path = "http://192.168.154.1:8080/file/";
+    private String path = "http://59.110.215.154:8080/resource/";
 
     public RightUserAdapter(Context mContext,List<User> mData) {
         this.mContext = mContext;

@@ -77,7 +77,7 @@ public class ModifyPassword extends AppCompatActivity implements View.OnClickLis
                     if(type == 0)
                         params.put("original_password",original_content.getText().toString());
                     params.put("password",new_content.getText().toString());
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/modifyPassword.do",params,new MyStringCallBack(){
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/modifyPassword.do",params,new MyStringCallBack(){
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             Toast.makeText(ModifyPassword.this,"修改密码失败！",Toast.LENGTH_SHORT).show();

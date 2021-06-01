@@ -123,7 +123,7 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
                 text.setVisibility(View.VISIBLE);
                 params = new HashMap<String, String>();
                 params.put("file",info.getString("file"));
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                     @Override
                     public void onResponse(String response, int id) {
                         super.onResponse(response, id);
@@ -135,7 +135,7 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
                 video.setVisibility(View.GONE);
                 pic.setVisibility(View.VISIBLE);
                 draw.setVisibility(View.INVISIBLE);
-                Glide.with(Cognition.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(pic);
+                Glide.with(Cognition.this).load("http://59.110.215.154:8080/resource/"+info.getString("file")).into(pic);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -158,7 +158,7 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
                         params.put("c_r_file",info.getString("file"));
                         params.put("cognition",data);
 
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createCognition.do",params,new MyStringCallBack() {
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createCognition.do",params,new MyStringCallBack() {
                             @Override
                             public void onResponse(String response, int id) {
                                 super.onResponse(response, id);
@@ -193,7 +193,7 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
                     break;
                 case R.id.pic:
                     List<String> imgs = new ArrayList<String>();
-                    imgs.add("http://192.168.154.1:8080/file/"+info.getString("file"));
+                    imgs.add("http://59.110.215.154:8080/resource/"+info.getString("file"));
                     intent = new Intent(Cognition.this, PhotoView.class);
                     intent.putStringArrayListExtra("Urls",(ArrayList<String>) imgs);
                     intent.putExtra("currentPosition", 0);
@@ -223,12 +223,12 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
 
         String videoUrl = null;
         try {
-            videoUrl = "http://192.168.154.1:8080/file/"+info.getString("file");
+            videoUrl = "http://59.110.215.154:8080/resource/"+info.getString("file");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Bitmap bitmap = null;
-        //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
+        //video.setVideoURI(Uri.parse("http://59.110.215.154:8080/resource/2019跨年.mp4" ));
         video.setVideoPath(videoUrl);
         //设置视频缩略图
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();

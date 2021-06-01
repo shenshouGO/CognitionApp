@@ -85,7 +85,7 @@ public class GameReady extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    socket = new Socket("192.168.154.1", 10010);
+                    socket = new Socket("59.110.215.154", 10010);
                     InputStream inputStream = socket.getInputStream();
                     byte[] buffer = new byte[1024];
                     int len;

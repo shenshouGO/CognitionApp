@@ -82,7 +82,7 @@ public class AnswerPasswordQuestion extends AppCompatActivity implements View.On
                     }else{
                         params = new HashMap<String, String>();
                         params.put("sql", "select id from user where telephone = "+telephone_content.getText().toString());
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do", params, new MyStringCallBack() {
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do", params, new MyStringCallBack() {
                             @Override
                             public void onResponse(String response, int id) {
                                 try {
@@ -91,7 +91,7 @@ public class AnswerPasswordQuestion extends AppCompatActivity implements View.On
                                         u_id = JO.getJSONObject("0").getString("id");
                                         params = new HashMap<String, String>();
                                         params.put("sql", "select question from password_question where u_id = "+u_id);
-                                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do", params, new MyStringCallBack() {
+                                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do", params, new MyStringCallBack() {
                                             @Override
                                             public void onResponse(String response, int id) {
                                                 try {
@@ -128,7 +128,7 @@ public class AnswerPasswordQuestion extends AppCompatActivity implements View.On
                         params = new HashMap<String, String>();
                         params.put("u_id", u_id);
                         params.put("answer", answer_content.getText().toString());
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/answerPasswordQuestion.do", params, new MyStringCallBack() {
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/answerPasswordQuestion.do", params, new MyStringCallBack() {
                             @Override
                             public void onError(Call call, Exception e, int id) {
                                 Toast.makeText(AnswerPasswordQuestion.this, "设置失败！", Toast.LENGTH_SHORT).show();

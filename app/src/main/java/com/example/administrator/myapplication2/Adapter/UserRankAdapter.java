@@ -27,7 +27,7 @@ public class UserRankAdapter  extends BaseAdapter {
     private int type;
     private static final int GAME = 0;
     private static final int SUM = 1;
-    private String path = "http://192.168.154.1:8080/file/";
+    private String path = "http://59.110.215.154:8080/resource/";
 
     public UserRankAdapter(Context mContext, List<JsonBean> mData,int type) {
         this.mContext = mContext;

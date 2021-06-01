@@ -69,7 +69,7 @@ public class ScreenAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         int type = getItemViewType(position);
-        String path = "http://192.168.154.1:8080/file/";
+        String path = "http://59.110.215.154:8080/resource/";
         ViewHolder holder;
         if(convertView==null){
             holder = new ViewHolder();
@@ -89,7 +89,7 @@ public class ScreenAdapter extends BaseAdapter {
                 holder.text.setVisibility(View.INVISIBLE);
                 holder.img.setImageResource(R.drawable.banner_default);
                 VedioAsyncTask vedioAsyncTask = new VedioAsyncTask(holder.img);
-                vedioAsyncTask.execute("http://192.168.154.1:8080/file/"+mData.get(position).getPath());
+                vedioAsyncTask.execute("http://59.110.215.154:8080/resource/"+mData.get(position).getPath());
                 break;
             case TYPE_TEXT:
                 holder.title.setText(mData.get(position).getTheme()+"|"+mData.get(position).getType());
@@ -97,7 +97,7 @@ public class ScreenAdapter extends BaseAdapter {
                 holder.img.setVisibility(View.INVISIBLE);
                 params = new HashMap<String, String>();
                 params.put("file",mData.get(position).getPath());
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder) {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder) {
                     @Override
                     public void onResponse(String response, int id) {
                         String[] splits = response.split("\\|\\|\\|");

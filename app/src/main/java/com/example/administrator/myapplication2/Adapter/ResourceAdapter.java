@@ -108,13 +108,13 @@ public class ResourceAdapter extends BaseAdapter {
 
         if(type == 0){
             final String file = mData.get(position).getPath();
-//            String videoUrl = "http://192.168.154.1:8080/file/"+file;
+//            String videoUrl = "http://59.110.215.154:8080/resource/"+file;
 //            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 //            retriever.setDataSource(videoUrl, new HashMap());
 //            Bitmap bitmap = retriever.getFrameAtTime();
 //            holder1.img.setImageBitmap(bitmap);
             VedioAsyncTask vedioAsyncTask = new VedioAsyncTask(holder1.img);
-            vedioAsyncTask.execute("http://192.168.154.1:8080/file/"+file);
+            vedioAsyncTask.execute("http://59.110.215.154:8080/resource/"+file);
 
             split = file.split("\\.");
             holder1.text.setText(split[0]);
@@ -124,7 +124,7 @@ public class ResourceAdapter extends BaseAdapter {
             holder2.name.setText(split[0]);
             params = new HashMap<String, String>();
             params.put("file",file);
-            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder2) {
+            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder2) {
                 @Override
                 public void onResponse(String response, int id) {
 //                        Log.e("response:",response+" "+id);

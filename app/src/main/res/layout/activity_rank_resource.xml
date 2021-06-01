@@ -39,13 +39,13 @@
         android:textSize="25sp"
         android:textColor="@color/red"
         android:textStyle="bold"
-        android:layout_margin="15dp"/>
+        android:layout_marginRight="15dp"/>
 
     <RelativeLayout
         android:id="@+id/detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/head">
+        android:layout_below="@+id/rank">
         <ImageView
             android:id="@+id/img"
             android:layout_width="50dp"
@@ -135,6 +135,8 @@
             android:layout_height="150dp"
             android:layout_margin="8dp"
             android:textSize="25sp"
+            android:scrollbars="vertical"
+            android:maxLines="10"
             android:visibility="gone"/>
 
         <MyClass.CustomVideoView

@@ -99,7 +99,7 @@ public class OtherCognition extends AppCompatActivity {
                 text.setVisibility(View.VISIBLE);
                 params = new HashMap<String, String>();
                 params.put("file",info.getString("file"));
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                     @Override
                     public void onResponse(String response, int id) {
                         super.onResponse(response, id);
@@ -110,7 +110,7 @@ public class OtherCognition extends AppCompatActivity {
                 text.setVisibility(View.GONE);
                 video.setVisibility(View.GONE);
                 pic.setVisibility(View.VISIBLE);
-                Glide.with(OtherCognition.this).load("http://192.168.154.1:8080/file/"+info.getString("file")).into(pic);
+                Glide.with(OtherCognition.this).load("http://59.110.215.154:8080/resource/"+info.getString("file")).into(pic);
             }
 
             IR = new InternetRequest();
@@ -151,7 +151,7 @@ public class OtherCognition extends AppCompatActivity {
             public void run() {
                 try {
                     IR.addPara("ID",info.getString("id"));
-                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/displayCognition.do");
+                    str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/displayCognition.do");
                     results = new JSONObject(str);
                     resources = new LinkedList<OtherCognitions>() ;
                     for(int i = 0;i<results.length();i++){
@@ -185,12 +185,12 @@ public class OtherCognition extends AppCompatActivity {
 
         String videoUrl = null;
         try {
-            videoUrl = "http://192.168.154.1:8080/file/"+info.getString("file");
+            videoUrl = "http://59.110.215.154:8080/resource/"+info.getString("file");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Bitmap bitmap = null;
-        //video.setVideoURI(Uri.parse("http://192.168.154.1:8080/file/2019跨年.mp4" ));
+        //video.setVideoURI(Uri.parse("http://59.110.215.154:8080/resource/2019跨年.mp4" ));
         video.setVideoPath(videoUrl);
         //设置视频缩略图
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();

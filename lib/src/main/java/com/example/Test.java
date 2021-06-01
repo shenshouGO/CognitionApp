@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
-        String string = "http://192.168.154.1:8080/file/1.jpg";
+        String string = "http://59.110.215.154:8080/resource/1.jpg";
         String[] splits =string.split("\\.");
         String s = string.substring(string.lastIndexOf('.')+1,string.length());
 //        for (int i = 0;i<splits.length;i++){

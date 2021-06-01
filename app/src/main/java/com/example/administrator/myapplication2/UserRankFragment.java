@@ -58,7 +58,7 @@ public class UserRankFragment  extends Fragment {
 //                    intent = new Intent(getContext(),TextDetail.class);
 //                    intent.putExtra("info", results.getJSONObject(""+i).toString());
 //                    startActivity(intent);
-                    Toast.makeText(getActivity(), i + "", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), i + "", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -74,7 +74,7 @@ public class UserRankFragment  extends Fragment {
             params.put("sql", "select * from user order by integral_game desc limit 20");
         else
             params.put("sql", "select * from user order by integral_sum desc limit 20");
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do", params, new MyStringCallBack() {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do", params, new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);

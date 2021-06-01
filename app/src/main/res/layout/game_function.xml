@@ -33,16 +33,16 @@
     <RelativeLayout
         android:id="@+id/user"
         android:layout_width="400dp"
-        android:layout_height="58dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/head"
         android:layout_margin="15dp"
-        android:background="@color/white"
+        android:background="@color/usu_back"
         android:layout_centerHorizontal="true">
 
         <ImageView
             android:id="@+id/img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@drawable/shape"
             android:src="@drawable/ic_launcher"
             android:scaleType="fitCenter"
@@ -54,8 +54,10 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/img"
             android:text="@string/nickname"
-            android:textSize="20sp"
-            android:layout_margin="3dp"/>
+            android:textSize="30sp"
+            android:layout_margin="2dp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
 
         <TextView
             android:id="@+id/account"
@@ -64,8 +66,10 @@
             android:layout_toRightOf="@+id/img"
             android:layout_below="@+id/name"
             android:text="XXX(帐号)"
-            android:textSize="15sp"
-            android:layout_margin="3dp"/>
+            android:textSize="20sp"
+            android:layout_margin="2dp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -76,76 +80,90 @@
         android:gravity="right">
 
         <TextView
+            android:id="@+id/task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/p"
+            android:drawableTop="@drawable/task"
             android:text="任务"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
 
         <TextView
+            android:id="@+id/notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/p"
+            android:drawableTop="@drawable/notice"
             android:text="公告"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
 
         <TextView
+            android:id="@+id/rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/p"
+            android:drawableTop="@drawable/rank"
             android:text="排行榜"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
 
         <TextView
+            android:id="@+id/course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/p"
+            android:drawableTop="@drawable/course"
             android:text="教程"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/function"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_margin="30dp">
 
         <TextView
             android:id="@+id/quick_join"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/pic1"
+            android:drawableTop="@drawable/quick_join"
             android:text="快速进房"
             android:drawablePadding="5dp"
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/choose_join"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/pic1"
+            android:drawableTop="@drawable/match"
             android:text="定向匹配"
             android:drawablePadding="5dp"
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -158,34 +176,40 @@
             android:id="@+id/create_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/p"
+            android:drawableTop="@drawable/create_room"
             android:text="创房"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
 
         <TextView
             android:id="@+id/search_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/p"
+            android:drawableTop="@drawable/find"
             android:text="搜房"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
 
         <TextView
             android:id="@+id/follow_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/p"
+            android:drawableTop="@drawable/follow"
             android:text="跟房"
             android:drawablePadding="5dp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
 
     </LinearLayout>
 </RelativeLayout>

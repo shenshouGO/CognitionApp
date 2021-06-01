@@ -56,7 +56,7 @@ public class SetPasswordQuestion extends AppCompatActivity implements View.OnCli
                     params.put("u_id",UI.getId());
                     params.put("question",question_content.getText().toString());
                     params.put("answer",answer_content.getText().toString());
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/setPasswordQuestion.do",params,new MyStringCallBack(){
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/setPasswordQuestion.do",params,new MyStringCallBack(){
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             Toast.makeText(SetPasswordQuestion.this,"设置失败！",Toast.LENGTH_SHORT).show();

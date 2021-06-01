@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import MyClass.HttpUtil;
 import MyClass.MyStringCallBack;
 
 public class PictureStory extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+    private ImageView back;
     private String path;
     private HorizontalListView resourceList;
     private HorizontalListViewAdapter hListViewAdapter;
@@ -48,6 +50,7 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
     private Message message;
 
     private void showActivity(){
+        back = (ImageView) findViewById(R.id.back);
         resourceList = (HorizontalListView)findViewById(R.id.resourceList);
         lv = (ListView) findViewById(R.id.resourceScreen);
         subject_spin = (Spinner) findViewById(R.id.subject_spin);
@@ -59,11 +62,21 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
         hot_spin.setOnItemSelectedListener(this);
         resources = new LinkedList<Resource>() ;
         screens = new LinkedList<Resource>() ;
-        path = "http://192.168.154.1:8080/file/";
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()){
+                    case R.id.back:
+                        finish();
+                        break;
+                }
+            }
+        });
+        path = "http://59.110.215.154:8080/resource/";
 
         HashMap<String,String> params = new HashMap<String ,String>();
         params.put("sql","select * from cognition_resource where unit = 0 order by score desc limit 10");
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);
@@ -165,7 +178,7 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
 
         HashMap<String,String> params = new HashMap<String ,String>();
         params.put("sql",sql);
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);

@@ -77,7 +77,7 @@ public class Integral extends AppCompatActivity implements View.OnClickListener{
         final UserInfo UI = (UserInfo) getApplication();
         params = new HashMap<String, String>();
         params.put("sql","select integral_sum from user where id = "+UI.getId());
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);
@@ -93,7 +93,7 @@ public class Integral extends AppCompatActivity implements View.OnClickListener{
 
         params = new HashMap<String, String>();
         params.put("sql","select score,source,time from integral where u_id = "+UI.getId()+" order by time desc");
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);

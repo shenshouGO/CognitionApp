@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             params = new HashMap<String ,String>();
                             params.put("telephone",account.getText().toString());
                             params.put("password",password.getText().toString());
-                            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/passwordLogin.do",params,new MyStringCallBack(){
+                            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/passwordLogin.do",params,new MyStringCallBack(){
                                 @Override
                                 public void onError(Call call, Exception e, int id) {
                                     Toast.makeText(Login.this,"登录失败！",Toast.LENGTH_SHORT).show();

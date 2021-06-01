@@ -66,9 +66,9 @@ public class GameFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.gameUnit:
-//                intent = new Intent(getActivity(), Game.class);
-//                startActivity(intent);
-                Toast.makeText(getActivity(),"此功能暂不可用",Toast.LENGTH_SHORT).show();
+                intent = new Intent(getActivity(), GameFunction.class);
+                startActivity(intent);
+//                Toast.makeText(getActivity(),"此功能暂不可用",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.assessReporter:
                 intent = new Intent(getActivity(), AssessReort.class);

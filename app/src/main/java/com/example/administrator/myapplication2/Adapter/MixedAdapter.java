@@ -133,7 +133,7 @@ public class MixedAdapter extends BaseAdapter implements View.OnClickListener{
                 s = mData.get(position).getText();
                 s = s.substring(0,s.indexOf("."));
 
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder1) {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder1) {
                     @Override
                     public void onResponse(String response, int id) {
 //                        Log.e("response:",response+" "+id);
@@ -144,7 +144,7 @@ public class MixedAdapter extends BaseAdapter implements View.OnClickListener{
                             imgs = new ArrayList<String>();
 //                            Log.e("Inside split length:",""+split.length);
                             for(int i = 0;i<split.length-1;i++){
-                                imgs.add("http://192.168.154.1:8080/file/"+s+"/"+split[i]);
+                                imgs.add("http://59.110.215.154:8080/resource/"+s+"/"+split[i]);
 //                                Log.e("imgs:",i+" "+split[i]);
                             }
                             holder1.imgs.setIsShowAll(false);
@@ -159,7 +159,7 @@ public class MixedAdapter extends BaseAdapter implements View.OnClickListener{
                 params = new HashMap<String, String>();
                 params.put("u_id",u_id);
                 params.put("r_id",mData.get(position).getId());
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/matchUserAndResourceGood.do",params,new MyStringCallBack(holder1) {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/matchUserAndResourceGood.do",params,new MyStringCallBack(holder1) {
                     @Override
                     public void onResponse(String response, int id) {
 //                        Log.e("response:",response+" "+id);
@@ -182,7 +182,7 @@ public class MixedAdapter extends BaseAdapter implements View.OnClickListener{
             case OTHER:
                 holder2.img.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_launcher));
                 holder2.name.setText(mData.get(position).getName());
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder2) {
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder2) {
                     @Override
                     public void onResponse(String response, int id) {
 //                        Log.e("response:",response+" "+id);
@@ -212,7 +212,7 @@ public class MixedAdapter extends BaseAdapter implements View.OnClickListener{
                     params = new HashMap<String, String>();
                     params.put("u_id",u_id);
                     params.put("r_id",v.getTag(R.string.r_id).toString());
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createResourceGood.do",params,new MyStringCallBack(mContext,(ImageView)v) {
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createResourceGood.do",params,new MyStringCallBack(mContext,(ImageView)v) {
                         @Override
                         public void onResponse(String response, int id) {
 //                            Log.e("response:",response+" "+id);
@@ -222,7 +222,7 @@ public class MixedAdapter extends BaseAdapter implements View.OnClickListener{
                 }else{
                     params = new HashMap<String, String>();
                     params.put("ID",v.getTag(R.string.goodID).toString());
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/deleteResourceGood.do",params,new MyStringCallBack(mContext,(ImageView)v) {
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/deleteResourceGood.do",params,new MyStringCallBack(mContext,(ImageView)v) {
                         @Override
                         public void onResponse(String response, int id) {
 //                            Log.e("response:",response+" "+id);

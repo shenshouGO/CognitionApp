@@ -63,8 +63,8 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
 
     private RatingBar validity;
     private RatingBar novelty;
-    private int valid;
-    private int novel;
+    private float valid;
+    private float novel;
     private AlertDialog alert = null;
     private AlertDialog.Builder builder = null;
     private Intent intent;
@@ -133,7 +133,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
 //            text.setText(info.getString("file"));
             params = new HashMap<String, String>();
             params.put("file",info.getString("file"));
-            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
+            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack() {
                 @Override
                 public void onResponse(String response, int id) {
                     Log.e("response:",response+" "+id);
@@ -209,8 +209,10 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     Button OK = ds.findViewById(R.id.OK);
                     OK.setOnClickListener(this);
                     if(isScore){
-                        name.setText("有效性："+String.format("%.1f",info.getDouble("validity_score"))+"   新颖性："+String.format("%.1f",info.getDouble("novelty_score")));
-//                        Log.e("Score:","valid = "+valid+" novel = "+novel);
+                        valid = Float.parseFloat(String.format("%.1f",info.getDouble("validity_score")));
+                        novel = Float.parseFloat(String.format("%.1f",info.getDouble("novelty_score")));
+                        name.setText("有效性："+valid+"   新颖性："+novel);
+                        Log.e("Score:","valid = "+valid+" novel = "+novel);
                         validity.setRating(valid);
                         novelty.setRating(novel);
                         validity.setIsIndicator(true);
@@ -231,8 +233,8 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     break;
                 case R.id.OK:
                     if(!isScore){
-                        valid = (int)validity.getRating();
-                        novel = (int)novelty.getRating();
+                        valid = (float) validity.getRating();
+                        novel = (float)novelty.getRating();
                         createScore();
                     }
 //                    Toast.makeText(CognitionDetail.this,"有效性："+valid+" 创新性："+novel,Toast.LENGTH_SHORT).show();
@@ -338,8 +340,8 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                         }
                         if(isScore){
                             score.setText("查看评分");
-                            valid = Integer.parseInt(scoreJO.getString("validity_score"));
-                            novel = Integer.parseInt(scoreJO.getString("novelty_score"));
+                            valid = Float.parseFloat(scoreJO.getString("validity_score"));
+                            novel = Float.parseFloat(scoreJO.getString("novelty_score"));
                         }
                         break;
                     case 5://发送提示消息
@@ -371,9 +373,9 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                 try {
                     IR.addPara("c_r_id",info.getString("id"));
                     IR.addPara("u_id",UI.getId());
-                    IR.addPara("validity_score",""+valid);
-                    IR.addPara("novelty_score",""+novel);
-                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createScore.do");
+                    IR.addPara("validity_score",""+(int)valid);
+                    IR.addPara("novelty_score",""+(int)novel);
+                    str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/createScore.do");
 
                     message = Message.obtain();
                     message.what = 6;
@@ -395,10 +397,10 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     if(goodId.equals("0")){
                         IR.addPara("c_id",info.getString("id"));
                         IR.addPara("u_id",UI.getId());
-                        str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createCognitionGood.do");
+                        str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/createCognitionGood.do");
                     }else{
                         IR.addPara("ID",goodId);
-                        str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/deleteCognitionGood.do");
+                        str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/deleteCognitionGood.do");
                     }
 
                     message = Message.obtain();
@@ -419,7 +421,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                 try {
                     IR.addPara("c_id",info.getString("id"));
                     IR.addPara("u_id",UI.getId());
-                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/matchUserAndCognitionGood.do");
+                    str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/matchUserAndCognitionGood.do");
 
                     if(str.equals("No give good"))
                         goodId = "0";
@@ -429,7 +431,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
 
                     IR.addPara("c_r_id",info.getString("id"));
                     IR.addPara("u_id",UI.getId());
-                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/matchUserAndScore.do");
+                    str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/matchUserAndScore.do");
 
                     if(str.equals("Unevaluated")){
                         isScore =false;
@@ -459,7 +461,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     Log.e("ID",info.getString("id"));
                     comments.clear();
                     IR.addPara("ID",info.getString("id"));
-                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/displayComment.do");
+                    str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/displayComment.do");
                     results = new JSONObject(str);
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
@@ -503,7 +505,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                         IR.addPara("r_u_img",r_img);
                     }
                     IR.addPara("comment",comment);
-                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/createComment.do");
+                    str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/createComment.do");
 
                     Looper.prepare();
                     if(str.equals("Create successfully")){
@@ -528,7 +530,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
             @Override
             public void run() {
                 try {
-                    str = IR.requestPost("http://192.168.154.1:8080/CognitionAPP/deleteComment.do");
+                    str = IR.requestPost("http://59.110.215.154:8080/CognitionAPP/deleteComment.do");
 
                     Looper.prepare();
                     if(str.equals("Delete successfully")){

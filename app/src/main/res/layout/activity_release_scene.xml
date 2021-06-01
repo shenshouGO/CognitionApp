@@ -23,7 +23,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发布情景"
+            android:text="@string/realease_scene"
             android:textColor="@color/usu"
             android:textSize="20sp"
             android:textStyle="bold"

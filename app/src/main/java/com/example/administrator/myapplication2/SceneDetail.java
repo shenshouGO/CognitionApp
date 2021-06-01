@@ -111,7 +111,7 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
                     params.put("c_r_id",info.getString("id"));
                     params.put("c_r_file",info.getString("file"));
                     params.put("cognition",s);
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createCognition.do",params,new MyStringCallBack(){
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createCognition.do",params,new MyStringCallBack(){
                         @Override
                         public void onResponse(String response, int id) {
                             Log.e("response:",response+" "+id);
@@ -156,7 +156,7 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displayCognition.do",params,new MyStringCallBack() {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displayCognition.do",params,new MyStringCallBack() {
             @Override
             public void onResponse(String response, int id) {
                 super.onResponse(response, id);

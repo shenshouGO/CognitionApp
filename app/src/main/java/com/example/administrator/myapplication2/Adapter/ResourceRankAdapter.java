@@ -112,7 +112,7 @@ public class ResourceRankAdapter extends BaseAdapter {
                     holder1.img_resource.setImageResource(R.drawable.banner_default);
                     holder1.img_pic.setVisibility(View.GONE);
                     VedioAsyncTask vedioAsyncTask = new VedioAsyncTask(holder1.img_resource);
-                    vedioAsyncTask.execute("http://192.168.154.1:8080/file/"+file);
+                    vedioAsyncTask.execute("http://59.110.215.154:8080/resource/"+file);
                     break;
                 case TEXT:
                     Log.e("文本",file);
@@ -131,7 +131,7 @@ public class ResourceRankAdapter extends BaseAdapter {
                     holder1.img_resource.setVisibility(View.GONE);
                     holder1.img_pic.setVisibility(View.VISIBLE);
                     holder1.img_pic.setImageResource(R.drawable.banner_default);
-                    Glide.with(mContext).load("http://192.168.154.1:8080/file/"+file).into(holder1.img_pic);
+                    Glide.with(mContext).load("http://59.110.215.154:8080/resource/"+file).into(holder1.img_pic);
                     break;
             }
         } catch (JSONException e) {

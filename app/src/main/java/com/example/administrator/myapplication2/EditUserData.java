@@ -156,7 +156,7 @@ public class EditUserData extends AppCompatActivity implements View.OnClickListe
             case R.id.preserve:
                 params = new HashMap<String ,String>();
                 params.put("name",nickname_content.getText().toString());
-                httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/checkName.do",params,new MyStringCallBack(){
+                httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/checkName.do",params,new MyStringCallBack(){
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         Toast.makeText(EditUserData.this,"保存失败！",Toast.LENGTH_SHORT).show();
@@ -187,7 +187,7 @@ public class EditUserData extends AppCompatActivity implements View.OnClickListe
                             params.put("birthday",birthday_content.getText().toString());
                             params.put("job",job_content.getText().toString());
                             params.put("email",email_content.getText().toString());
-                            httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/modifyData.do",params,new MyStringCallBack() {
+                            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/modifyData.do",params,new MyStringCallBack() {
                                 @Override
                                 public void onError(Call call, Exception e, int id) {
                                     Toast.makeText(EditUserData.this, "保存失败！", Toast.LENGTH_SHORT).show();

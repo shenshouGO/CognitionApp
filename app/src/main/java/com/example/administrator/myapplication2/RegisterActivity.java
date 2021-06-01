@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     params.put("sex","");
                     params.put("job","");
                     params.put("email","");
-                    httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/register.do",params,new MyStringCallBack(){
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/register.do",params,new MyStringCallBack(){
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             Toast.makeText(RegisterActivity.this,"注册失败！",Toast.LENGTH_SHORT).show();

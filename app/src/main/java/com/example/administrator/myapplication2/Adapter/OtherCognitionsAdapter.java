@@ -81,7 +81,7 @@ public class OtherCognitionsAdapter extends BaseAdapter {
         params = new HashMap<String, String>();
         params.put("file",mData.get(position).getText());
 //        holder.text.setText(mData.get(position).getText());
-        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder) {
+        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/read.do",params,new MyStringCallBack(holder) {
             @Override
             public void onResponse(String response, int id) {
 //                Log.e("response:",response+" "+id);
