@@ -137,7 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/function"
         android:layout_centerInParent="true"
-        android:layout_margin="30dp">
+        android:layout_marginTop="80dp">
 
         <TextView
             android:id="@+id/quick_join"
@@ -149,7 +149,7 @@
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -162,7 +162,7 @@
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold"/>
     </LinearLayout>
 
@@ -170,7 +170,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp">
 
         <TextView
             android:id="@+id/create_room"

@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         Drawable[] gameD = rb_game.getCompoundDrawables();
         Drawable[] dynamicD = rb_dynamic.getCompoundDrawables();
         Drawable[] meD = rb_me.getCompoundDrawables();
-        homeD[1].setBounds(0,0,50,45);
-        gameD[1].setBounds(0,0,50,50);
-        dynamicD[1].setBounds(0,0,50,50);
-        meD[1].setBounds(0,0,50,50);
+        homeD[1].setBounds(0,0,100,100);
+        gameD[1].setBounds(0,0,100,100);
+        dynamicD[1].setBounds(0,0,100,100);
+        meD[1].setBounds(0,0,100,100);
         rb_home.setCompoundDrawables(homeD[0],homeD[1],homeD[2],homeD[3]);
         rb_game.setCompoundDrawables(gameD[0],gameD[1],gameD[2],gameD[3]);
         rb_dynamic.setCompoundDrawables(dynamicD[0],dynamicD[1],dynamicD[2],dynamicD[3]);

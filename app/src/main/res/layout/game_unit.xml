@@ -27,11 +27,12 @@
         android:rowCount="2"
         android:columnCount="2"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp">
         <TextView
             android:id="@+id/assessReporter"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:drawableTop="@drawable/assess_report"
             android:drawableBottom="@drawable/unit_arrow"
             android:text="@string/assessReporter"
@@ -39,13 +40,13 @@
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:background="@color/green"/>
 
         <TextView
             android:id="@+id/gameUnit"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:drawableTop="@drawable/game_unit"
             android:drawableBottom="@drawable/unit_arrow"
             android:text="@string/gameUnit"
@@ -53,13 +54,13 @@
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:background="@color/green"/>
 
         <TextView
             android:id="@+id/pictureStory"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:drawableTop="@drawable/picture_story"
             android:drawableBottom="@drawable/unit_arrow"
             android:text="@string/pictureStory"
@@ -67,13 +68,13 @@
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:background="@color/green"/>
 
         <TextView
             android:id="@+id/describeScene"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:drawableTop="@drawable/describe_scene"
             android:drawableBottom="@drawable/unit_arrow"
             android:text="@string/describeScene"
@@ -81,7 +82,7 @@
             android:textColor="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:background="@color/green"/>
     </GridLayout>
 </RelativeLayout>

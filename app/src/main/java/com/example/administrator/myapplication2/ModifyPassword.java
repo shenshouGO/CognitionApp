@@ -20,6 +20,7 @@ import okhttp3.Call;
 
 public class ModifyPassword extends AppCompatActivity implements View.OnClickListener{
     private RelativeLayout original_password;
+    private View line;
     private EditText original_content;
     private EditText new_content;
     private EditText repeat_content;
@@ -37,6 +38,7 @@ public class ModifyPassword extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_modify_password);
 
         original_password = (RelativeLayout) findViewById(R.id.original_password);
+        line = (View) findViewById(R.id.line);
         original_content = (EditText) findViewById(R.id.original_content);
         new_content = (EditText) findViewById(R.id.new_content);
         repeat_content = (EditText) findViewById(R.id.repeat_content);
@@ -51,6 +53,7 @@ public class ModifyPassword extends AppCompatActivity implements View.OnClickLis
 
         if(type == 1){
             original_password.setVisibility(View.GONE);
+            line.setVisibility(View.GONE);
         }
     }
 

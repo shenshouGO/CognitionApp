@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -97,11 +98,11 @@ public class GameFunction extends AppCompatActivity implements View.OnClickListe
         noticeD[1].setBounds(0,0,80,80);
         rankD[1].setBounds(0,0,80,80);
         courseD[1].setBounds(0,0,80,80);
-        quickD[1].setBounds(0,0,250,250);
-        chooseD[1].setBounds(0,0,250,250);
-        createD[1].setBounds(0,0,80,80);
-        searchD[1].setBounds(0,0,80,80);
-        followD[1].setBounds(0,0,80,80);
+        quickD[1].setBounds(0,0,400,400);
+        chooseD[1].setBounds(0,0,400,400);
+        createD[1].setBounds(0,0,100,100);
+        searchD[1].setBounds(0,0,100,100);
+        followD[1].setBounds(0,0,100,100);
         task.setCompoundDrawables(taskD[0],taskD[1],taskD[2],taskD[3]);
         notice.setCompoundDrawables(noticeD[0],noticeD[1],noticeD[2],noticeD[3]);
         rank.setCompoundDrawables(rankD[0],rankD[1],rankD[2],rankD[3]);
@@ -141,7 +142,7 @@ public class GameFunction extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.choose_join:
-                setView(choose_join_view);
+//                setView(choose_join_view);
                 break;
             case R.id.create_room:
                 type_spin.setSelection(0,true);
@@ -150,7 +151,7 @@ public class GameFunction extends AppCompatActivity implements View.OnClickListe
                 setView(create_room_view);
                 break;
             case R.id.search_room:
-                setView(search_room_view);
+//                setView(search_room_view);
                 break;
             case R.id.set:
                 if(swh_status.isChecked())
@@ -167,32 +168,34 @@ public class GameFunction extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_OK_create_room:
-                intent = new Intent(GameFunction.this, Room.class);
-                intent.putExtra("num",0);
-                intent.putExtra("name", name);
-                if(type.equals("随机")){
-                    type_spin.setSelection(random.nextInt(3)+1,true);
-                    type = type_spin.getSelectedItem().toString();
-                }
-                intent.putExtra("type", type);
-                if(mode.equals("随机")){
-                    mode_spin.setSelection(random.nextInt(2)+1,true);
-                    mode = mode_spin.getSelectedItem().toString();
-                }
-                intent.putExtra("mode", mode);
-                if(subject.equals("随机")){
-                    subject_spin.setSelection(random.nextInt(3)+1,true);
-                    subject = subject_spin.getSelectedItem().toString();
-                }
-                intent.putExtra("subject", subject);
-                startActivity(intent);
+//                intent = new Intent(GameFunction.this, Room.class);
+//                intent.putExtra("num",0);
+//                intent.putExtra("name", name);
+//                if(type.equals("随机")){
+//                    type_spin.setSelection(random.nextInt(3)+1,true);
+//                    type = type_spin.getSelectedItem().toString();
+//                }
+//                intent.putExtra("type", type);
+//                if(mode.equals("随机")){
+//                    mode_spin.setSelection(random.nextInt(2)+1,true);
+//                    mode = mode_spin.getSelectedItem().toString();
+//                }
+//                intent.putExtra("mode", mode);
+//                if(subject.equals("随机")){
+//                    subject_spin.setSelection(random.nextInt(3)+1,true);
+//                    subject = subject_spin.getSelectedItem().toString();
+//                }
+//                intent.putExtra("subject", subject);
+//                startActivity(intent);
                 alert.dismiss();
+                Toast.makeText(GameFunction.this,"创建房间",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.quick_join:
-                intent = new Intent(GameFunction.this, Room.class);
-                intent.putExtra("num",1);
-                intent.putExtra("name", name);
-                startActivity(intent);
+//                intent = new Intent(GameFunction.this, Room.class);
+//                intent.putExtra("num",1);
+//                intent.putExtra("name", name);
+//                startActivity(intent);
+                Toast.makeText(GameFunction.this,"快速加入",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_close:
                 alert.dismiss();
