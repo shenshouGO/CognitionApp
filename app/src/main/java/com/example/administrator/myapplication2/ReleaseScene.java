@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +38,7 @@ import MyClass.UserInfo;
 import okhttp3.Call;
 
 public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
+    private ImageView back;
     private ImageView send;
     private TextView title;
     private EditText scene;
@@ -65,6 +67,7 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release_scene);
 
+        back = (ImageView)findViewById(R.id.back);
         title = (TextView) findViewById(R.id.title);
         send = (ImageView)findViewById(R.id.send);
         scene = (EditText)findViewById(R.id.scene);
@@ -77,46 +80,44 @@ public class ReleaseScene extends AppCompatActivity implements ImagePickerAdapte
             scene.setHint("说点什么吧...");
         }
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                content = scene.getText().toString();
-//                JSONObject JO = new JSONObject();
-                String s="";
-                try {
-                    s = java.net.URLEncoder.encode(content,"UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-//                try {
-//                    JO.put("content",content);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-                Log.e("content:",content);
-                Log.e("s:",s);
+                if(TextUtils.isEmpty(scene.getText())){
+                    Toast.makeText(ReleaseScene.this,"情景描述不可为空！",Toast.LENGTH_SHORT).show();
+                }else{
+                    content = scene.getText().toString();
+                    String s="";
+                    try {
+                        s = java.net.URLEncoder.encode(content,"UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    Log.e("content:",content);
+                    Log.e("s:",s);
 
-//                params = new HashMap<String, String>();
-//                params.put("u_id",""+1);
-//                params.put("u_name",UI.getName());
-//                params.put("img","img");
-//                params.put("scene",s);
-//                params.put("time",""+new Date().getTime());
-
-                final UserInfo UI = (UserInfo)getApplication();
-                url="http://59.110.215.154:8080/CognitionAPP/createScene.do?";
-                url+="u_id="+UI.getId();
-                url+="&u_name="+UI.getName();
-                url+="&u_img="+UI.getImg();
-                if(type.equals("发布动态")){
-                    url+="&type=动态";
-                }else {
-                    url+="&type=情景";
+                    final UserInfo UI = (UserInfo)getApplication();
+                    url="http://59.110.215.154:8080/CognitionAPP/createScene.do?";
+                    url+="u_id="+UI.getId();
+                    url+="&u_name="+UI.getName();
+                    url+="&u_img="+UI.getImg();
+                    if(type.equals("发布动态")){
+                        url+="&type=动态";
+                    }else {
+                        url+="&type=情景";
+                    }
+                    url+="&scene="+s;
+                    url+="&time="+new Date().getTime();
+                    Log.e("url",url);
+                    uploadImage(selImageList);
                 }
-                url+="&scene="+s;
-                url+="&time="+new Date().getTime();
-                Log.e("url",url);
-                uploadImage(selImageList);
             }
         });
 

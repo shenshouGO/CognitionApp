@@ -1,5 +1,6 @@
 package com.example.administrator.myapplication2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,12 +10,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import MyClass.HttpUtil;
 import MyClass.MyStringCallBack;
+import MyClass.UserInfo;
 import okhttp3.Call;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
@@ -25,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button register;
     private ImageView back;
     private HttpUtil httpUtil;
+    private Intent intent;
     private HashMap<String,String> params;
 
     @Override
@@ -92,7 +98,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     Toast.makeText(RegisterActivity.this,"注册失败！",Toast.LENGTH_SHORT).show();
                                     break;
                                 default:
+                                    try {
+                                        JSONObject JO = new JSONObject(response);
+                                        final UserInfo UI = (UserInfo)getApplication();
+                                        UI.setId(JO.getString("id"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     Toast.makeText(RegisterActivity.this,"注册成功！",Toast.LENGTH_SHORT).show();
+                                    intent = new Intent(RegisterActivity.this,SetPasswordQuestion.class);
+                                    startActivity(intent);
                                     finish();
                                     break;
                             }

@@ -81,6 +81,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                 public void onResponse(String response, int id) {
                                     if(response.equals("Password error")){
                                         Toast.makeText(Login.this,"密码错误！",Toast.LENGTH_SHORT).show();
+                                        password.setHint("请输入正确密码！");
+                                        password.setText(null);
                                     }else if (response.equals("Unregistered")){
                                         Toast.makeText(Login.this,"该手机号未被注册！",Toast.LENGTH_SHORT).show();
                                     }else{

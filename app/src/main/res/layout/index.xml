@@ -8,16 +8,17 @@
         android:id="@+id/hint_img"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@drawable/study_unit"/>
 
     <RadioGroup
         android:id="@+id/rg_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:layout_below="@+id/hint_img">
+        android:layout_below="@+id/hint_img"
+        android:layout_margin="10dp">
 
         <RadioButton
             android:id="@+id/rb_vedio"

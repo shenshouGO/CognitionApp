@@ -207,7 +207,9 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     validity = ds.findViewById(R.id.validity);
                     novelty = ds.findViewById(R.id.novelty);
                     Button OK = ds.findViewById(R.id.OK);
+                    Button cancel = ds.findViewById(R.id.cancel);
                     OK.setOnClickListener(this);
+                    cancel.setOnClickListener(this);
                     if(isScore){
                         valid = Float.parseFloat(String.format("%.1f",info.getDouble("validity_score")));
                         novel = Float.parseFloat(String.format("%.1f",info.getDouble("novelty_score")));
@@ -235,9 +237,17 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                     if(!isScore){
                         valid = (float) validity.getRating();
                         novel = (float)novelty.getRating();
-                        createScore();
+                        if(valid == 0||novel == 0){
+                            Toast.makeText(CognitionDetail.this,"评分不能为0分",Toast.LENGTH_SHORT).show();
+                        }else{
+                            createScore();
+                            alert.dismiss();
+                        }
+                    }else{
+                        alert.dismiss();
                     }
-//                    Toast.makeText(CognitionDetail.this,"有效性："+valid+" 创新性："+novel,Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.cancel:
                     alert.dismiss();
                     break;
                 case R.id.discuss:

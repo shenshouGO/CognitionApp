@@ -14,25 +14,25 @@
 
         <RadioButton
             android:id="@+id/rb_home"
-            style="@style/tab_menu_item"
+            style="@style/activity_menu_item"
             android:drawableTop="@drawable/tab_menu_home"
             android:text="@string/home" />
 
         <RadioButton
             android:id="@+id/rb_game"
-            style="@style/tab_menu_item"
+            style="@style/activity_menu_item"
             android:drawableTop="@drawable/tab_menu_game1"
-            android:text="@string/game" />
+            android:text="@string/operate" />
 
         <RadioButton
             android:id="@+id/rb_dynamic"
-            style="@style/tab_menu_item"
+            style="@style/activity_menu_item"
             android:drawableTop="@drawable/tab_menu_dynamic"
             android:text="@string/dynamic" />
 
         <RadioButton
             android:id="@+id/rb_me"
-            style="@style/tab_menu_item"
+            style="@style/activity_menu_item"
             android:drawableTop="@drawable/tab_menu_me"
             android:text="@string/me"/>
 

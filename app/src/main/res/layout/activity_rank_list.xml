@@ -5,8 +5,8 @@
     <ImageView
         android:id="@+id/hint_img"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:scaleType="centerCrop"
+        android:layout_height="230dp"
+        android:scaleType="fitXY"
         android:src="@drawable/current_rank"/>
 
     <RadioGroup
@@ -15,7 +15,8 @@
         android:layout_height="60dp"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:layout_below="@+id/hint_img">
+        android:layout_below="@+id/hint_img"
+        android:layout_margin="10dp">
 
         <RadioButton
             android:id="@+id/hot_list"

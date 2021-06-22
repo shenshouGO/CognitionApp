@@ -19,6 +19,9 @@
         <item>学习</item>
         <item>生活</item>
         <item>政治</item>
+        <item>工作</item>
+        <item>关系</item>
+        <item>自然与战争</item>
     </string-array>
 
     <string-array name="resource_hot">

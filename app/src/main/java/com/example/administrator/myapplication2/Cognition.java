@@ -90,9 +90,9 @@ public class Cognition extends AppCompatActivity implements View.OnClickListener
         Drawable[] nameD = name.getCompoundDrawables();
         Drawable[] wordsD = words.getCompoundDrawables();
         Drawable[] drawD = draw.getCompoundDrawables();
-        nameD[1].setBounds(0,0,50,45);
-        wordsD[1].setBounds(0,0,50,50);
-        drawD[1].setBounds(0,0,50,50);
+        nameD[1].setBounds(0,0,120,120);
+        wordsD[1].setBounds(0,0,120,120);
+        drawD[1].setBounds(0,0,120,120);
         name.setCompoundDrawables(nameD[0],nameD[1],nameD[2],nameD[3]);
         words.setCompoundDrawables(wordsD[0],wordsD[1],wordsD[2],wordsD[3]);
         draw.setCompoundDrawables(drawD[0],drawD[1],drawD[2],drawD[3]);

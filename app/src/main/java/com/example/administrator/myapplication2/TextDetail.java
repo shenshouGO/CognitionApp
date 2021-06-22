@@ -42,6 +42,7 @@ import MyClass.MyStringCallBack;
 import MyClass.UserInfo;
 
 public class TextDetail extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener{
+    private TextView title;
     private ImageView back;
     private CustomVideoView video;
     private MediaController mediaController;
@@ -75,6 +76,10 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
     private Map<String,String> params;
     private int goodId;
     private int dislikeId;
+    private String file;
+    private int good_number;
+    private int unlike_number;
+    private int comment_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +90,7 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         httpUtil = new HttpUtil();
+        title = (TextView) findViewById(R.id.title);
         back = (ImageView) findViewById(R.id.back);
         video = (CustomVideoView)findViewById(R.id.video);
         text = (TextView) findViewById(R.id.text);
@@ -107,6 +113,18 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         intent = getIntent();
         try {
             info = new JSONObject(intent.getStringExtra("info"));
+            Log.e("info",info.toString());
+            file = info.getString("file");
+            file = file.substring(0,file.indexOf('.'));
+            good_number = info.getInt("good");
+            unlike_number = info.getInt("dislike");
+            comment_number = info.getInt("comment");
+
+            if (file != null){
+                title.setText(file);
+            }
+            good.setText(good_number+"");
+            unlike.setText(unlike_number+"");
 
             if(info.getString("type").equals("视频")){
                 text.setVisibility(View.GONE);
@@ -139,9 +157,9 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
         Drawable[] commentD = comment.getCompoundDrawables();
         Drawable[] collectD = collect.getCompoundDrawables();
         Drawable[] shareD = share.getCompoundDrawables();
-        goodD[1].setBounds(0,0,50,45);
-        unlikeD[1].setBounds(0,0,50,50);
-        commentD[1].setBounds(0,10,50,50);
+        goodD[1].setBounds(0,0,90,90);
+        unlikeD[1].setBounds(0,0,90,90);
+        commentD[1].setBounds(0,0,90,90);
         collectD[1].setBounds(0,0,50,50);
         shareD[1].setBounds(0,0,50,50);
         good.setCompoundDrawables(goodD[0],goodD[1],goodD[2],goodD[3]);
@@ -228,25 +246,79 @@ public class TextDetail extends AppCompatActivity implements View.OnClickListene
                     case 2://更新评论区
                         ca = new CommentAdapter(TextDetail.this,comments);
                         list.setAdapter(ca);
+                        params = new HashMap<String, String>();
+                        params.put("sql","select comment from cognition_resource where id = "+info.getString("id"));
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                            @Override
+                            public void onResponse(String response, int id) {
+                                super.onResponse(response, id);
+                                if (!response.equals("{}")){
+                                    try {
+                                        JO = new JSONObject(response);
+                                        JO = JO.getJSONObject("0");
+                                        comment_number = JO.getInt("comment");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    comment.setText(comment_number+"");
+                                }
+                            }
+                        });
                         break;
                     case 3://渲染点赞
                         Drawable drawable_good;
+                        params = new HashMap<String, String>();
+                        params.put("sql","select good from cognition_resource where id = "+info.getString("id"));
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                            @Override
+                            public void onResponse(String response, int id) {
+                                super.onResponse(response, id);
+                                if (!response.equals("{}")){
+                                    try {
+                                        JO = new JSONObject(response);
+                                        JO = JO.getJSONObject("0");
+                                        good_number = JO.getInt("good");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    good.setText(good_number+"");
+                                }
+                            }
+                        });
                         if (goodId == 0){
                             drawable_good = getDrawable(R.drawable.disgood);
                         }else{
                             drawable_good = getDrawable(R.drawable.isgood);
                         }
-                        drawable_good.setBounds(0, 0, 50, 45);
+                        drawable_good.setBounds(0, 0, 90, 90);
                         good.setCompoundDrawables(null, drawable_good, null, null);
                         break;
                     case 4://渲染不喜欢
                         Drawable drawable_dislike;
+                        params = new HashMap<String, String>();
+                        params.put("sql","select dislike from cognition_resource where id = "+info.getString("id"));
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                            @Override
+                            public void onResponse(String response, int id) {
+                                super.onResponse(response, id);
+                                if (!response.equals("{}")){
+                                    try {
+                                        JO = new JSONObject(response);
+                                        JO = JO.getJSONObject("0");
+                                        unlike_number = JO.getInt("dislike");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    unlike.setText(unlike_number+"");
+                                }
+                            }
+                        });
                         if (dislikeId == 0){
                             drawable_dislike = getDrawable(R.drawable.unlike);
                         }else{
                             drawable_dislike = getDrawable(R.drawable.unlike1);
                         }
-                        drawable_dislike.setBounds(0, 0, 50, 45);
+                        drawable_dislike.setBounds(0, 0, 90, 90);
                         unlike.setCompoundDrawables(null, drawable_dislike, null, null);
                         break;
                 }

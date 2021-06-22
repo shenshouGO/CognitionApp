@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ import MyClass.UserInfo;
 
 public class SceneDetail extends AppCompatActivity implements View.OnClickListener{
     private ListView listView;
+    private ImageView back;
     private TextView title;
 
     private MixedAdapter mixedAdapter;
@@ -60,6 +62,7 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scene_detail);
 
+        back = (ImageView) findViewById(R.id.back);
         title = (TextView) findViewById(R.id.title);
         listView = (ListView)findViewById(R.id.list);
         httpUtil = new HttpUtil();
@@ -72,6 +75,7 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
         send = (Button) findViewById(R.id.send);
         ll.setVisibility(View.INVISIBLE);
         send.setOnClickListener(this);
+        back.setOnClickListener(this);
         try {
             info = new JSONObject(intent.getStringExtra("info"));
             Log.e("Info:",info.toString());
@@ -101,6 +105,9 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
         try {
             final UserInfo UI = (UserInfo) getApplication();
             switch (v.getId()) {
+                case R.id.back:
+                    finish();
+                    break;
                 case R.id.send:
                     String s =edit.getText().toString();
                     edit.setText("");

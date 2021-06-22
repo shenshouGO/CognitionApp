@@ -106,9 +106,9 @@
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="标注"
+            android:text="@string/give_name"
             android:textSize="20sp"
             android:drawableTop="@drawable/name"
             android:gravity="center_horizontal" />
@@ -116,9 +116,9 @@
         <TextView
             android:id="@+id/words"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="文本"
+            android:text="@string/text"
             android:textSize="20sp"
             android:drawableTop="@drawable/cognition"
             android:gravity="center_horizontal" />
@@ -126,9 +126,9 @@
         <TextView
             android:id="@+id/draw"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="涂鸦"
+            android:text="@string/draw"
             android:textSize="20sp"
             android:drawableTop="@drawable/draw"
             android:gravity="center_horizontal" />

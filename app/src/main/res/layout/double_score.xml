@@ -50,7 +50,9 @@
         android:rating="0"
         android:stepSize="1"
         android:layout_below="@+id/valid"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        style="@style/foodRatingBar"
+        android:layout_margin="5dp"/>
 
     <TextView
         android:id="@+id/novel"
@@ -69,15 +71,26 @@
         android:rating="0"
         android:stepSize="1"
         android:layout_below="@+id/novel"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        style="@style/foodRatingBar"
+        android:layout_margin="5dp"/>
 
     <Button
         android:id="@+id/OK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="确定"
+        android:text="@string/OK"
         android:layout_below="@+id/novelty"
-        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@+id/novelty"
+        android:textSize="30sp"/>
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_below="@+id/novelty"
+        android:layout_alignRight="@+id/novelty"
         android:textSize="30sp"/>
 
 </RelativeLayout>
