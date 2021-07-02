@@ -8,20 +8,29 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.myapplication2.Adapter.AssessScoreAdapter;
+import com.example.administrator.myapplication2.Bean.IntegralData;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import MyClass.HttpUtil;
 import MyClass.MyStringCallBack;
+import MyClass.UserInfo;
 
 public class AssessDetail extends AppCompatActivity implements View.OnClickListener{
     private HttpUtil httpUtil;
@@ -39,18 +48,29 @@ public class AssessDetail extends AppCompatActivity implements View.OnClickListe
     private Button next;
     private Button submit;
     private RelativeLayout result;
-    private TextView result_text;
+    private ListView result_list;
+    private JSONObject results;
+    private JSONObject JO;
+    private List<IntegralData> resources;
+    private AssessScoreAdapter assessScoreAdapter;
     private Button again;
     private Button back;
     private String[] questions;
     private int[] choose;
     private int[] score;
     private int current;
+    private String u_id;
+
+    private Date date;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assess_detail);
+
+        final UserInfo UI = (UserInfo)getApplication();
+        u_id = UI.getId();
 
         title = (TextView)findViewById(R.id.title);
         progress = (ProgressBar) findViewById(R.id.progress);
@@ -60,7 +80,7 @@ public class AssessDetail extends AppCompatActivity implements View.OnClickListe
         next = (Button)findViewById(R.id.next);
         submit = (Button)findViewById(R.id.submit);
         result = (RelativeLayout) findViewById(R.id.result);
-        result_text = (TextView)findViewById(R.id.result_text);
+        result_list = (ListView) findViewById(R.id.result_list);
         again = (Button)findViewById(R.id.again);
         back = (Button)findViewById(R.id.back);
 
@@ -146,7 +166,46 @@ public class AssessDetail extends AppCompatActivity implements View.OnClickListe
                     for(int i=0;i<score.length;i++){
                         scores+=score[i];
                     }
-                    result_text.setText("总得分为"+scores+"分");
+                    Log.e("Assess score","总得分为"+scores+"分");
+
+                    try {
+                        params = new HashMap<String, String>();
+                        params.put("a_id",info.getString("id"));
+                        params.put("u_id",u_id);
+                        params.put("score",scores+"");
+                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createAssessScore.do",params,new MyStringCallBack() {
+                            @Override
+                            public void onResponse(String response, int id) {
+                                super.onResponse(response, id);
+                                if(response.equals("Insert successfully")){
+                                    Toast.makeText(AssessDetail.this,"评估成功",Toast.LENGTH_SHORT).show();
+                                    try {
+                                        params = new HashMap<String, String>();
+                                        params.put("sql","select * from assess_score where a_id = "+info.getString("id")+" and u_id = "+u_id+" order by time desc");
+                                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                                            @Override
+                                            public void onResponse(String response, int id) {
+                                                super.onResponse(response, id);
+                                                Log.e("response:",response+" "+id);
+                                                if(!response.equals("{}")){
+                                                    Message message = new Message();
+                                                    message.what = 2;
+                                                    message.obj = response;
+                                                    handler.sendMessage(message);
+                                                }
+                                            }
+                                        });
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }else{
+                                    Toast.makeText(AssessDetail.this,"评估失败",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }else{
                     Toast.makeText(AssessDetail.this,"请先进行选择",Toast.LENGTH_SHORT).show();
                 }
@@ -188,6 +247,18 @@ public class AssessDetail extends AppCompatActivity implements View.OnClickListe
                             next.setVisibility(View.VISIBLE);
                             submit.setVisibility(View.INVISIBLE);
                         }
+                        break;
+                    case 2://渲染评估结果
+                        results = new JSONObject(msg.obj.toString());
+                        resources = new LinkedList<IntegralData>() ;
+                        resources.add(new IntegralData("评估得分",null,"得分时间"));
+                        for(int i = 0;i<results.length();i++){
+                            JO = results.getJSONObject(""+i);
+                            date = new Date(new Long(JO.getString("time")));
+                            resources.add(new IntegralData(JO.getString("score"),null,simpleDateFormat.format(date)));
+                        }
+                        assessScoreAdapter = new AssessScoreAdapter(AssessDetail.this,resources);
+                        result_list.setAdapter(assessScoreAdapter);
                         break;
                 }
             }catch (Exception e){

@@ -129,17 +129,18 @@
             android:textColor="@color/usu"
             android:textSize="20sp"
             android:gravity="center"
-            android:layout_margin="5dp"/>
+            android:layout_marginTop="20dp"/>
 
-        <TextView
-            android:id="@+id/result_text"
-            android:layout_width="match_parent"
+        <ListView
+            android:id="@+id/result_list"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:text="@string/text"
-            android:textColor="@color/usu"
-            android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:layout_below="@+id/result_title"/>
+            android:layout_below="@+id/result_title"
+            android:layout_above="@+id/again"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:divider="#00000000"
+            android:dividerHeight="15dp"/>
 
         <Button
             android:id="@+id/again"

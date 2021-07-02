@@ -70,8 +70,10 @@ public class ModifyPassword extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(ModifyPassword.this,"新密码不可为空！",Toast.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(repeat_content.getText())){
                     Toast.makeText(ModifyPassword.this,"重复新密码不可为空！",Toast.LENGTH_SHORT).show();
+                }else if(new_content.getText().toString().equals(original_content.getText().toString())){
+                    Toast.makeText(ModifyPassword.this,"新密码不能与原密码相同！",Toast.LENGTH_SHORT).show();
                 }else if(!new_content.getText().toString().equals(repeat_content.getText().toString())){
-                    Toast.makeText(ModifyPassword.this,"两次输入密码不一致！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModifyPassword.this,"两次输入新密码不一致！",Toast.LENGTH_SHORT).show();
                 }else{
 //                    Toast.makeText(ModifyPassword.this,"可提交！",Toast.LENGTH_SHORT).show();
                     final UserInfo UI = (UserInfo)getApplication();
