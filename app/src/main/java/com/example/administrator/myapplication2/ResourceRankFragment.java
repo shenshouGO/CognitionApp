@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.example.administrator.myapplication2.Adapter.ResourceRankAdapter;
 import com.example.administrator.myapplication2.Bean.JsonBean;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 import MyClass.HttpUtil;
 import MyClass.MyStringCallBack;
+import MyClass.UserInfo;
 
 /**
  * Created by Administrator on 2021/3/12.
@@ -53,12 +55,30 @@ public class ResourceRankFragment  extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 try{
-                    intent = new Intent(getContext(),RankResource.class);
-                    intent.putExtra("info", results.getJSONObject(""+i).toString());
-                    intent.putExtra("type", "材料榜单");
-                    intent.putExtra("rank", i+1+"");
-                    startActivity(intent);
-//                    Toast.makeText(getActivity(),i+"",Toast.LENGTH_SHORT).show();
+                    final UserInfo UI = (UserInfo)getActivity().getApplication();
+                    params = new HashMap<String ,String>();
+                    params.put("sql","select * from cognition_result where u_id = "+UI.getId()+" and c_r_id = "+results.getJSONObject(""+i).getString("id"));
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                        @Override
+                        public void onResponse(String response, int id) {
+                            super.onResponse(response, id);
+                            try {
+                                if(response.equals("{}")){
+                                    Intent intent = new Intent(getContext(), Cognition.class);
+                                    intent.putExtra("info", results.getJSONObject(""+i).toString());
+                                    startActivity(intent);
+                                }else{
+                                    intent = new Intent(getContext(),RankResource.class);
+                                    intent.putExtra("info", results.getJSONObject(""+i).toString());
+                                    intent.putExtra("type", "材料榜单");
+                                    intent.putExtra("rank", i+1+"");
+                                    startActivity(intent);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }catch (Exception e){
                     e.printStackTrace();
                 }

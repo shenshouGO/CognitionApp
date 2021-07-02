@@ -1,8 +1,10 @@
 package com.example.administrator.myapplication2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ import java.util.List;
 import MyClass.HorizontalListView;
 import MyClass.HttpUtil;
 import MyClass.MyStringCallBack;
+import MyClass.UserInfo;
 
 public class PictureStory extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private ImageView back;
@@ -46,6 +49,7 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
     private JSONObject results;
     private JSONObject JO;
     private HttpUtil httpUtil;
+    private HashMap<String,String> params;
     final Handler handler = new MyHandler();
     private Message message;
 
@@ -74,7 +78,7 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
         });
         path = "http://59.110.215.154:8080/resource/";
 
-        HashMap<String,String> params = new HashMap<String ,String>();
+        params = new HashMap<String ,String>();
         params.put("sql","select * from cognition_resource where unit = 0 order by score desc limit 10");
         httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
             @Override
@@ -113,9 +117,52 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 try{
-                    Intent intent = new Intent(PictureStory.this, Cognition.class);
-                    intent.putExtra("info", results.getJSONObject(""+i).toString());
-                    startActivity(intent);
+                    final UserInfo UI = (UserInfo)getApplication();
+                    params = new HashMap<String ,String>();
+                    params.put("sql","select * from cognition_result where u_id = "+UI.getId()+" and c_r_id = "+results.getJSONObject(""+i).getString("id"));
+                    httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                        @Override
+                        public void onResponse(String response, int id) {
+                            super.onResponse(response, id);
+                            try {
+                                if(response.equals("{}")){
+                                    Intent intent = new Intent(PictureStory.this, Cognition.class);
+                                    intent.putExtra("info", results.getJSONObject(""+i).toString());
+                                    startActivity(intent);
+                                }else{
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(PictureStory.this);
+                                    AlertDialog alert = builder.setTitle("系统提示：")
+                                            .setMessage("是否重新进行认知重评？")
+                                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    try {
+                                                        Intent intent = new Intent(PictureStory.this, Cognition.class);
+                                                        intent.putExtra("info", results.getJSONObject(""+i).toString());
+                                                        startActivity(intent);
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            })
+                                            .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    try {
+                                                        Intent intent = new Intent(PictureStory.this, OtherCognition.class);
+                                                        intent.putExtra("info", results.getJSONObject(""+i).toString());
+                                                        startActivity(intent);
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }catch (Exception e){
                     e.printStackTrace();
                 }
