@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:id="@+id/img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp">
+        <ImageView
+            android:id="@+id/img_resource"
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/banner_default"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="@string/text"
+            android:textSize="20sp"
+            android:background="@color/text_back"
+            android:padding="5dp"
+            android:lines="4"
+            android:ellipsize="end"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero"
+        android:textSize="35sp"
+        android:textColor="@color/rank"
+        android:textStyle="bold"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text"
+        android:textSize="20sp"
+        android:layout_alignRight="@+id/cognition"
+        android:layout_above="@+id/cognition"/>
+
+    <TextView
+        android:id="@+id/cognition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text"
+        android:textSize="20sp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/img"/>
+</RelativeLayout>

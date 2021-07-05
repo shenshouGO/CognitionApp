@@ -64,7 +64,7 @@ public class ResourceRankFragment  extends Fragment {
                             super.onResponse(response, id);
                             try {
                                 if(response.equals("{}")){
-                                    Intent intent = new Intent(getContext(), Cognition.class);
+                                    intent = new Intent(getContext(), Cognition.class);
                                     intent.putExtra("info", results.getJSONObject(""+i).toString());
                                     startActivity(intent);
                                 }else{

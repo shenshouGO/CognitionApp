@@ -3,6 +3,7 @@ package MyClass;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.myapplication2.Adapter.HotCognitionAdapter;
@@ -10,6 +11,7 @@ import com.example.administrator.myapplication2.Adapter.MixedAdapter;
 import com.example.administrator.myapplication2.Adapter.OtherCognitionsAdapter;
 import com.example.administrator.myapplication2.Adapter.ScreenAdapter;
 import com.example.administrator.myapplication2.R;
+import com.example.administrator.myapplication2.Test;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import okhttp3.Call;
@@ -22,11 +24,16 @@ public class MyStringCallBack extends StringCallback {
     public ScreenAdapter.ViewHolder screenAdapter_holder;
 
     public ImageView v;
+    public TextView textView;
     public int position;
     private Context mContext;
 
     public MyStringCallBack(){
 
+    }
+
+    public MyStringCallBack(TextView textView){
+        this.textView = textView;
     }
 
     public MyStringCallBack(OtherCognitionsAdapter.ViewHolder holder){

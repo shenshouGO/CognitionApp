@@ -12,4 +12,6 @@
     <color name="green">#4f7841</color>
     <color name="usu_back">#3a5825</color>
     <color name="yellow">#ffff24</color>
+    <color name="rank">#ffc107</color>
+    <color name="text_back">#edf4e8</color>
 </resources>

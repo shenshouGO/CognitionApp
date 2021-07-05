@@ -78,10 +78,10 @@ public class UserRankAdapter  extends BaseAdapter {
             holder.text.setVisibility(View.VISIBLE);
             switch (type){
                 case GAME:
-                    holder.text.setText(JO.getString("integral_game"));
+                    holder.text.setText("积分 "+JO.getString("integral_game"));
                     break;
                 case SUM:
-                    holder.text.setText(JO.getString("integral_sum"));
+                    holder.text.setText("积分 "+JO.getString("integral_sum"));
                     break;
             }
         } catch (JSONException e) {

@@ -173,7 +173,7 @@ public class AssessDetail extends AppCompatActivity implements View.OnClickListe
                         params.put("a_id",info.getString("id"));
                         params.put("u_id",u_id);
                         params.put("score",scores+"");
-                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/createAssessScore.do",params,new MyStringCallBack() {
+                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/createAssessScore.do",params,new MyStringCallBack() {
                             @Override
                             public void onResponse(String response, int id) {
                                 super.onResponse(response, id);
@@ -182,7 +182,7 @@ public class AssessDetail extends AppCompatActivity implements View.OnClickListe
                                     try {
                                         params = new HashMap<String, String>();
                                         params.put("sql","select * from assess_score where a_id = "+info.getString("id")+" and u_id = "+u_id+" order by time desc");
-                                        httpUtil.postRequest("http://192.168.154.1:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
+                                        httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/displaySql.do",params,new MyStringCallBack() {
                                             @Override
                                             public void onResponse(String response, int id) {
                                                 super.onResponse(response, id);
