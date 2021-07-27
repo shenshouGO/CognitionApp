@@ -80,6 +80,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/OK"
+        android:textColor="@color/usu"
+        android:background="@color/botton_back"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_margin="10dp"
         android:layout_below="@+id/novelty"
         android:layout_alignLeft="@+id/novelty"
         android:textSize="30sp"/>
@@ -89,8 +94,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
+        android:textColor="@color/usu"
+        android:background="@color/botton_back"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_margin="10dp"
         android:layout_below="@+id/novelty"
         android:layout_alignRight="@+id/novelty"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
 </RelativeLayout>

@@ -75,5 +75,10 @@
     <Button
         android:id="@+id/edit_data"
         android:layout_alignParentBottom="true"
+        android:textSize="20sp"
+        android:textColor="@color/usu"
+        android:background="@color/botton_back"
+        android:textStyle="bold"
+        android:padding="15dp"
         style="@style/vertical_text_sytle"/>
 </RelativeLayout>

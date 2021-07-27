@@ -8,6 +8,7 @@ import com.example.administrator.myapplication2.OtherCognition;
 
 public class OtherCognitions {
     private String id;
+    private String u_id;
     private String img;
     private String name;
     private String text;
@@ -16,8 +17,9 @@ public class OtherCognitions {
     private String comment;
     private String type;
 
-    public OtherCognitions(String id,String img,String name,String text,String time,String good,String comment,String type){
+    public OtherCognitions(String id,String u_id,String img,String name,String text,String time,String good,String comment,String type){
         this.id = id;
+        this.u_id = u_id;
         this.img = img;
         this.name = name;
         this.text = text;
@@ -34,6 +36,10 @@ public class OtherCognitions {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getU_id() {return u_id;}
+
+    public void setU_id(String u_id) {this.u_id = u_id;}
 
     public void setImg(String img){
         this.img = img;

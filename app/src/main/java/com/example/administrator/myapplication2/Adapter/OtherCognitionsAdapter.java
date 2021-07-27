@@ -29,11 +29,13 @@ public class OtherCognitionsAdapter extends BaseAdapter {
     private HttpUtil httpUtil;
     private Map<String,String> params;
     private String[] split;
+    private int type;
 
-    public OtherCognitionsAdapter(Context mContext, List<OtherCognitions> mData) {
+    public OtherCognitionsAdapter(Context mContext, List<OtherCognitions> mData,int type) {
         this.mContext = mContext;
         this.mData = mData;
         this.httpUtil = new HttpUtil();
+        this.type = type;
     }
 
     public void setData(List<OtherCognitions> mData){
@@ -94,7 +96,11 @@ public class OtherCognitionsAdapter extends BaseAdapter {
         });
         holder.time.setText(mData.get(position).getTime());
         holder.good.setText(mData.get(position).getGood()+"点赞");
-        holder.comment.setText(mData.get(position).getComment()+"评论");
+        if(type == 0){
+            holder.comment.setText(mData.get(position).getComment()+"评论");
+        }else{
+            holder.comment.setText(mData.get(position).getComment()+"重评");
+        }
         return convertView;
     }
 

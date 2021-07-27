@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/zero"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textColor="@color/rank"
         android:textStyle="bold"
         android:layout_margin="5dp"
@@ -32,8 +32,8 @@
 
         <ImageView
             android:id="@+id/img_head"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/shape"
             android:src="@drawable/ic_launcher"
             android:scaleType="fitCenter"
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text"
-        android:textSize="25sp"
+        android:textSize="13sp"
         android:layout_margin="15dp"
         android:gravity="center_vertical"
         android:lines="1"
@@ -67,8 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="@string/text"
-        android:textSize="25sp"
-        android:layout_margin="25dp"
+        android:textSize="13sp"
+        android:layout_margin="15dp"
         android:layout_alignParentRight="true"
         android:visibility="gone"/>
 </RelativeLayout>

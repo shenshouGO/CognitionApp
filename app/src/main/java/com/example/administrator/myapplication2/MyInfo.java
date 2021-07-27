@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -117,6 +119,7 @@ public class MyInfo extends Fragment implements View.OnClickListener{
                 if (msg.what == 1) {
                     JSONObject user = new JSONObject(msg.obj.toString());
                     name.setText(user.getJSONObject("0").getString("name"));
+                    Glide.with(MyInfo.this).load("http://59.110.215.154:8080/resource/"+user.getJSONObject("0").getString("img_name")).into(img);
                     int integral = user.getJSONObject("0").getInt("integral_sum");
 
                     switch ((integral-1)/200){

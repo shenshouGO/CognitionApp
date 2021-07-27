@@ -1,9 +1,12 @@
 package com.example.administrator.myapplication2;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -98,6 +101,64 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
                 }
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    final UserInfo UI = (UserInfo) getApplication();
+                    if (i == 0 && UI.getId().equals(info.getString("u_id"))) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SceneDetail.this);
+                        AlertDialog alert = builder.setTitle("系统提示：")
+                                .setMessage("您是否要删除该情景？")
+                                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        try {
+                                            params = new HashMap<String, String>();
+                                            params.put("ID",info.getString("id"));
+                                            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/deleteScene.do",params,new MyStringCallBack() {
+                                                @Override
+                                                public void onResponse(String response, int id) {
+                                                    super.onResponse(response, id);
+                                                    if(response.equals("Delete successfully")){
+                                                        Toast.makeText(SceneDetail.this,"删除成功",Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }else{
+                                                        Toast.makeText(SceneDetail.this,"删除失败",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).create();
+                        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positiveButton = ((AlertDialog) dialog)
+                                        .getButton(AlertDialog.BUTTON_POSITIVE);
+                                positiveButton.setTextColor(Color.parseColor("#548235"));
+                                Button negativeButton = ((AlertDialog) dialog)
+                                        .getButton(AlertDialog.BUTTON_NEGATIVE);
+                                negativeButton.setTextColor(Color.parseColor("#548235"));
+                            }
+                        });
+                        alert.show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -186,11 +247,11 @@ public class SceneDetail extends AppCompatActivity implements View.OnClickListen
                         results = new JSONObject(msg.obj.toString());
                         resources = new LinkedList<OtherCognitions>() ;
                         date = new Date(new Long(info.getString("time")));
-                        resources.add(new OtherCognitions(info.getString("id"),info.getString("u_img"),info.getString("u_name"),info.getString("file"),simpleDateFormat.format(date),info.getString("good"),info.getString("comment"),"0"));
+                        resources.add(new OtherCognitions(info.getString("id"),info.getString("u_id"),info.getString("u_img"),info.getString("u_name"),info.getString("file"),simpleDateFormat.format(date),info.getString("good"),info.getString("comment"),"0"));
                         for(int i = 0;i<results.length();i++){
                             JO = results.getJSONObject(""+i);
                             date = new Date(new Long(JO.getString("time")));
-                            resources.add(new OtherCognitions(JO.getString("id"),JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment"),"1"));
+                            resources.add(new OtherCognitions(JO.getString("id"),JO.getString("u_id"),JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment"),"1"));
                         }
 //                        mixedAdapter = new MixedAdapter(SceneDetail.this,resources,((UserInfo) getApplication()).getId());
                         mixedAdapter = new MixedAdapter(SceneDetail.this,resources,"1");

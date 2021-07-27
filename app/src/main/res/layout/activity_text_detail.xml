@@ -128,6 +128,11 @@
         <Button
             android:id="@+id/send"
             android:text="发送"
+            android:textSize="20sp"
+            android:textColor="@color/usu"
+            android:background="@color/botton_back"
+            android:textStyle="bold"
+            android:padding="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -139,5 +144,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="删除"
+        android:textSize="20sp"
+        android:textColor="@color/usu"
+        android:background="@color/botton_back"
+        android:textStyle="bold"
+        android:padding="15dp"
         android:layout_above="@+id/function"/>
 </RelativeLayout >

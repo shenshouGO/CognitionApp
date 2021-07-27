@@ -26,8 +26,7 @@
             android:textSize="25sp"
             android:textColor="@color/black"
             android:gravity="center"
-            android:layout_margin="5dp"
-            android:visibility="gone"/>
+            android:layout_margin="5dp"/>
 
         <TextView
             android:id="@+id/focus"
@@ -59,7 +58,7 @@
         android:layout_height="200dp"
         android:layout_below="@+id/function"
         android:src="@drawable/dynamic_unit"
-        android:scaleType="centerCrop"/>
+        android:scaleType="fitXY"/>
 
     <RelativeLayout
         android:id="@+id/user"
@@ -74,7 +73,7 @@
             android:layout_height="50dp"
             android:background="@drawable/shape"
             android:src="@drawable/ic_launcher"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:layout_margin="4dp"/>
 
         <TextView

@@ -2,7 +2,9 @@ package com.example.administrator.myapplication2;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -23,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +53,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
     private ImageView back;
     private ImageView img;
     private TextView name;
+    private RelativeLayout resource;
     private ImageView pic;
     private TextView text;
     private TextView time;
@@ -103,6 +107,7 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
         back = (ImageView) findViewById(R.id.back);
         img = (ImageView) findViewById(R.id.img);
         name = (TextView) findViewById(R.id.name);
+        resource = (RelativeLayout) findViewById(R.id.resource);
         pic = (ImageView) findViewById(R.id.pic);
         text = (TextView) findViewById(R.id.text);
         time =(TextView) findViewById(R.id.time);
@@ -186,6 +191,64 @@ public class CognitionDetail extends AppCompatActivity implements View.OnClickLi
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+            }
+        });
+
+        resource.setOnLongClickListener(new AdapterView.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                try {
+                    final UserInfo UI = (UserInfo) getApplication();
+                    if (UI.getId().equals(info.getString("u_id"))) {
+                        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(CognitionDetail.this);
+                        android.support.v7.app.AlertDialog alert = builder.setTitle("系统提示：")
+                                .setMessage("您是否要删除该认知重评？")
+                                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        try {
+                                            params = new HashMap<String, String>();
+                                            params.put("ID",info.getString("id"));
+                                            httpUtil.postRequest("http://59.110.215.154:8080/CognitionAPP/deleteCognition.do",params,new MyStringCallBack() {
+                                                @Override
+                                                public void onResponse(String response, int id) {
+                                                    super.onResponse(response, id);
+                                                    if(response.equals("Delete successfully")){
+                                                        Toast.makeText(CognitionDetail.this,"删除成功",Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }else{
+                                                        Toast.makeText(CognitionDetail.this,"删除失败",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).create();
+                        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positiveButton = ((android.support.v7.app.AlertDialog) dialog)
+                                        .getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE);
+                                positiveButton.setTextColor(Color.parseColor("#548235"));
+                                Button negativeButton = ((android.support.v7.app.AlertDialog) dialog)
+                                        .getButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE);
+                                negativeButton.setTextColor(Color.parseColor("#548235"));
+                            }
+                        });
+                        alert.show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
             }
         });
     }

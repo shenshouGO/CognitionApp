@@ -28,7 +28,7 @@
             android:id="@+id/rb_dynamic"
             style="@style/activity_menu_item"
             android:drawableTop="@drawable/tab_menu_dynamic"
-            android:text="@string/dynamic" />
+            android:text="@string/community" />
 
         <RadioButton
             android:id="@+id/rb_me"

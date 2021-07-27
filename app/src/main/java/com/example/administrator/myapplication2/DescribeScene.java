@@ -119,9 +119,9 @@ public class DescribeScene extends AppCompatActivity implements View.OnClickList
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
                         date = new Date(new Long(JO.getString("time")));
-                        resources.add(new OtherCognitions(JO.getString("id"),JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment"),"1"));
+                        resources.add(new OtherCognitions(JO.getString("id"),JO.getString("u_id"),JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment"),"1"));
                     }
-                    oca = new OtherCognitionsAdapter(DescribeScene.this,resources);
+                    oca = new OtherCognitionsAdapter(DescribeScene.this,resources,1);
                     resourceScreen.setAdapter(oca);
                 }
             }catch (Exception e){

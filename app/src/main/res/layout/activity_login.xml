@@ -36,7 +36,8 @@
         android:hint="手机号"
         android:gravity="center"
         android:lines="1"
-        android:inputType="phone"/>
+        android:inputType="phone"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/password"
@@ -50,7 +51,8 @@
         android:hint="输入密码"
         android:gravity="center"
         android:lines="1"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:padding="10dp"/>
 
     <ImageView
         android:id="@+id/login"
@@ -59,7 +61,8 @@
         android:layout_below="@+id/password"
         android:background="@drawable/shape"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/login"/>
+        android:src="@drawable/login"
+        android:padding="10dp"/>
 
     <TextView
         android:id="@+id/forget_password"

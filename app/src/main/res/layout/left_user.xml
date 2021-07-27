@@ -9,7 +9,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:layout_margin="5dp" />
 
     <TextView

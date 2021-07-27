@@ -89,15 +89,6 @@
             android:textSize="15sp" />
 
         <ImageView
-            android:id="@+id/discuss"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="20dp"
-            android:src="@drawable/comment"
-            android:scaleType="fitCenter"
-            android:layout_margin="5dp" />
-
-        <ImageView
             android:id="@+id/good"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -107,21 +98,34 @@
             android:layout_margin="5dp"/>
 
         <ImageView
+            android:id="@+id/discuss"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="20dp"
+            android:src="@drawable/comment"
+            android:scaleType="fitCenter"
+            android:layout_margin="5dp" />
+
+        <ImageView
             android:id="@+id/share"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="20dp"
             android:src="@drawable/share"
             android:scaleType="fitCenter"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/score"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:text="评分"
-            android:background="@color/edit"
+            android:textSize="20sp"
+            android:textColor="@color/usu"
+            android:background="@color/botton_back"
+            android:textStyle="bold"
             android:focusable="false" />
     </LinearLayout>
 
@@ -158,6 +162,11 @@
         <Button
             android:id="@+id/send"
             android:text="发送"
+            android:textSize="20sp"
+            android:textColor="@color/usu"
+            android:background="@color/botton_back"
+            android:textStyle="bold"
+            android:padding="15dp"
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
@@ -168,5 +177,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="删除"
+        android:textSize="20sp"
+        android:textColor="@color/usu"
+        android:background="@color/botton_back"
+        android:textStyle="bold"
+        android:padding="15dp"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

@@ -12,10 +12,12 @@
     <string name="game">游戏</string>
     <string name="operate">操作</string>
     <string name="dynamic">动态</string>
+    <string name="community">社区</string>
     <string name="me">我的</string>
     <string name="nickname">昵称</string>
     <string name="edit">编辑</string>
     <string name="comment">评论</string>
+    <string name="comment_at">评论和@</string>
     <string name="score">评分</string>
     <string name="good">点赞</string>
     <string name="like">喜欢</string>
@@ -93,6 +95,7 @@
     <string name="study_unit">学习单元</string>
     <string name="realease_scene">发布情景</string>
     <string name="resource_detail">材料详情</string>
+    <string name="assess_result_tip">分数越高，即代表您的认知重评水平越高</string>
 
     <string name="holder1">holder1</string>
     <string name="holder2">holder2</string>

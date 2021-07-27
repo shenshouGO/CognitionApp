@@ -18,6 +18,10 @@
         <Button
             android:id="@+id/btn"
             android:text="准备"
+            android:textSize="20sp"
+            android:textColor="@color/usu"
+            android:background="@color/botton_back"
+            android:textStyle="bold"
             android:layout_margin="3dp"
             android:layout_weight="2"
             android:layout_width="0dp"

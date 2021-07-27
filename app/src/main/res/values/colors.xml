@@ -14,4 +14,5 @@
     <color name="yellow">#ffff24</color>
     <color name="rank">#ffc107</color>
     <color name="text_back">#edf4e8</color>
+    <color name="botton_back">#e2f0d9</color>
 </resources>

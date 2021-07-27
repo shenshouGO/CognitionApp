@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="100dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:layout_margin="5dp"
         android:background="@color/white"
         android:visibility="invisible"/>
@@ -16,10 +16,10 @@
     <TextView
         android:id="@+id/text"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="@string/text"
-        android:textSize="25sp"
-        android:layout_marginTop="33dp"
+        android:textSize="20sp"
+        android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:visibility="invisible"

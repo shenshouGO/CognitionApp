@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.myapplication2.Adapter.DynamicAdapter;
 import com.example.administrator.myapplication2.Bean.OtherCognitions;
 
@@ -74,6 +75,7 @@ public class DynamicFragment extends Fragment implements View.OnClickListener{
 
         final UserInfo UI = (UserInfo)getActivity().getApplication();
         name.setText(UI.getName());
+        Glide.with(getActivity()).load("http://59.110.215.154:8080/resource/"+UI.getImg()).into(img);
         httpUtil = new HttpUtil();
 
         resourceScreen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,7 +101,6 @@ public class DynamicFragment extends Fragment implements View.OnClickListener{
             case R.id.message:
                 intent = new Intent(getActivity(), MessageActivity.class);
                 startActivity(intent);
-//                Toast.makeText(getActivity(),"消息",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.focus:
 //                intent = new Intent(getActivity(), DescribeScene.class);
@@ -109,7 +110,6 @@ public class DynamicFragment extends Fragment implements View.OnClickListener{
             case R.id.find:
                 intent = new Intent(getActivity(), RankList.class);
                 startActivity(intent);
-//                Toast.makeText(getActivity(),"发现",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.release:
 //                Intent intent = new Intent(getActivity(), ReleaseScene.class);
@@ -131,7 +131,7 @@ public class DynamicFragment extends Fragment implements View.OnClickListener{
                     for(int i = 0;i<results.length();i++){
                         JO = results.getJSONObject(""+i);
                         date = new Date(new Long(JO.getString("time")));
-                        resources.add(new OtherCognitions(JO.getString("id"),JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment"),"1"));
+                        resources.add(new OtherCognitions(JO.getString("id"),JO.getString("u_id"),JO.getString("u_img"),JO.getString("u_name"),JO.getString("file"),simpleDateFormat.format(date),JO.getString("good"),JO.getString("comment"),"1"));
                     }
                     da = new DynamicAdapter(getActivity(),resources);
                     resourceScreen.setAdapter(da);

@@ -2,6 +2,7 @@ package com.example.administrator.myapplication2;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -132,7 +134,7 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
                                 }else{
                                     AlertDialog.Builder builder = new AlertDialog.Builder(PictureStory.this);
                                     AlertDialog alert = builder.setTitle("系统提示：")
-                                            .setMessage("是否重新进行认知重评？")
+                                            .setMessage("您已对此材料重评过，是否重新进行创造性认知重评？")
                                             .setPositiveButton("是", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -156,7 +158,19 @@ public class PictureStory extends AppCompatActivity implements AdapterView.OnIte
                                                         e.printStackTrace();
                                                     }
                                                 }
-                                            }).show();
+                                            }).create();
+                                    alert.setOnShowListener(new DialogInterface.OnShowListener() {
+                                        @Override
+                                        public void onShow(DialogInterface dialog) {                    //
+                                            Button positiveButton = ((AlertDialog) dialog)
+                                                    .getButton(AlertDialog.BUTTON_POSITIVE);
+                                            positiveButton.setTextColor(Color.parseColor("#548235"));
+                                            Button negativeButton = ((AlertDialog) dialog)
+                                                    .getButton(AlertDialog.BUTTON_NEGATIVE);
+                                            negativeButton.setTextColor(Color.parseColor("#548235"));
+                                        }
+                                    });
+                                    alert.show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

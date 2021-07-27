@@ -133,11 +133,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/function"
         android:layout_centerInParent="true"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="60dp">
 
         <TextView
             android:id="@+id/quick_join"
@@ -167,11 +168,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_below="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="50dp">
 
         <TextView
             android:id="@+id/create_room"

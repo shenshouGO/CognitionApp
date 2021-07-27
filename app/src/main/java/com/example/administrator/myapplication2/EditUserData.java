@@ -2,6 +2,7 @@ package com.example.administrator.myapplication2;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -57,7 +58,7 @@ public class EditUserData extends AppCompatActivity implements View.OnClickListe
     private Message message;
     final Handler handler = new MyHandler();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private String[] jobs = {"学生","教师","程序员","公务员","医生","律师"};
+    private String[] jobs = {"学生","教师","程序员","公务员","医生","律师","其他"};
     private int job_number;
 
     private JSONObject info;
@@ -157,7 +158,19 @@ public class EditUserData extends AppCompatActivity implements View.OnClickListe
                         dialog.cancel();
                     }
                 });
-                builder.create().show();
+                AlertDialog time_alert = builder.create();
+                time_alert.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {                    //
+                        Button positiveButton = ((AlertDialog) dialog)
+                                .getButton(AlertDialog.BUTTON_POSITIVE);
+                        positiveButton.setTextColor(Color.parseColor("#548235"));
+                        Button negativeButton = ((AlertDialog) dialog)
+                                .getButton(AlertDialog.BUTTON_NEGATIVE);
+                        negativeButton.setTextColor(Color.parseColor("#548235"));
+                    }
+                });
+                time_alert.show();
                 break;
             case R.id.job_content:
                 AlertDialog.Builder job_builder = new AlertDialog.Builder(EditUserData.this);
@@ -190,7 +203,19 @@ public class EditUserData extends AppCompatActivity implements View.OnClickListe
                         dialog.cancel();
                     }
                 });
-                job_builder.create().show();
+                AlertDialog job_alert = job_builder.create();
+                job_alert.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {                    //
+                        Button positiveButton = ((AlertDialog) dialog)
+                                .getButton(AlertDialog.BUTTON_POSITIVE);
+                        positiveButton.setTextColor(Color.parseColor("#548235"));
+                        Button negativeButton = ((AlertDialog) dialog)
+                                .getButton(AlertDialog.BUTTON_NEGATIVE);
+                        negativeButton.setTextColor(Color.parseColor("#548235"));
+                    }
+                });
+                job_alert.show();
                 break;
             case R.id.preserve:
                 if(isEmail(email_content.getText().toString())){

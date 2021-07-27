@@ -30,30 +30,66 @@
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/head"
+        android:src="@drawable/dynamic_unit"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_margin="15dp"
+        android:layout_alignBottom="@+id/background">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/shape"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitCenter"
+            android:layout_margin="4dp"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img"
+            android:text="@string/nickname"
+            android:textSize="25sp"
+            android:layout_margin="3dp"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/rg_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@+id/head"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/background"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/rb_good"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/disgood"
+            android:drawableTop="@drawable/good_and_score"
             android:text="@string/good_and_score" />
 
         <TextView
             android:id="@+id/rb_focus"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/collect"
+            android:drawableTop="@drawable/add_focus"
             android:text="@string/add_focus" />
 
         <TextView
             android:id="@+id/rb_comment"
             style="@style/tab_menu_item"
-            android:drawableTop="@drawable/comment"
-            android:text="@string/comment" />
+            android:drawableTop="@drawable/comment_at"
+            android:text="@string/comment_at" />
     </LinearLayout>
 </RelativeLayout>

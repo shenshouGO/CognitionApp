@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
 import android.os.CountDownTimer;
@@ -996,6 +997,17 @@ public class Room extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 }).create();
+        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {                    //
+                Button positiveButton = ((android.support.v7.app.AlertDialog) dialog)
+                        .getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE);
+                positiveButton.setTextColor(Color.parseColor("#548235"));
+                Button negativeButton = ((android.support.v7.app.AlertDialog) dialog)
+                        .getButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE);
+                negativeButton.setTextColor(Color.parseColor("#548235"));
+            }
+        });
         alert.show();
     }
 

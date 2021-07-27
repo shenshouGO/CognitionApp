@@ -36,7 +36,8 @@
         android:layout_below="@+id/progress"
         android:text="@string/text"
         android:layout_margin="10dp"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textColor="@color/usu"/>
 
     <RadioGroup
         android:id="@+id/chooses"
@@ -48,70 +49,131 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/one"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@color/usu"
+            android:textStyle="bold"
+            android:background="@color/botton_back"
+            android:button="@null"
+            android:drawableRight="@android:drawable/btn_radio"
+            android:padding="3dp"
+            android:layout_margin="1dp"/>
         <RadioButton
             android:id="@+id/two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/two"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@color/usu"
+            android:textStyle="bold"
+            android:background="@color/botton_back"
+            android:button="@null"
+            android:drawableRight="@android:drawable/btn_radio"
+            android:padding="3dp"
+            android:layout_margin="1dp"/>
         <RadioButton
             android:id="@+id/three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/three"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@color/usu"
+            android:textStyle="bold"
+            android:background="@color/botton_back"
+            android:button="@null"
+            android:drawableRight="@android:drawable/btn_radio"
+            android:padding="3dp"
+            android:layout_margin="1dp"/>
         <RadioButton
             android:id="@+id/four"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/four"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@color/usu"
+            android:textStyle="bold"
+            android:background="@color/botton_back"
+            android:button="@null"
+            android:drawableRight="@android:drawable/btn_radio"
+            android:padding="3dp"
+            android:layout_margin="1dp"/>
         <RadioButton
             android:id="@+id/five"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/five"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@color/usu"
+            android:textStyle="bold"
+            android:background="@color/botton_back"
+            android:button="@null"
+            android:drawableRight="@android:drawable/btn_radio"
+            android:padding="3dp"
+            android:layout_margin="1dp"/>
         <RadioButton
             android:id="@+id/six"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/six"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@color/usu"
+            android:textStyle="bold"
+            android:background="@color/botton_back"
+            android:button="@null"
+            android:drawableRight="@android:drawable/btn_radio"
+            android:padding="3dp"
+            android:layout_margin="1dp"/>
         <RadioButton
             android:id="@+id/seven"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/seven"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@color/usu"
+            android:textStyle="bold"
+            android:background="@color/botton_back"
+            android:button="@null"
+            android:drawableRight="@android:drawable/btn_radio"
+            android:padding="3dp"
+            android:layout_margin="1dp"/>
     </RadioGroup>
 
     <Button
         android:id="@+id/last"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/last"
         android:textSize="30dp"
+        android:textColor="@color/white"
+        android:background="@drawable/round_button"
+        android:textStyle="bold"
+        android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="15dp"/>
 
     <Button
         android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/next"
         android:textSize="30dp"
+        android:textColor="@color/white"
+        android:background="@drawable/round_button"
+        android:textStyle="bold"
+        android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="15dp"/>
 
     <Button
         android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="@string/submit"
         android:textSize="30dp"
+        android:textColor="@color/white"
+        android:background="@drawable/round_button"
+        android:textStyle="bold"
+        android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="15dp"/>
@@ -131,11 +193,23 @@
             android:gravity="center"
             android:layout_marginTop="20dp"/>
 
+        <TextView
+            android:id="@+id/result_tip"
+            android:layout_below="@+id/result_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/assess_result_tip"
+            android:textColor="@color/usu"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
         <ListView
             android:id="@+id/result_list"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/result_title"
+            android:layout_below="@+id/result_tip"
             android:layout_above="@+id/again"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
@@ -144,21 +218,29 @@
 
         <Button
             android:id="@+id/again"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:text="@string/again_assess"
             android:textSize="30dp"
+            android:textColor="@color/white"
+            android:background="@drawable/round_button"
+            android:textStyle="bold"
+            android:padding="10dp"
             android:layout_margin="15dp"/>
 
         <Button
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:text="@string/back"
             android:textSize="30dp"
-            android:layout_margin="15dp"/>
+            android:textColor="@color/white"
+            android:background="@drawable/round_button"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_margin="15dp" />
     </RelativeLayout>
 </RelativeLayout>

@@ -48,8 +48,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="确定"
+        android:textColor="@color/usu"
+        android:background="@color/botton_back"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_margin="10dp"
         android:layout_below="@+id/fairness"
         android:layout_centerHorizontal="true"
-        android:textSize="30sp"/>
+        android:textSize="20sp"/>
 
 </RelativeLayout>
